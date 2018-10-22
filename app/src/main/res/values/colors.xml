@@ -28,7 +28,7 @@
 
 
     <color name="colorPrimary">#86af49</color>
-    <color name="colorPrimaryDark">#86af49</color>
+    <color name="colorPrimaryDark">#373737</color>
     <color name="textColorPrimary">#000000</color>
     <color name="windowBackground">#ffffff</color>
     <color name="navigationBarColor">#2B4868</color>
