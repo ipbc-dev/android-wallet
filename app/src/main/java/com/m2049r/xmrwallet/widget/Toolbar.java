@@ -137,7 +137,7 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
                 break;
             case BUTTON_CREDITS:
                 Timber.d("BUTTON_CREDITS");
-                bCredits.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorite_white_24dp, 0, 0, 0);
+                bCredits.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_wallet, 0, 0, 0);
                 bCredits.setText(R.string.label_credits);
                 bCredits.setVisibility(View.VISIBLE);
                 break;
