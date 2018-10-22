@@ -1,46 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingEnd="16dp"
-    android:paddingStart="16dp"
-    android:paddingTop="8dp">
+    android:background="@drawable/background">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <TextView
+        android:id="@+id/tv_dialog_header"
+        style="@style/dialog_fullscreen_header"
+        android:text="@string/menu_about" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_dialog_header"
+        android:layout_margin="20dp"
+        android:background="@drawable/shape_rect_round"
+        android:padding="10dp">
 
-        <ImageView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_height="match_parent"
+            android:layout_above="@+id/dialog_buttons"
+            android:padding="5dp">
 
-        <TextView
-            style="@style/MoneroLabel.Caps"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvVersion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/about_version" />
+
+                <TextView
+                    android:id="@+id/tvHelp"
+                    style="@style/MoneroText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/header_top"
+                    android:layout_marginTop="@dimen/header_top"
+                    android:gravity="start"
+                    android:textSize="10sp"
+                    tools:text="@string/menu_help" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/dialog_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/about_whoami" />
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvVersion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/about_version" />
+            <Button
+                android:id="@+id/btn_close"
+                style="@style/button_moreno_blue"
+                android:text="@string/label_close" />
 
-        <TextView
-            android:id="@+id/tvHelp"
-            style="@style/MoneroText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/header_top"
-            android:layout_marginTop="@dimen/header_top"
-            android:gravity="start"
-            android:textSize="10sp"
-            tools:text="@string/menu_help" />
+        </LinearLayout>
+    </RelativeLayout>
 
-    </LinearLayout>
-</ScrollView>
+
+</RelativeLayout>
+
+
+

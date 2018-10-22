@@ -1,31 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="8dp"
-    android:paddingEnd="16dp"
-    android:paddingStart="16dp">
+    android:background="@drawable/background">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <TextView
+        android:id="@+id/tv_dialog_header"
+        style="@style/dialog_fullscreen_header"
+        android:text="@string/menu_privacy" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_dialog_header"
+        android:layout_margin="20dp"
+        android:background="@drawable/shape_rect_round"
+        android:padding="10dp">
 
-        <ImageView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_eye_black_24dp" />
+            android:layout_height="match_parent"
+            android:layout_above="@+id/dialog_buttons"
+            android:padding="5dp">
 
-        <TextView
-            android:id="@+id/tvCredits"
-            style="@style/MoneroText"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvCredits"
+                    style="@style/MoneroText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/header_top"
+                    android:autoLink="web"
+                    android:gravity="start"
+                    android:text="@string/privacy_policy"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/dialog_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/header_top"
-            android:autoLink="web"
-            android:gravity="start"
-            android:text="@string/privacy_policy"
-            android:textSize="14sp" />
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
 
-    </LinearLayout>
-</ScrollView>
+            <Button
+                android:id="@+id/btn_close"
+                style="@style/button_moreno_blue"
+                android:text="@string/label_close" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
+
