@@ -68,8 +68,8 @@
             style="@style/MoneroLabel.Heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:padding="8dp"
+            android:layout_marginLeft="35dp"
             android:text="@string/label_login_wallets" />
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
