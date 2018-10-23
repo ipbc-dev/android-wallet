@@ -27,6 +27,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.m2049r.xmrwallet.R;
@@ -54,15 +55,16 @@ public class CreditsFragment extends DialogFragment {
 
         ((TextView) view.findViewById(R.id.tvCredits)).setText(Html.fromHtml(getString(R.string.credits_text)));
 
+        ((Button)view.findViewById(R.id.btn_close)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CreditsFragment.this.dismiss();
+            }
+        });
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        builder.setNegativeButton(R.string.about_close,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
+
 
         return builder.create();
     }
