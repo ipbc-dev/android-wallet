@@ -19,7 +19,10 @@ package com.m2049r.xmrwallet.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +30,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.m2049r.xmrwallet.BuildConfig;
@@ -50,20 +56,47 @@ public class AboutFragment extends DialogFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // FullScreen Dialog
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullscreenDialog);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // FullScreen Dialog
+        Dialog d = getDialog();
+        if (d != null) {
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            d.getWindow().setLayout(width, height);
+        }
+    }
+
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_about, null);
         ((TextView) view.findViewById(R.id.tvHelp)).setText(Html.fromHtml(getString(R.string.about_licenses)));
         ((TextView) view.findViewById(R.id.tvVersion)).setText(getString(R.string.about_version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 
+
+        ((Button)view.findViewById(R.id.btn_close)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AboutFragment.this.dismiss();
+            }
+        });
+
+        // FullScreen Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        builder.setNegativeButton(R.string.about_close,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-        return builder.create();
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        return dialog;
     }
 }
