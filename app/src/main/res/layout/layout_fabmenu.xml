@@ -8,6 +8,7 @@
         android:id="@+id/fabScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#deffffff"
         android:visibility="invisible">
 
         <RelativeLayout
@@ -33,9 +34,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_toEndOf="@+id/fabNewT"
-                android:backgroundTint="@color/gradientPink"
                 android:elevation="6dp"
-                android:src="@drawable/ic_new"
+                android:src="@drawable/wallet"
+                app:maxImageSize="40dp"
                 app:borderWidth="0dp"
                 app:fabSize="mini"
                 app:pressedTranslationZ="12dp" />
@@ -65,9 +66,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_toEndOf="@+id/fabViewT"
-                android:backgroundTint="@color/gradientPink"
                 android:elevation="6dp"
-                android:src="@drawable/ic_eye"
+                android:src="@drawable/view"
+                app:maxImageSize="40dp"
                 app:borderWidth="0dp"
                 app:fabSize="mini"
                 app:pressedTranslationZ="12dp" />
@@ -97,9 +98,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_toEndOf="@+id/fabKeyT"
-                android:backgroundTint="@color/gradientPink"
                 android:elevation="6dp"
-                android:src="@drawable/ic_key"
+                android:src="@drawable/key"
+                app:maxImageSize="40dp"
                 app:borderWidth="0dp"
                 app:fabSize="mini"
                 app:pressedTranslationZ="12dp" />
@@ -129,9 +130,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_toEndOf="@+id/fabSeedT"
-                android:backgroundTint="@color/gradientPink"
                 android:elevation="6dp"
-                android:src="@drawable/ic_seed"
+                android:src="@drawable/seed"
+                app:maxImageSize="40dp"
                 app:borderWidth="0dp"
                 app:fabSize="mini"
                 app:pressedTranslationZ="12dp" />
@@ -146,7 +147,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:background="@drawable/gradient_oval"
-        android:elevation="6dp">
+        android:elevation="0dp">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
