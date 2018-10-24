@@ -27,13 +27,13 @@
     <color name="moneroText">#FFFFFF</color>
 
 
-    <color name="colorPrimary">#86af49</color>
+    <color name="colorPrimary">#373737</color>
     <color name="colorPrimaryDark">#373737</color>
     <color name="textColorPrimary">#000000</color>
     <color name="windowBackground">#ffffff</color>
     <color name="navigationBarColor">#2B4868</color>
     <!--color name="colorAccent">#009ADA</color-->
-    <color name="colorAccent">@color/gradientPink</color>
+    <color name="colorAccent">#0af</color>
 
     <color name="anotherColor">#F8CC5A</color>
 

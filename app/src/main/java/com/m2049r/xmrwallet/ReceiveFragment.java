@@ -369,7 +369,8 @@ public class ReceiveFragment extends Fragment {
         Bitmap logoBitmap = Bitmap.createBitmap(qrWidth, qrHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(logoBitmap);
         canvas.drawBitmap(qrBitmap, 0, 0, null);
-        canvas.save(Canvas.ALL_SAVE_FLAG);
+        //canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.save();
         // figure out how to scale the logo
         float scaleSize = 1.0f;
         while ((logoWidth / scaleSize) > (qrWidth / 5) || (logoHeight / scaleSize) > (qrHeight / 5)) {
