@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:layout_toStartOf="@+id/ibOptions"
             tools:text="My Wallet" />
 
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvName"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="20dp"
             android:layout_toStartOf="@+id/ibOptions"
             tools:text="bxdkPJox...g3viqCuk" />
