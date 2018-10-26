@@ -56,6 +56,7 @@ import com.m2049r.xmrwallet.model.WalletManager;
 import com.m2049r.xmrwallet.service.WalletService;
 import com.m2049r.xmrwallet.util.Helper;
 import com.m2049r.xmrwallet.util.MoneroThreadPoolExecutor;
+import com.m2049r.xmrwallet.widget.ProgressDialogCV;
 import com.m2049r.xmrwallet.widget.Toolbar;
 
 import java.io.File;
@@ -603,7 +604,7 @@ public class LoginActivity extends SecureActivity
 
     private void showProgressDialog(int msgId, long delay) {
         dismissProgressDialog(); // just in case
-        progressDialog = new MyProgressDialog(LoginActivity.this, msgId);
+        progressDialog = new ProgressDialogCV(LoginActivity.this, msgId);
         if (delay > 0) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -639,23 +640,6 @@ public class LoginActivity extends SecureActivity
             new AsyncWaitForService().execute();
         }
     }
-
-    private class MyProgressDialog extends ProgressDialog {
-        Activity activity;
-
-        MyProgressDialog(Activity activity, int msgId) {
-            super(activity);
-            this.activity = activity;
-            setCancelable(false);
-            setMessage(activity.getString(msgId));
-        }
-
-        @Override
-        public void onBackPressed() {
-            // prevent back button
-        }
-    }
-
 
     private class AsyncWaitForService extends AsyncTask<Void, Void, Void> {
         @Override
