@@ -7,4 +7,18 @@
         <attr name="activeDot" format="integer" />
         <attr name="numberDots" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="InputLayout">
+        <attr name="passwordToggleEnabled" format="boolean" />
+        <attr name="counterEnabled" format="boolean" />
+        <attr name="hint" format="string" />
+        <attr name="maxCounter" format="integer" />
+
+        <attr name="type" format="enum">
+            <enum name="text" value="0"/>
+            <enum name="password" value="1"/>
+            <enum name="multiline" value="2"/>
+            <enum name="date" value="3"/>
+        </attr>
+    </declare-styleable>
 </resources>
