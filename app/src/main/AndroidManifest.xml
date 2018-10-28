@@ -42,6 +42,8 @@
             android:exported="false"
             android:label="BitTube Wallet Service" />
 
+        <activity android:name=".PreLoginActivity" />
+
     </application>
 
 </manifest>
