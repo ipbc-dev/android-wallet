@@ -51,7 +51,6 @@ public class GenerateReviewFragment extends Fragment {
     ScrollView scrollview;
 
     ProgressBar pbProgress;
-    TextView tvWalletName;
     TextView tvWalletPassword;
     TextView tvWalletAddress;
     TextView tvWalletMnemonic;
@@ -62,6 +61,8 @@ public class GenerateReviewFragment extends Fragment {
     Button bAdvancedInfo;
     Button bAccept;
 
+    String mWalletame;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +71,6 @@ public class GenerateReviewFragment extends Fragment {
 
         scrollview = (ScrollView) view.findViewById(R.id.scrollview);
         pbProgress = (ProgressBar) view.findViewById(R.id.pbProgress);
-        tvWalletName = (TextView) view.findViewById(R.id.tvWalletName);
         tvWalletPassword = (TextView) view.findViewById(R.id.tvWalletPassword);
         tvWalletAddress = (TextView) view.findViewById(R.id.tvWalletAddress);
         tvWalletViewKey = (TextView) view.findViewById(R.id.tvWalletViewKey);
@@ -151,7 +151,7 @@ public class GenerateReviewFragment extends Fragment {
     String type;
 
     private void acceptWallet() {
-        String name = tvWalletName.getText().toString();
+        String name = mWalletame;
         String password = tvWalletPassword.getText().toString();
         bAccept.setEnabled(false);
         acceptCallback.onAccept(name, password);
@@ -204,7 +204,7 @@ public class GenerateReviewFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
             if (!isAdded()) return; // never mind
-            tvWalletName.setText(name);
+            mWalletame = name;
             if (result) {
                 if (type.equals(GenerateReviewFragment.VIEW_TYPE_ACCEPT)) {
                     tvWalletPassword.setText(password);
@@ -217,7 +217,7 @@ public class GenerateReviewFragment extends Fragment {
                 tvWalletSpendKey.setText(spendKey);
                 bAdvancedInfo.setVisibility(View.VISIBLE);
                 bCopyAddress.setClickable(true);
-                bCopyAddress.setImageResource(R.drawable.ic_content_copy_black_24dp);
+                bCopyAddress.setImageResource(R.drawable.copy_grey);
                 activityCallback.setTitle(name, getString(R.string.details_title));
                 activityCallback.setToolbarButton(
                         GenerateReviewFragment.VIEW_TYPE_ACCEPT.equals(type) ? Toolbar.BUTTON_NONE : Toolbar.BUTTON_BACK);
@@ -268,8 +268,8 @@ public class GenerateReviewFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Timber.d("onResume()");
-        String name = tvWalletName.getText().toString();
-        if (name.isEmpty()) name = null;
+        String name = mWalletame;
+        if (name != null && name.isEmpty()) name = null;
         activityCallback.setTitle(name, getString(R.string.details_title));
         activityCallback.setToolbarButton(
                 GenerateReviewFragment.VIEW_TYPE_ACCEPT.equals(type) ? Toolbar.BUTTON_NONE : Toolbar.BUTTON_BACK);
