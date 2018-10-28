@@ -16,10 +16,8 @@
 
 package com.m2049r.xmrwallet;
 
-import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -45,6 +43,7 @@ import com.m2049r.xmrwallet.model.TransactionInfo;
 import com.m2049r.xmrwallet.model.Wallet;
 import com.m2049r.xmrwallet.model.WalletManager;
 import com.m2049r.xmrwallet.service.WalletService;
+import com.m2049r.xmrwallet.util.DialogUtil;
 import com.m2049r.xmrwallet.util.Helper;
 import com.m2049r.xmrwallet.util.UserNotes;
 import com.m2049r.xmrwallet.widget.Toolbar;
@@ -674,27 +673,23 @@ public class WalletActivity extends SecureActivity implements WalletFragment.Lis
     }
 
     private void onWalletDetails() {
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
+        DialogUtil.showInfoDialog(this, null,
+                getString(R.string.details_alert_message),
+                getString(R.string.details_alert_yes),
+                getString(R.string.details_alert_no),
+                new DialogUtil.InfoClickListener() {
+                    @Override
+                    public void okClick() {
                         Bundle extras = new Bundle();
                         extras.putString("type", GenerateReviewFragment.VIEW_TYPE_WALLET);
                         replaceFragment(new GenerateReviewFragment(), null, extras);
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        // do nothing
-                        break;
-                }
-            }
-        };
+                    }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.details_alert_message))
-                .setPositiveButton(getString(R.string.details_alert_yes), dialogClickListener)
-                .setNegativeButton(getString(R.string.details_alert_no), dialogClickListener)
-                .show();
+                    @Override
+                    public void cancelClick() {
+
+                    }
+                });
     }
 
     void onShareTxInfo() {
