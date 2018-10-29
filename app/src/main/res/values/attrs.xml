@@ -19,6 +19,7 @@
             <enum name="password" value="1"/>
             <enum name="multiline" value="2"/>
             <enum name="date" value="3"/>
+            <enum name="number" value="4"/>
         </attr>
     </declare-styleable>
 </resources>

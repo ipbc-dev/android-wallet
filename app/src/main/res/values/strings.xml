@@ -323,7 +323,7 @@
 
     <string name="receive_generate_hint">Show me the QR Code</string>
     <string name="receive_paymentid_button">Generate</string>
-    <string name="receive_paymentid_hint">Payment ID (optional)</string>
+    <string name="receive_paymentid_hint">Payment ID | optional</string>
     <string name="receive_amount_hint">Amount</string>
     <string name="receive_amount_xmr_hint">TUBE</string>
     <string name="receive_cannot_open">Could not open wallet!</string>
