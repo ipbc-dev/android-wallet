@@ -10,6 +10,7 @@
         android:id="@+id/toolbar"
         style="@style/ToolBarStyle.Event"
         android:layout_width="match_parent"
+        android:background="@color/colorPrimaryDark"
         android:layout_height="?attr/actionBarSize"
         android:minHeight="?attr/actionBarSize" />
 
