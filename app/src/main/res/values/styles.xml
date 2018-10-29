@@ -83,9 +83,7 @@
     </style>
 
     <style name="MoneroText.Balance">
-        <item name="android:textSize">32sp</item>
-        <item name="android:textColor">@color/moneroBlack</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">28sp</item>
     </style>
 
     <style name="MoneroText.Balance.Orange">
@@ -95,7 +93,6 @@
     <style name="MoneroText.Unconfirmed">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/moneroGray</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="MoneroText.PosAmount">
@@ -368,12 +365,23 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
-    <style name="label_bold">
+    <style name="label">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="label.blue" parent="label">
+        <item name="android:textColor">@color/moneroBlue</item>
+    </style>
+
+    <style name="label_bold" parent="label">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="label_bold.blue" parent="label_bold">
+        <item name="android:textColor">@color/moneroBlue</item>
     </style>
 
 </resources>
