@@ -38,4 +38,6 @@
     <color name="anotherColor">#F8CC5A</color>
 
     <color name="white">#FFF</color>
+
+    <color name="colorLine">#b7b7b7</color>
 </resources>
