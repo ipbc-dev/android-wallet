@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="50dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintRight_toRightOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="@id/guideline2"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/tv_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/white"
+            android:text="Sign up"
+            android:layout_margin="3dp"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:src="@drawable/icon_wallet_l"
+        app:layout_constraintLeft_toLeftOf="@id/guideline1"
+        app:layout_constraintRight_toRightOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="@id/guideline2"
+        app:layout_constraintBottom_toBottomOf="@id/guideline2"/>
+
+</android.support.constraint.ConstraintLayout>
