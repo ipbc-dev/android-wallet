@@ -417,6 +417,7 @@ public class LoginActivity extends SecureActivity
                         if (processPasswordEntry(wallet, pass, action)) {
                             Helper.hideKeyboardAlways(LoginActivity.this);
                             dialog.dismiss();
+                            passwordDialog = null;
                         } else {
                             textInputLayout.setError(getString(R.string.bad_password));
                         }
@@ -425,6 +426,7 @@ public class LoginActivity extends SecureActivity
                     @Override
                     public void cancelClick() {
                         Helper.hideKeyboardAlways(LoginActivity.this);
+                        passwordDialog = null;
                     }
                 });
 
