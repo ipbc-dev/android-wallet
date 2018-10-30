@@ -16,8 +16,7 @@
 
 package com.m2049r.xmrwallet;
 
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,14 +32,12 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +51,7 @@ import com.m2049r.xmrwallet.model.NetworkType;
 import com.m2049r.xmrwallet.model.Wallet;
 import com.m2049r.xmrwallet.model.WalletManager;
 import com.m2049r.xmrwallet.service.WalletService;
+import com.m2049r.xmrwallet.util.DialogUtil;
 import com.m2049r.xmrwallet.util.Helper;
 import com.m2049r.xmrwallet.util.MoneroThreadPoolExecutor;
 import com.m2049r.xmrwallet.widget.ProgressDialogCV;
@@ -170,11 +168,14 @@ public class LoginActivity extends SecureActivity
     public void onWalletDetails(final String walletName) {
         Timber.d("details for wallet .%s.", walletName);
         if (checkServiceRunning()) return;
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
+
+        DialogUtil.showInfoDialog(this, null,
+                getString(R.string.details_alert_message),
+                getString(R.string.details_alert_yes),
+                getString(R.string.details_alert_no),
+                new DialogUtil.InfoClickListener() {
+                    @Override
+                    public void okClick() {
                         final File walletFile = Helper.getWalletFile(LoginActivity.this, walletName);
                         if (WalletManager.getInstance().walletExists(walletFile)) {
                             promptPassword(walletName, new PasswordAction() {
@@ -187,20 +188,13 @@ public class LoginActivity extends SecureActivity
                             Timber.e("Wallet missing: %s", walletName);
                             Toast.makeText(LoginActivity.this, getString(R.string.bad_wallet), Toast.LENGTH_SHORT).show();
                         }
-                        break;
+                    }
 
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        // do nothing
-                        break;
-                }
-            }
-        };
+                    @Override
+                    public void cancelClick() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.details_alert_message))
-                .setPositiveButton(getString(R.string.details_alert_yes), dialogClickListener)
-                .setNegativeButton(getString(R.string.details_alert_no), dialogClickListener)
-                .show();
+                    }
+                });
     }
 
     @Override
@@ -264,54 +258,24 @@ public class LoginActivity extends SecureActivity
     public void onWalletRename(final String walletName) {
         Timber.d("rename for wallet ." + walletName + ".");
         if (checkServiceRunning()) return;
-        LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.prompt_rename, null);
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setView(promptsView);
+        Dialog dialog = DialogUtil.showInputDialog(this,
+                getString(R.string.prompt_rename, walletName),
+                false, new DialogUtil.InputClickListener() {
+                    @Override
+                    public void okClick(Dialog dialog, TextInputLayout textInputLayout) {
+                        Helper.hideKeyboardAlways(LoginActivity.this);
+                        String newName = textInputLayout.getEditText().getText().toString();
+                        new AsyncRename().execute(walletName, newName);
+                        dialog.dismiss();
+                    }
 
-        final EditText etRename = (EditText) promptsView.findViewById(R.id.etRename);
-        final TextView tvRenameLabel = (TextView) promptsView.findViewById(R.id.tvRenameLabel);
-
-        tvRenameLabel.setText(getString(R.string.prompt_rename, walletName));
-
-        // set dialog message
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.label_ok),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Helper.hideKeyboardAlways(LoginActivity.this);
-                                String newName = etRename.getText().toString();
-                                new AsyncRename().execute(walletName, newName);
-                            }
-                        })
-                .setNegativeButton(getString(R.string.label_cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Helper.hideKeyboardAlways(LoginActivity.this);
-                                dialog.cancel();
-                            }
-                        });
-
-        final AlertDialog dialog = alertDialogBuilder.create();
+                    @Override
+                    public void cancelClick() {
+                        Helper.hideKeyboardAlways(LoginActivity.this);
+                    }
+                });
         Helper.showKeyboard(dialog);
-
-        // accept keyboard "ok"
-        etRename.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-                    Helper.hideKeyboardAlways(LoginActivity.this);
-                    String newName = etRename.getText().toString();
-                    dialog.cancel();
-                    new AsyncRename().execute(walletName, newName);
-                    return false;
-                }
-                return false;
-            }
-        });
-
-        dialog.show();
     }
 
     private class AsyncBackup extends AsyncTask<String, Void, Boolean> {
@@ -404,26 +368,22 @@ public class LoginActivity extends SecureActivity
     public void onWalletArchive(final String walletName) {
         Timber.d("archive for wallet ." + walletName + ".");
         if (checkServiceRunning()) return;
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        new AsyncArchive().execute(walletName);
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        // do nothing
-                        break;
-                }
-            }
-        };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.archive_alert_message))
-                .setTitle(walletName)
-                .setPositiveButton(getString(R.string.archive_alert_yes), dialogClickListener)
-                .setNegativeButton(getString(R.string.archive_alert_no), dialogClickListener)
-                .show();
+        DialogUtil.showInfoDialog(this, walletName,
+                getString(R.string.archive_alert_message),
+                getString(R.string.archive_alert_yes),
+                getString(R.string.archive_alert_no),
+                new DialogUtil.InfoClickListener() {
+                    @Override
+                    public void okClick() {
+                        new AsyncArchive().execute(walletName);
+                    }
+
+                    @Override
+                    public void cancelClick() {
+
+                    }
+                });
     }
 
     void reloadWalletList() {
@@ -448,91 +408,29 @@ public class LoginActivity extends SecureActivity
 
     void promptPassword(final String wallet, final PasswordAction action) {
         if (passwordDialog != null) return; // we are already asking for password
-        Context context = LoginActivity.this;
-        LayoutInflater li = LayoutInflater.from(context);
-        View promptsView = li.inflate(R.layout.prompt_password, null);
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-        alertDialogBuilder.setView(promptsView);
-
-        final TextInputLayout etPassword = (TextInputLayout) promptsView.findViewById(R.id.etPassword);
-        etPassword.setHint(LoginActivity.this.getString(R.string.prompt_password, wallet));
-
-        etPassword.getEditText().addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (etPassword.getError() != null) {
-                    etPassword.setError(null);
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-            }
-        });
-
-        // set dialog message
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.label_ok), null)
-                .setNegativeButton(getString(R.string.label_cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Helper.hideKeyboardAlways(LoginActivity.this);
-                                dialog.cancel();
-                                passwordDialog = null;
-                            }
-                        });
-        passwordDialog = alertDialogBuilder.create();
-
-        passwordDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                button.setOnClickListener(new View.OnClickListener() {
+        passwordDialog = DialogUtil.showInputDialog(this, getString(R.string.prompt_password, wallet),
+                true, new DialogUtil.InputClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        String pass = etPassword.getEditText().getText().toString();
+                    public void okClick(Dialog dialog, TextInputLayout textInputLayout) {
+                        String pass = textInputLayout.getEditText().getText().toString();
                         if (processPasswordEntry(wallet, pass, action)) {
                             Helper.hideKeyboardAlways(LoginActivity.this);
-                            passwordDialog.dismiss();
+                            dialog.dismiss();
                             passwordDialog = null;
                         } else {
-                            etPassword.setError(getString(R.string.bad_password));
+                            textInputLayout.setError(getString(R.string.bad_password));
                         }
                     }
+
+                    @Override
+                    public void cancelClick() {
+                        Helper.hideKeyboardAlways(LoginActivity.this);
+                        passwordDialog = null;
+                    }
                 });
-            }
-        });
 
         Helper.showKeyboard(passwordDialog);
-
-        // accept keyboard "ok"
-        etPassword.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-                    String pass = etPassword.getEditText().getText().toString();
-                    if (processPasswordEntry(wallet, pass, action)) {
-                        Helper.hideKeyboardAlways(LoginActivity.this);
-                        passwordDialog.dismiss();
-                        passwordDialog = null;
-                    } else {
-                        etPassword.setError(getString(R.string.bad_password));
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        passwordDialog.show();
     }
 
     private boolean checkWalletPassword(String walletName, String password) {
