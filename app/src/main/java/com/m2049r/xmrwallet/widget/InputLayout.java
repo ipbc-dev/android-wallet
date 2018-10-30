@@ -114,7 +114,7 @@ public class InputLayout extends FrameLayout {
             et.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    et.setError(null);
+                    til.setError(null);
                 }
 
                 @Override
@@ -152,6 +152,23 @@ public class InputLayout extends FrameLayout {
                 }
             });
         }
+
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                til.setError(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void onFocusTransformation(boolean b) {
@@ -180,6 +197,18 @@ public class InputLayout extends FrameLayout {
         }
     }
 
+    private void updateIsPassword() {
+        if (passwordToggleEnabled) {
+            til.setPasswordVisibilityToggleEnabled(true);
+            et.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            et.setTransformationMethod(new PasswordTransformationMethod());
+        } else {
+            til.setPasswordVisibilityToggleEnabled(false);
+            et.setInputType(InputType.TYPE_CLASS_TEXT);
+            et.setTransformationMethod(null);
+        }
+    }
+
     public TextInputLayout getTil() {
         return til;
     }
@@ -190,6 +219,17 @@ public class InputLayout extends FrameLayout {
 
     public String getText() {
         return et.getText().toString().trim();
+    }
+
+    public void setPasswordToggleEnabled(boolean enabled) {
+        passwordToggleEnabled = enabled;
+        updateIsPassword();
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
+        if (til != null)
+            til.setHint(hint);
     }
 
 }
