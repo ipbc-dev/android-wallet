@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp">
+    android:layout_margin="16dp"
+    android:background="@drawable/shape_rect_round"
+    android:padding="20dp"
+    android:scrollbarStyle="outsideOverlay">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,87 +20,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/header_top_first"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
 
             <TextView
-                style="@style/MoneroLabel.Heading"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/generate_wallet_label"
-                android:textAlignment="center" />
-
-            <TextView
-                style="@style/MoneroLabel.Heading"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/generate_password_label"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/data_top"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <TextView
-                android:id="@+id/tvWalletName"
-                style="@style/MoneroText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center" />
+                style="@style/label_bold" />
 
             <TextView
                 android:id="@+id/tvWalletPassword"
                 style="@style/MoneroText"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
                 android:text="***"
                 android:textAlignment="center" />
+
         </LinearLayout>
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/header_top">
 
             <TextView
-                style="@style/MoneroLabel.Heading"
+                style="@style/label_bold"
+
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:text="@string/generate_address_label" />
 
             <ImageButton
+
                 android:id="@+id/bCopyAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="80dp"
+                android:layout_alignParentRight="true"
                 android:background="?android:selectableItemBackground"
                 android:clickable="false"
-                android:src="@drawable/ic_content_nocopy_black_24dp" />
-        </FrameLayout>
+                android:src="@drawable/copy_grey" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvWalletAddress"
-            style="@style/MoneroText.Monospace"
+            style="@style/MoneroText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/data_top"
-            android:textAlignment="center" />
+            android:layout_marginTop="@dimen/data_top" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -104,30 +81,28 @@
             android:layout_marginTop="@dimen/header_top">
 
             <TextView
-                style="@style/MoneroLabel.Heading"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
+                style="@style/label_bold"
                 android:text="@string/generate_mnemonic_label" />
         </FrameLayout>
 
         <TextView
             android:id="@+id/tvWalletMnemonic"
-            style="@style/MoneroText.Monospace.Mnemonic"
+            style="@style/MoneroText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/data_top"
-            android:background="@drawable/backgound_seed"
-            android:textAlignment="center" />
+            android:padding="16dp"
+            android:background="@drawable/shape_rect_round" />
 
         <Button
             android:id="@+id/bAccept"
-            style="@style/MoneroButton"
+            style="@style/button_moreno_blue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/section_top"
             android:text="@string/generate_button_accept"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <Button
             android:id="@+id/bAdvancedInfo"
@@ -140,7 +115,8 @@
             android:drawablePadding="4dp"
             android:drawableStart="@drawable/ic_add_circle_outline"
             android:text="@string/label_wallet_advanced_details"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <LinearLayout
             android:id="@+id/llAdvancedInfo"
@@ -149,17 +125,15 @@
             android:layout_marginBottom="24dp"
             android:layout_marginTop="@dimen/section_top"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    style="@style/MoneroLabel.Heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
+                    style="@style/label_bold"
                     android:text="@string/generate_viewkey_label" />
 
                 <ImageButton
@@ -167,18 +141,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginEnd="80dp"
                     android:background="?android:selectableItemBackground"
-                    android:src="@drawable/ic_content_copy_black_24dp" />
+                    android:src="@drawable/copy_grey" />
             </FrameLayout>
 
             <TextView
                 android:id="@+id/tvWalletViewKey"
-                style="@style/MoneroText.Monospace"
+                style="@style/MoneroText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/data_top"
-                android:textAlignment="center" />
+                android:layout_marginTop="@dimen/data_top" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -186,20 +158,16 @@
                 android:layout_marginTop="@dimen/header_top">
 
                 <TextView
-                    style="@style/MoneroLabel.Heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
+                    style="@style/label_bold"
                     android:text="@string/generate_spendkey_label" />
             </FrameLayout>
 
             <TextView
                 android:id="@+id/tvWalletSpendKey"
-                style="@style/MoneroText.Monospace"
+                style="@style/MoneroText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/data_top"
-                android:textAlignment="center" />
+                android:layout_marginTop="@dimen/data_top" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
