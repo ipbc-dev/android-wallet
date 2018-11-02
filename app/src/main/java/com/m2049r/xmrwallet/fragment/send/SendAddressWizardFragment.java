@@ -18,8 +18,6 @@ package com.m2049r.xmrwallet.fragment.send;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
@@ -29,7 +27,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,9 +35,9 @@ import com.m2049r.xmrwallet.data.BarcodeData;
 import com.m2049r.xmrwallet.data.TxData;
 import com.m2049r.xmrwallet.data.TxDataBtc;
 import com.m2049r.xmrwallet.model.Wallet;
-import com.m2049r.xmrwallet.model.WalletManager;
 import com.m2049r.xmrwallet.util.BitcoinAddressValidator;
 import com.m2049r.xmrwallet.util.Helper;
+import com.m2049r.xmrwallet.widget.InputLayout;
 
 import timber.log.Timber;
 
@@ -70,12 +67,12 @@ public class SendAddressWizardFragment extends SendWizardFragment {
     }
 
     private EditText etDummy;
-    private TextInputLayout etAddress;
-    private TextInputLayout etPaymentId;
-    private Button bPaymentId;
-    private CardView cvScan;
+    private InputLayout etAddress;
+    private InputLayout etPaymentId;
+    private View bPaymentId;
+    private View cvScan;
     private View tvPaymentIdIntegrated;
-    private View llPaymentId;
+    private View rlPaymentId;
     private TextView tvXmrTo;
     private View llXmrTo;
 
@@ -95,18 +92,18 @@ public class SendAddressWizardFragment extends SendWizardFragment {
         View view = inflater.inflate(R.layout.fragment_send_address, container, false);
 
         tvPaymentIdIntegrated = view.findViewById(R.id.tvPaymentIdIntegrated);
-        llPaymentId = view.findViewById(R.id.llPaymentId);
+        rlPaymentId = view.findViewById(R.id.rlPaymentId);
         llXmrTo = view.findViewById(R.id.llXmrTo);
         tvXmrTo = (TextView) view.findViewById(R.id.tvXmrTo);
         tvXmrTo.setText(Html.fromHtml(getString(R.string.info_xmrto)));
 
-        etAddress = (TextInputLayout) view.findViewById(R.id.etAddress);
+        etAddress = (InputLayout) view.findViewById(R.id.etAddress);
         etAddress.getEditText().setRawInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         etAddress.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_NEXT)) {
                     if (checkAddress()) {
-                        if (llPaymentId.getVisibility() == View.VISIBLE) {
+                        if (rlPaymentId.getVisibility() == View.VISIBLE) {
                             etPaymentId.requestFocus();
                         } else {
                             etDummy.requestFocus();
@@ -121,26 +118,26 @@ public class SendAddressWizardFragment extends SendWizardFragment {
         etAddress.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
-                etAddress.setError(null);
+                etAddress.getTil().setError(null);
                 if (isIntegratedAddress()) {
                     Timber.d("isIntegratedAddress");
                     etPaymentId.getEditText().getText().clear();
-                    llPaymentId.setVisibility(View.INVISIBLE);
+                    rlPaymentId.setVisibility(View.GONE);
                     tvPaymentIdIntegrated.setVisibility(View.VISIBLE);
-                    llXmrTo.setVisibility(View.INVISIBLE);
+                    llXmrTo.setVisibility(View.GONE);
                     sendListener.setMode(SendFragment.Mode.XMR);
                 } else if (isBitcoinAddress()) {
                     Timber.d("isBitcoinAddress");
                     etPaymentId.getEditText().getText().clear();
-                    llPaymentId.setVisibility(View.INVISIBLE);
-                    tvPaymentIdIntegrated.setVisibility(View.INVISIBLE);
+                    rlPaymentId.setVisibility(View.GONE);
+                    tvPaymentIdIntegrated.setVisibility(View.GONE);
                     llXmrTo.setVisibility(View.VISIBLE);
                     sendListener.setMode(SendFragment.Mode.BTC);
                 } else {
                     Timber.d("isStandardAddress");
-                    llPaymentId.setVisibility(View.VISIBLE);
-                    tvPaymentIdIntegrated.setVisibility(View.INVISIBLE);
-                    llXmrTo.setVisibility(View.INVISIBLE);
+                    rlPaymentId.setVisibility(View.VISIBLE);
+                    tvPaymentIdIntegrated.setVisibility(View.GONE);
+                    llXmrTo.setVisibility(View.GONE);
                     sendListener.setMode(SendFragment.Mode.XMR);
                 }
             }
@@ -155,7 +152,7 @@ public class SendAddressWizardFragment extends SendWizardFragment {
         });
 
 
-        etPaymentId = (TextInputLayout) view.findViewById(R.id.etPaymentId);
+        etPaymentId = (InputLayout) view.findViewById(R.id.etPaymentId);
         etPaymentId.getEditText().setRawInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         etPaymentId.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -172,7 +169,7 @@ public class SendAddressWizardFragment extends SendWizardFragment {
         etPaymentId.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
-                etPaymentId.setError(null);
+                etPaymentId.getTil().setError(null);
             }
 
             @Override
@@ -184,7 +181,7 @@ public class SendAddressWizardFragment extends SendWizardFragment {
             }
         });
 
-        bPaymentId = (Button) view.findViewById(R.id.bPaymentId);
+        bPaymentId = view.findViewById(R.id.bPaymentId);
         bPaymentId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,7 +189,7 @@ public class SendAddressWizardFragment extends SendWizardFragment {
             }
         });
 
-        cvScan = (CardView) view.findViewById(R.id.bScan);
+        cvScan = view.findViewById(R.id.bScan);
         cvScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,9 +215,9 @@ public class SendAddressWizardFragment extends SendWizardFragment {
     private boolean checkAddress() {
         boolean ok = checkAddressNoError();
         if (!ok) {
-            etAddress.setError(getString(R.string.send_address_invalid));
+            etAddress.getTil().setError(getString(R.string.send_address_invalid));
         } else {
-            etAddress.setError(null);
+            etAddress.getTil().setError(null);
         }
         return ok;
     }
@@ -243,13 +240,13 @@ public class SendAddressWizardFragment extends SendWizardFragment {
         String paymentId = etPaymentId.getEditText().getText().toString();
         boolean ok = paymentId.isEmpty() || Wallet.isPaymentIdValid(paymentId);
         if (!ok) {
-            etPaymentId.setError(getString(R.string.receive_paymentid_invalid));
+            etPaymentId.getTil().setError(getString(R.string.receive_paymentid_invalid));
         } else {
             if (!paymentId.isEmpty() && isIntegratedAddress()) {
                 ok = false;
-                etPaymentId.setError(getString(R.string.receive_integrated_paymentid_invalid));
+                etPaymentId.getTil().setError(getString(R.string.receive_integrated_paymentid_invalid));
             } else {
-                etPaymentId.setError(null);
+                etPaymentId.getTil().setError(null);
             }
         }
         return ok;
@@ -308,7 +305,7 @@ public class SendAddressWizardFragment extends SendWizardFragment {
                 checkAddress();
             } else {
                 etAddress.getEditText().getText().clear();
-                etAddress.setError(null);
+                etAddress.getTil().setError(null);
             }
             String scannedPaymenId = data.paymentId;
             if (scannedPaymenId != null) {
@@ -316,7 +313,7 @@ public class SendAddressWizardFragment extends SendWizardFragment {
                 checkPaymentId();
             } else {
                 etPaymentId.getEditText().getText().clear();
-                etPaymentId.setError(null);
+                etPaymentId.getTil().setError(null);
             }
         }
     }
