@@ -99,6 +99,10 @@ public class InputLayout extends FrameLayout {
                 break;
             case 3:
                 et.setInputType(InputType.TYPE_CLASS_DATETIME);
+                break;
+            case 4:
+                et.setInputType(InputType.TYPE_CLASS_PHONE);
+
         }
 
         onFocusTransformation(false);
