@@ -6,15 +6,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <com.m2049r.xmrwallet.widget.InputLayout
             android:id="@+id/etAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="16dp"
             android:layout_toRightOf="@+id/sCurrencyA"
             app:hint="@string/receive_amount_hint"
             app:type="number" />

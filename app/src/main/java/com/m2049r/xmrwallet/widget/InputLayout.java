@@ -25,6 +25,7 @@ public class InputLayout extends FrameLayout {
 
     boolean passwordToggleEnabled;
     boolean counterEnabled;
+    boolean autocomplete;
     private int type;
     private int maxCounter = 10;
     private int counter;
@@ -49,11 +50,6 @@ public class InputLayout extends FrameLayout {
     }
 
     private void init(AttributeSet attrs) {
-        inflate(mContext, R.layout.layout_input, this);
-        til = findViewById(R.id.til);
-        et = findViewById(R.id.et);
-
-
         TypedArray a = mContext.getTheme().obtainStyledAttributes(
                 attrs,
                 R.styleable.InputLayout,
@@ -65,9 +61,18 @@ public class InputLayout extends FrameLayout {
             type = a.getInteger(R.styleable.InputLayout_type, 0);
             hint = a.getString(R.styleable.InputLayout_hint);
             maxCounter = a.getInteger(R.styleable.InputLayout_maxCounter, 10);
+            autocomplete = a.getBoolean(R.styleable.InputLayout_autocomplete, false);
         } finally {
             a.recycle();
         }
+
+        if (autocomplete) {
+            inflate(mContext, R.layout.layout_input_autocomplete, this);
+        } else {
+            inflate(mContext, R.layout.layout_input, this);
+        }
+        til = findViewById(R.id.til);
+        et = findViewById(R.id.et);
 
         initComponents();
     }
@@ -86,24 +91,7 @@ public class InputLayout extends FrameLayout {
             }
         });
 
-        switch (type) {
-            case 0:
-                et.setInputType(InputType.TYPE_CLASS_TEXT);
-                break;
-            case 1:
-                et.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                et.setTransformationMethod(new PasswordTransformationMethod());
-                break;
-            case 2:
-                et.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                break;
-            case 3:
-                et.setInputType(InputType.TYPE_CLASS_DATETIME);
-                break;
-            case 4:
-                et.setInputType(InputType.TYPE_CLASS_PHONE);
-
-        }
+        setInputType();
 
         onFocusTransformation(false);
 
@@ -175,12 +163,31 @@ public class InputLayout extends FrameLayout {
         });
     }
 
-    private void onFocusTransformation(boolean b) {
-        if (b) {
-            if (type == 1) {
+    private void setInputType() {
+        switch (type) {
+            case 0:
+                et.setInputType(InputType.TYPE_CLASS_TEXT);
+                break;
+            case 1:
                 et.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 et.setTransformationMethod(new PasswordTransformationMethod());
-            }
+                break;
+            case 2:
+                et.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                break;
+            case 3:
+                et.setInputType(InputType.TYPE_CLASS_DATETIME);
+                break;
+            case 4:
+                et.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
+
+        }
+    }
+
+    public void onFocusTransformation(boolean b) {
+        if (b) {
+            setInputType();
             if (" ".equalsIgnoreCase(et.getText().toString())) {
                 et.setText("");
             }
@@ -219,6 +226,10 @@ public class InputLayout extends FrameLayout {
 
     public EditText getEditText() {
         return et;
+    }
+
+    public DropDownEditText getDropEditText() {
+        return (DropDownEditText) et;
     }
 
     public String getText() {
