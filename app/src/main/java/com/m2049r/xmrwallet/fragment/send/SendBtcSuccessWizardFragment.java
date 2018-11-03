@@ -156,7 +156,7 @@ public class SendBtcSuccessWizardFragment extends SendWizardFragment {
             tvTxFee.setText(getString(R.string.send_fee, Helper.getDisplayAmount(committedTx.fee)));
             if (btcData != null) {
                 NumberFormat df = NumberFormat.getInstance(Locale.US);
-                df.setMaximumFractionDigits(12);
+                df.setMaximumFractionDigits(8);
                 String btcAmount = df.format(btcData.getBtcAmount());
                 tvXmrToAmount.setText(getString(R.string.info_send_xmrto_success_btc, btcAmount));
                 //TODO         btcData.getBtcAddress();

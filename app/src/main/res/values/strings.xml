@@ -173,12 +173,12 @@
     <string name="label_transactions">Transactions</string>
     <string name="text_daemonConnected">Daemon connected!</string>
 
-    <string name="service_description">monerujo Service</string>
-    <string name="local_service_started">monerujo Service Running</string>
-    <string name="local_service_stopped">monerujo Service Stopped</string>
-    <string name="local_service_label">monerujo Service</string>
-    <string name="local_service_connected">monerujo Service Connected</string>
-    <string name="local_service_disconnected">monerujo Service Disconnected</string>
+    <string name="service_description">BitTube Service</string>
+    <string name="local_service_started">BitTube Service Running</string>
+    <string name="local_service_stopped">BitTube Service Stopped</string>
+    <string name="local_service_label">BitTube Service</string>
+    <string name="local_service_connected">BitTube Service Connected</string>
+    <string name="local_service_disconnected">BitTube Service Disconnected</string>
 
     <string name="status_synced">Synced:</string>
     <string name="status_remaining">Blocks remaining</string>
@@ -200,12 +200,12 @@
     <string name="message_noselect_key">Selecting spend key disabled for security reasons!</string>
     <string name="message_nocopy">Copy disabled for security reasons!</string>
 
-    <string name="message_exchange_failed">Cannot get exchange rate!\nUse XMR/XMR or try again</string>
+    <string name="message_exchange_failed">Cannot get exchange rate!\nUse TUBE/TUBE or try again</string>
 
     <string name="generate_title">Create Wallet</string>
     <string name="generate_name_hint">Wallet Name</string>
     <string name="generate_password_hint">Wallet Passphrase</string>
-    <string name="generate_buttonGenerate">Make me a wallet already!</string>
+    <string name="generate_buttonGenerate">Create wallet</string>
     <string name="generate_seed">Mnemonic Seed</string>
     <string name="generate_button_accept">I have noted these 25 words!</string>
 
@@ -258,8 +258,8 @@
     <string name="send_qr_hint">Scan</string>
     <string name="send_prepare_hint">Prepare</string>
     <string name="send_dispose_hint">Dispose (Undo)</string>
-    <string name="send_send_label">Spend my sweet Moneroj</string>
-    <string name="send_send_timed_label">Spend my sweet Moneroj (%1$s)</string>
+    <string name="send_send_label">Spend my sweet TUBEs</string>
+    <string name="send_send_timed_label">Spend my sweet TUBEs (%1$s)</string>
     <string name="send_really_send_hint">Last Step - Confirm!</string>
     <string name="send_qr_invalid">Not a QR Code</string>
     <string name="send_qr_address_invalid">Not a valid payment QR code</string>
@@ -349,10 +349,10 @@
     <string name="archive_alert_no">No thanks!</string>
 
     <string-array name="mixin" translatable="false">
-        <item>Ringsize 7</item>
-        <item>Ringsize 10</item>
-        <item>Ringsize 13</item>
-        <item>Ringsize 26</item>
+        <item>Ringsize 3</item>
+        <item>Ringsize 6</item>
+        <item>Ringsize 9</item>
+        <item>Ringsize 12</item>
     </string-array>
 
     <string-array name="priority">

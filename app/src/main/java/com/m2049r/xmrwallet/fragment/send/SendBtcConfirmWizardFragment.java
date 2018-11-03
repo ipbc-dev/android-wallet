@@ -558,7 +558,7 @@ public class SendBtcConfirmWizardFragment extends SendWizardFragment implements 
                 @Override
                 public void run() {
                     NumberFormat df = NumberFormat.getInstance(Locale.US);
-                    df.setMaximumFractionDigits(12);
+                    df.setMaximumFractionDigits(8);
                     String btcAmount = df.format(status.getBtcAmount());
                     String xmrAmountTotal = df.format(status.getXmrAmountTotal());
                     tvTxBtcAmount.setText(getString(R.string.text_send_btc_amount, btcAmount, xmrAmountTotal));

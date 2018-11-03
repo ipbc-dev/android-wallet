@@ -41,7 +41,7 @@ public class RestoreHeight {
     private Map<String, Long> blockheight = new HashMap<>();
 
     RestoreHeight() {
-        blockheight.put("2014-05-01", 18844L);
+        /*blockheight.put("2014-05-01", 18844L);
         blockheight.put("2014-06-01", 65406L);
         blockheight.put("2014-07-01", 108882L);
         blockheight.put("2014-08-01", 153594L);
@@ -86,7 +86,16 @@ public class RestoreHeight {
         blockheight.put("2017-11-01", 1433039L);
         blockheight.put("2017-12-01", 1454639L);
         blockheight.put("2018-01-01", 1477201L);
-        blockheight.put("2018-02-01", 1499599L);
+        blockheight.put("2018-02-01", 1499599L);*/
+        blockheight.put("2018-02-01", 1200L);
+        blockheight.put("2018-03-01", 21975L);
+        blockheight.put("2018-04-01", 43950L);
+        blockheight.put("2018-05-01", 65925L);
+        blockheight.put("2018-06-01", 87900L);
+        blockheight.put("2018-07-01", 109875L);
+        blockheight.put("2018-08-01", 131850L);
+        blockheight.put("2018-09-01", 153825L);
+        blockheight.put("2018-10-01", 175800L);
     }
 
     public long getHeight(String date) {
