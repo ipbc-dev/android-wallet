@@ -52,6 +52,7 @@ import com.m2049r.xmrwallet.model.WalletManager;
 import com.m2049r.xmrwallet.util.Helper;
 import com.m2049r.xmrwallet.util.MoneroThreadPoolExecutor;
 import com.m2049r.xmrwallet.widget.ExchangeView;
+import com.m2049r.xmrwallet.widget.InputLayout;
 import com.m2049r.xmrwallet.widget.Toolbar;
 
 import java.util.HashMap;
@@ -63,9 +64,9 @@ public class ReceiveFragment extends Fragment {
 
     private ProgressBar pbProgress;
     private TextView tvAddress;
-    private TextInputLayout etPaymentId;
+    private InputLayout etPaymentId;
     private ExchangeView evAmount;
-    private Button bPaymentId;
+    private View bPaymentId;
     private TextView tvQrCode;
     private ImageView qrCode;
     private ImageView qrCodeFull;
@@ -88,9 +89,9 @@ public class ReceiveFragment extends Fragment {
 
         pbProgress = (ProgressBar) view.findViewById(R.id.pbProgress);
         tvAddress = (TextView) view.findViewById(R.id.tvAddress);
-        etPaymentId = (TextInputLayout) view.findViewById(R.id.etPaymentId);
+        etPaymentId = (InputLayout) view.findViewById(R.id.etPaymentId);
         evAmount = (ExchangeView) view.findViewById(R.id.evAmount);
-        bPaymentId = (Button) view.findViewById(R.id.bPaymentId);
+        bPaymentId = view.findViewById(R.id.bPaymentId);
         qrCode = (ImageView) view.findViewById(R.id.qrCode);
         tvQrCode = (TextView) view.findViewById(R.id.tvQrCode);
         qrCodeFull = (ImageView) view.findViewById(R.id.qrCodeFull);
@@ -287,9 +288,9 @@ public class ReceiveFragment extends Fragment {
         boolean ok = paymentId.isEmpty() || Wallet.isPaymentIdValid(paymentId);
 
         if (!ok) {
-            etPaymentId.setError(getString(R.string.receive_paymentid_invalid));
+            etPaymentId.getTil().setError(getString(R.string.receive_paymentid_invalid));
         } else {
-            etPaymentId.setError(null);
+            etPaymentId.getTil().setError(null);
         }
         return ok;
     }

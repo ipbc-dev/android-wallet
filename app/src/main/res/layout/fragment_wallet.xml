@@ -4,42 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="vertical">
+        android:padding="20dp"
+        android:background="@drawable/shape_rect_round"
+        android:orientation="vertical"
+        android:layout_marginBottom="15dp">
+
+        <FrameLayout
+            android:id="@+id/flExchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="8dp"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_statsup" />
+
+            <ProgressBar
+                android:id="@+id/pbExchange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/flExchange"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="0dp"
-                android:layout_marginStart="8dp"
-                android:visibility="gone">
+                android:orientation="horizontal">
 
-                <ImageView
+
+                <TextView
+                    style="@style/label.blue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_statsup" />
+                    android:text="Total Balance" />
 
-                <ProgressBar
-                    android:id="@+id/pbExchange"
+                <TextView
+                    style="@style/label.blue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:indeterminate="true" />
-            </FrameLayout>
+                    android:text=" (" />
+
+                <Spinner
+                    android:id="@+id/sCurrency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:entries="@array/currency"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    tools:listitem="@layout/item_spinner_balance" />
+
+                <TextView
+                    style="@style/label.blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=") " />
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tvBalance"
@@ -50,18 +93,7 @@
                 android:visibility="visible"
                 tools:text="1099700.23001" />
 
-            <Spinner
-                android:id="@+id/sCurrency"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:entries="@array/currency"
-                android:gravity="center"
-                android:paddingBottom="2dp"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp"
-                android:paddingTop="0dp"
-                tools:listitem="@layout/item_spinner_balance" />
+
         </LinearLayout>
 
         <TextView
@@ -69,8 +101,7 @@
             style="@style/MoneroText.Unconfirmed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
+            android:layout_marginLeft="4dp"
             tools:text="+ 0.00 unconfirmed" />
 
         <LinearLayout
@@ -85,29 +116,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_done_all"
-                android:visibility="gone" />
+                android:src="@drawable/synced"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
-            <TextView
-                android:id="@+id/tvProgress"
-                style="@style/MoneroText.Medium"
+            <ImageView
+                android:id="@+id/ivSyncing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                tools:text="Synced 1 410 674 blocks" />
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/sync"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvProgress"
+                    style="@style/MoneroText.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    tools:text="Synced 1 410 674 blocks" />
+
+                <ProgressBar
+                    android:id="@+id/pbProgress"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:indeterminate="true"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/pbProgress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:visibility="invisible" />
 
     </LinearLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="8dp"
@@ -117,50 +168,38 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/ll_action_buttons"
             android:clipToPadding="false"
             android:paddingBottom="80dp"
             app:layoutManager="LinearLayoutManager"
             tools:listitem="@layout/item_transaction" />
 
         <LinearLayout
+            android:id="@+id/ll_action_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="12dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/bReceive"
-                style="@style/MoneroButton.Take"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_hand"
-                android:enabled="false"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp"
+                style="@style/button_moreno_blue"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/receive"
                 android:text="@string/label_wallet_receive"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                tools:visibility="visible"/>
 
             <Button
                 android:id="@+id/bSend"
-                style="@style/MoneroButton.Give"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_send"
-                android:enabled="false"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp"
+                style="@style/button_moreno_blue"
+                android:drawablePadding="2dp"
+                android:drawableStart="@drawable/send"
                 android:text="@string/label_wallet_send"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
         </LinearLayout>
-    </FrameLayout>
+    </RelativeLayout>
 </LinearLayout>
