@@ -175,7 +175,7 @@ public class SendBtcAmountWizardFragment extends SendWizardFragment {
                 Timber.d("minBtc=%f / maxBtc=%f", minBtc, maxBtc);
 
                 final long funds = getTotalFunds();
-                double availableXmr = 1.0 * funds / 1000000000000L;
+                double availableXmr = 1.0 * funds / 100000000L;
                 maxBtc = Math.min(maxBtc, availableXmr * orderParameters.getPrice());
 
                 String availBtcString = df.format(availableXmr * orderParameters.getPrice());

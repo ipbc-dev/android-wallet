@@ -143,7 +143,7 @@ public class ExchangeBtcTextView extends LinearLayout
         sCurrencyA.setEnabled(false);
         ArrayAdapter<String> xmrAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item,
-                new String[]{"XMR"});
+                new String[]{"TUBE"});
         sCurrencyB.setAdapter(xmrAdapter);
         sCurrencyB.setEnabled(false);
     }

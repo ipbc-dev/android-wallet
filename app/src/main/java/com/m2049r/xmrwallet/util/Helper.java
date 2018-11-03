@@ -58,10 +58,12 @@ import okhttp3.HttpUrl;
 import timber.log.Timber;
 
 public class Helper {
-    static private final String WALLET_DIR = "monerujo";
-    static private final String HOME_DIR = "monero";
+    static private final String WALLET_DIR = "bittube";
+    static private final String HOME_DIR = "bittube";
 
     static public int DISPLAY_DIGITS_INFO = 5;
+
+    static public final String CRYPTO = "TUBE";
 
     static public File getWalletRoot(Context context) {
         return getStorage(context, WALLET_DIR);
@@ -160,7 +162,7 @@ public class Helper {
     }
 
     static public String getDisplayAmount(long amount) {
-        return getDisplayAmount(amount, 12);
+        return getDisplayAmount(amount, 8);
     }
 
     static public String getDisplayAmount(long amount, int maxDecimals) {
@@ -299,7 +301,7 @@ public class Helper {
     // TODO make the log levels refer to the  WalletManagerFactory::LogLevel enum ?
     static public void initLogger(Context context, int level) {
         String home = getStorage(context, HOME_DIR).getAbsolutePath();
-        WalletManager.initLogger(home + "/monerujo", "monerujo.log");
+        WalletManager.initLogger(home + "/bittube", "bittube.log");
         if (level >= WalletManager.LOGLEVEL_SILENT)
             WalletManager.setLogLevel(level);
     }

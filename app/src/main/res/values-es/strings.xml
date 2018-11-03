@@ -1,5 +1,5 @@
 <resources>
-    <string name="wallet_activity_name">Monedero</string>
+    <string name="wallet_activity_name">BitTube</string>
 
     <string name="menu_testnet">Testnet</string>
     <string name="menu_about">Acerca De</string>

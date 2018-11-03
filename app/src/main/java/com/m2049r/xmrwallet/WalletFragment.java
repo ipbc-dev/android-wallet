@@ -43,7 +43,7 @@ import com.m2049r.xmrwallet.model.Wallet;
 import com.m2049r.xmrwallet.service.exchange.api.ExchangeApi;
 import com.m2049r.xmrwallet.service.exchange.api.ExchangeCallback;
 import com.m2049r.xmrwallet.service.exchange.api.ExchangeRate;
-import com.m2049r.xmrwallet.service.exchange.kraken.ExchangeApiImpl;
+import com.m2049r.xmrwallet.service.exchange.coinmarketcap.ExchangeApiImpl;
 import com.m2049r.xmrwallet.util.Helper;
 import com.m2049r.xmrwallet.util.OkHttpClientSingleton;
 import com.m2049r.xmrwallet.widget.Toolbar;
@@ -151,7 +151,7 @@ public class WalletFragment extends Fragment
         // at this point selection is XMR in case of error
         String displayB;
         double amountA = Double.parseDouble(Wallet.getDisplayAmount(unlockedBalance)); // crash if this fails!
-        if (!"XMR".equals(balanceCurrency)) { // not XMR
+        if (!"TUBE".equals(balanceCurrency)) { // not XMR
             double amountB = amountA * balanceRate;
             displayB = Helper.getFormattedAmount(amountB, false);
         } else { // XMR
@@ -160,7 +160,7 @@ public class WalletFragment extends Fragment
         tvBalance.setText(displayB);
     }
 
-    String balanceCurrency = "XMR";
+    String balanceCurrency = "TUBE";
     double balanceRate = 1.0;
 
     private final ExchangeApi exchangeApi = new ExchangeApiImpl(OkHttpClientSingleton.getOkHttpClient());
@@ -173,7 +173,7 @@ public class WalletFragment extends Fragment
             String currency = (String) sCurrency.getSelectedItem();
             if (!currency.equals(balanceCurrency) || (balanceRate <= 0)) {
                 showExchanging();
-                exchangeApi.queryExchangeRate("XMR", currency,
+                exchangeApi.queryExchangeRate("TUBE", currency,
                         new ExchangeCallback() {
                             @Override
                             public void onSuccess(final ExchangeRate exchangeRate) {
@@ -229,10 +229,10 @@ public class WalletFragment extends Fragment
 
     public void exchange(final ExchangeRate exchangeRate) {
         hideExchanging();
-        if (!"XMR".equals(exchangeRate.getBaseCurrency())) {
-            Timber.e("Not XMR");
+        if (!"TUBE".equals(exchangeRate.getBaseCurrency())) {
+            Timber.e("Not TUBE");
             sCurrency.setSelection(0, true);
-            balanceCurrency = "XMR";
+            balanceCurrency = "TUBE";
             balanceRate = 1.0;
         } else {
             int spinnerPosition = ((ArrayAdapter) sCurrency.getAdapter()).getPosition(exchangeRate.getQuoteCurrency());
@@ -342,6 +342,7 @@ public class WalletFragment extends Fragment
         Wallet.ConnectionStatus daemonConnected = activityCallback.getConnectionStatus();
         if (daemonConnected == Wallet.ConnectionStatus.ConnectionStatus_Connected) {
             long daemonHeight = activityCallback.getDaemonHeight();
+            Timber.d("TUBE->>>>" + daemonHeight);
             if (!wallet.isSynchronized()) {
                 long n = daemonHeight - wallet.getBlockChainHeight();
                 sync = getString(R.string.status_syncing) + " " + formatter.format(n) + " " + getString(R.string.status_remaining);

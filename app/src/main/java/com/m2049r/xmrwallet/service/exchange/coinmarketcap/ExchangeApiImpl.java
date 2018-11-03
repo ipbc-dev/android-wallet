@@ -38,7 +38,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class ExchangeApiImpl implements ExchangeApi {
-    static final String CRYPTO_ID = "328";
+    static final String CRYPTO_ID = "2561";
 
     @NonNull
     private final OkHttpClient okHttpClient;
