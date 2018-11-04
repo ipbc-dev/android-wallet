@@ -45,7 +45,16 @@
             android:layout_width="0dp"
             android:layout_height="0dp" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.m2049r.xmrwallet.widget.InputLayout
+            android:id="@+id/il_dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            app:hint="@string/label_daemon"
+            app:autocomplete="true"/>
+
+        <!--<android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -62,7 +71,7 @@
                 android:inputType="textWebEmailAddress|textNoSuggestions"
                 android:maxLines="1"
                 android:textIsSelectable="true" />
-        </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>-->
 
         <TextView
             style="@style/MoneroLabel.Heading"
