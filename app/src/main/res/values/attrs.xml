@@ -11,6 +11,7 @@
     <declare-styleable name="InputLayout">
         <attr name="passwordToggleEnabled" format="boolean" />
         <attr name="counterEnabled" format="boolean" />
+        <attr name="autocomplete" format="boolean" />
         <attr name="hint" format="string" />
         <attr name="maxCounter" format="integer" />
 
