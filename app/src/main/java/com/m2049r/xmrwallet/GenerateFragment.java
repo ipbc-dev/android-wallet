@@ -96,6 +96,7 @@ public class GenerateFragment extends Fragment {
         ilWalletName.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                ilWalletName.onFocusTransformation(hasFocus);
                 if (!hasFocus) {
                     checkName();
                 }
@@ -104,6 +105,7 @@ public class GenerateFragment extends Fragment {
         ilWalletMnemonic.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                ilWalletMnemonic.onFocusTransformation(hasFocus);
                 if (!hasFocus) {
                     checkMnemonic();
                 }
@@ -112,6 +114,7 @@ public class GenerateFragment extends Fragment {
         ilWalletAddress.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                ilWalletAddress.onFocusTransformation(hasFocus);
                 if (!hasFocus) {
                     checkAddress();
                 }
@@ -120,6 +123,7 @@ public class GenerateFragment extends Fragment {
         ilWalletViewKey.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                ilWalletViewKey.onFocusTransformation(hasFocus);
                 if (!hasFocus) {
                     checkViewKey();
                 }
@@ -128,6 +132,7 @@ public class GenerateFragment extends Fragment {
         ilWalletSpendKey.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                ilWalletSpendKey.onFocusTransformation(hasFocus);
                 if (!hasFocus) {
                     checkSpendKey();
                 }

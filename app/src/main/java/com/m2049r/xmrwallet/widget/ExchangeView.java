@@ -216,9 +216,11 @@ public class ExchangeView extends LinearLayout
             }
         });
 
+
         etAmount.getEditText().setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                etAmount.onFocusTransformation(hasFocus);
                 if (!hasFocus) {
                     doExchange();
                 }
@@ -232,23 +234,6 @@ public class ExchangeView extends LinearLayout
                     return true;
                 }
                 return false;
-            }
-        });
-
-
-        etAmount.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable editable) {
-                etAmount.getTil().setError(null);
-                //doExchange();
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
 
