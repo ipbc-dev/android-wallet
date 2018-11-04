@@ -175,6 +175,7 @@ public class InputLayout extends FrameLayout {
                 break;
             case 4:
                 et.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
 
         }
     }
