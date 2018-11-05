@@ -59,11 +59,11 @@
 
         <Button
             android:id="@+id/bPrev"
-            style="@style/MoneroButton"
+            style="@style/button_moreno_blue"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableStart="@drawable/ic_navigate_prev_white_24dp"
+            android:drawableStart="@drawable/back_white"
             tools:text="Back" />
 
         <com.m2049r.xmrwallet.widget.DotBar
@@ -72,20 +72,20 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/gradientOrange"
-            app:activeColor="@color/white"
+
+            app:activeColor="@color/moneroBlue"
             app:activeDot="0"
             app:dotSize="12dp"
-            app:inactiveColor="@color/dotGray"
+            app:inactiveColor="@color/white"
             app:numberDots="4" />
 
         <Button
             android:id="@+id/bNext"
-            style="@style/MoneroButton"
+            style="@style/button_moreno_blue"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableEnd="@drawable/ic_navigate_next_white_24dp"
+            android:drawableEnd="@drawable/forward_white"
             tools:text="Next" />
     </LinearLayout>
 
