@@ -27,7 +27,7 @@
             android:entries="@array/currency"
             android:gravity="center"
             android:textAlignment="center"
-            tools:listitem="@layout/item_spinner_receive" />
+            tools:listitem="@layout/item_spinner_exchange" />
 
     </RelativeLayout>
 
@@ -46,7 +46,7 @@
             android:entries="@array/currency"
             android:gravity="center"
             android:textAlignment="center"
-            tools:listitem="@layout/item_spinner_receive_gray"  />
+            tools:listitem="@layout/item_spinner_exchange_gray"  />
 
         <TextView
             android:id="@+id/tvAmountB"

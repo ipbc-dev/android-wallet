@@ -121,8 +121,9 @@
 
     <!-- textSize is in dp here to match the layout of the numpad-->
     <style name="MoneroLabel.NumPad">
-        <item name="android:textSize">36sp</item>
-        <item name="android:textColor">@color/moneroWhite</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:gravity">center</item>
     </style>
@@ -397,6 +398,13 @@
 
     <style name="InputLayout_button.gray" parent="InputLayout_button">
         <item name="android:background">@drawable/shape_rect_round_gray</item>
+    </style>
+
+    <style name="container_white_round_rect">
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:background">@drawable/shape_rect_round</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
     </style>
 
 </resources>

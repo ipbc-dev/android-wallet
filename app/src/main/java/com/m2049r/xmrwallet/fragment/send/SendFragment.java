@@ -221,9 +221,12 @@ public class SendFragment extends Fragment
         CharSequence prevLabel = pagerAdapter.getPageTitle(position - 1);
         bPrev.setText(prevLabel);
         if (prevLabel != null) {
+            bPrev.setVisibility(View.VISIBLE);
             bPrev.setCompoundDrawablesWithIntrinsicBounds(arrowPrev, null, null, null);
         } else {
+            bPrev.setVisibility(View.INVISIBLE);
             bPrev.setCompoundDrawables(null, null, null, null);
+
         }
     }
 

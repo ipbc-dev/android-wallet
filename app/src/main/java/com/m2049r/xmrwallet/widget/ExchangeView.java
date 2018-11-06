@@ -21,9 +21,7 @@ package com.m2049r.xmrwallet.widget;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -167,9 +165,9 @@ public class ExchangeView extends LinearLayout
         etAmount = (InputLayout) findViewById(R.id.etAmount);
         tvAmountB = (TextView) findViewById(R.id.tvAmountB);
         sCurrencyA = (Spinner) findViewById(R.id.sCurrencyA);
-        sCurrencyA.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.currency, R.layout.item_spinner_receive));
+        sCurrencyA.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.currency, R.layout.item_spinner_exchange));
         sCurrencyB = (Spinner) findViewById(R.id.sCurrencyB);
-        sCurrencyB.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.currency, R.layout.item_spinner_receive_gray));
+        sCurrencyB.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.currency, R.layout.item_spinner_exchange_gray));
         evExchange = (ImageView) findViewById(R.id.evExchange);
         pbExchange = (ProgressBar) findViewById(R.id.pbExchange);
 
