@@ -25,6 +25,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -102,7 +103,7 @@ public class ExchangeTextView extends LinearLayout
     public void setAmount(String xmrAmount) {
         if (xmrAmount != null) {
             setCurrencyA(0);
-            tvAmountA.setText(xmrAmount);
+            tvAmountA.getEditText().setText(xmrAmount);
             setXmr(xmrAmount);
             this.notXmrAmount = null;
             doExchange();
@@ -117,7 +118,7 @@ public class ExchangeTextView extends LinearLayout
         return xmrAmount;
     }
 
-    TextView tvAmountA;
+    InputLayout tvAmountA;
     TextView tvAmountB;
     Spinner sCurrencyA;
     Spinner sCurrencyB;
@@ -180,10 +181,12 @@ public class ExchangeTextView extends LinearLayout
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        tvAmountA = (TextView) findViewById(R.id.tvAmountA);
+        tvAmountA = (InputLayout) findViewById(R.id.tvAmountA);
         tvAmountB = (TextView) findViewById(R.id.tvAmountB);
         sCurrencyA = (Spinner) findViewById(R.id.sCurrencyA);
+        sCurrencyA.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.currency, R.layout.item_spinner_exchange));
         sCurrencyB = (Spinner) findViewById(R.id.sCurrencyB);
+        sCurrencyB.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.currency, R.layout.item_spinner_exchange_gray));
         evExchange = (ImageView) findViewById(R.id.evExchange);
         pbExchange = (ProgressBar) findViewById(R.id.pbExchange);
 
@@ -432,7 +435,7 @@ public class ExchangeTextView extends LinearLayout
 
     @Override
     public void onDigitPressed(final int digit) {
-        tvAmountA.append(String.valueOf(digit));
+        tvAmountA.getEditText().append(String.valueOf(digit));
         doExchange();
     }
 
@@ -441,9 +444,9 @@ public class ExchangeTextView extends LinearLayout
         //TODO locale?
         if (tvAmountA.getText().toString().indexOf('.') == -1) {
             if (tvAmountA.getText().toString().isEmpty()) {
-                tvAmountA.append("0");
+                tvAmountA.getEditText().append("0");
             }
-            tvAmountA.append(".");
+            tvAmountA.getEditText().append(".");
         }
     }
 
@@ -452,14 +455,14 @@ public class ExchangeTextView extends LinearLayout
         String entry = tvAmountA.getText().toString();
         int length = entry.length();
         if (length > 0) {
-            tvAmountA.setText(entry.substring(0, entry.length() - 1));
+            tvAmountA.getEditText().setText(entry.substring(0, entry.length() - 1));
             doExchange();
         }
     }
 
     @Override
     public void onClearAll() {
-        tvAmountA.setText(null);
+        tvAmountA.getEditText().setText(null);
         doExchange();
     }
 }
