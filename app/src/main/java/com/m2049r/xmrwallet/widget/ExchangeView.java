@@ -243,7 +243,7 @@ public class ExchangeView extends LinearLayout
     public boolean checkEnteredAmount() {
         boolean ok = true;
         Timber.d("checkEnteredAmount");
-        String amountEntry = etAmount.getEditText().getText().toString();
+        String amountEntry = etAmount.getText();
         if (!amountEntry.isEmpty()) {
             try {
                 double a = Double.parseDouble(amountEntry);
@@ -359,7 +359,7 @@ public class ExchangeView extends LinearLayout
     boolean prepareExchange() {
         Timber.d("prepareExchange()");
         if (checkEnteredAmount()) {
-            String enteredAmount = etAmount.getEditText().getText().toString();
+            String enteredAmount = etAmount.getText();
             if (!enteredAmount.isEmpty()) {
                 String cleanAmount = "";
                 if (getCurrencyA() == 0) {
