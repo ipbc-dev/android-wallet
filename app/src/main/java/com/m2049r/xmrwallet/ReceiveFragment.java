@@ -156,7 +156,7 @@ public class ReceiveFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 etPaymentId.getEditText().setText((Wallet.generatePaymentId()));
-                etPaymentId.getEditText().setSelection(etPaymentId.getEditText().getText().length());
+                etPaymentId.getEditText().setSelection(etPaymentId.getText().length());
                 if (checkPaymentId()) { //&& evAmount.checkXmrAmount(true)) {
                     generateQr();
                 }
@@ -284,7 +284,7 @@ public class ReceiveFragment extends Fragment {
     }
 
     private boolean checkPaymentId() {
-        String paymentId = etPaymentId.getEditText().getText().toString();
+        String paymentId = etPaymentId.getText();
         boolean ok = paymentId.isEmpty() || Wallet.isPaymentIdValid(paymentId);
 
         if (!ok) {
@@ -298,7 +298,7 @@ public class ReceiveFragment extends Fragment {
     private void generateQr() {
         Timber.d("GENQR");
         String address = tvAddress.getText().toString();
-        String paymentId = etPaymentId.getEditText().getText().toString();
+        String paymentId = etPaymentId.getText();
         String xmrAmount = evAmount.getAmount();
         Timber.d("%s/%s/%s", xmrAmount, paymentId, address);
         if ((xmrAmount == null) || !Wallet.isAddressValid(address)) {
