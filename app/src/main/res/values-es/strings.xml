@@ -338,4 +338,5 @@
     <string name="about_whoami">Soy monerujo</string>
     <string name="info_send_xmrto_success_order_label">Orden XMR.TO</string>
     <string name="info_xmrto_enabled">Pago en BTC activado, toca para más info.</string>
+    <string name="save">guardar</string>
 </resources>

@@ -37,6 +37,7 @@ import com.m2049r.xmrwallet.model.Transfer;
 import com.m2049r.xmrwallet.model.Wallet;
 import com.m2049r.xmrwallet.util.Helper;
 import com.m2049r.xmrwallet.util.UserNotes;
+import com.m2049r.xmrwallet.widget.InputLayout;
 import com.m2049r.xmrwallet.widget.Toolbar;
 
 import java.text.SimpleDateFormat;
@@ -68,7 +69,7 @@ public class TxFragment extends Fragment {
     private TextView tvTxAmount;
     private TextView tvTxFee;
     private TextView tvTxTransfers;
-    private TextView etTxNotes;
+    private InputLayout etTxNotes;
     private Button bTxNotes;
 
     // XMRTO stuff
@@ -97,10 +98,10 @@ public class TxFragment extends Fragment {
         tvTxAmount = (TextView) view.findViewById(R.id.tvTxAmount);
         tvTxFee = (TextView) view.findViewById(R.id.tvTxFee);
         tvTxTransfers = (TextView) view.findViewById(R.id.tvTxTransfers);
-        etTxNotes = (TextView) view.findViewById(R.id.etTxNotes);
+        etTxNotes = (InputLayout) view.findViewById(R.id.etTxNotes);
         bTxNotes = (Button) view.findViewById(R.id.bTxNotes);
 
-        etTxNotes.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        //etTxNotes.setRawInputType(InputType.TYPE_CLASS_TEXT);
 
         bTxNotes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +109,7 @@ public class TxFragment extends Fragment {
                 info.notes = null; // force reload on next view
                 bTxNotes.setEnabled(false);
                 etTxNotes.setEnabled(false);
-                userNotes.setNote(etTxNotes.getText().toString());
+                userNotes.setNote(etTxNotes.getText());
                 activityCallback.onSetNote(info.hash, userNotes.txNotes);
             }
         });
@@ -205,7 +206,12 @@ public class TxFragment extends Fragment {
             info.notes = activityCallback.getTxNotes(info.hash);
         }
         userNotes = new UserNotes(info.notes);
-        etTxNotes.setText(userNotes.note);
+        if (userNotes.note.isEmpty()) {
+            etTxNotes.getEditText().setText(" ");
+        } else {
+            etTxNotes.getEditText().setText(userNotes.note);
+        }
+
     }
 
     private void setTxColour(int clr) {
