@@ -312,7 +312,7 @@
     <string name="tx_button_copy">Copy to Clipboard</string>
     <string name="tx_copy_message">Copied to Clipboard</string>
     <string name="tx_copy_label">Transaction Details</string>
-    <string name="tx_notes_hint">(optional)</string>
+    <string name="tx_notes_hint">Notes (optional)</string>
     <string name="tx_button_notes">Save</string>
     <string name="tx_notes_set">Notes saved</string>
     <string name="tx_notes_set_failed">Notes saved failed</string>
@@ -373,4 +373,5 @@
     <string name="fab_restore_key">Restore wallet from private keys</string>
     <string name="fab_restore_seed">Restore wallet 25 word seed</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="save">save</string>
 </resources>
