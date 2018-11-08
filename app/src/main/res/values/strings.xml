@@ -374,4 +374,5 @@
     <string name="fab_restore_seed">Restore wallet 25 word seed</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="save">save</string>
+    <string name="message_copied_send_key">Send Key copied to clipboard!</string>
 </resources>

@@ -160,6 +160,15 @@
                 <TextView
                     style="@style/label_bold"
                     android:text="@string/generate_spendkey_label" />
+
+                <ImageButton
+                    android:id="@+id/bCopySpendKey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="?android:selectableItemBackground"
+                    android:src="@drawable/copy_grey" />
+
             </FrameLayout>
 
             <TextView
