@@ -179,7 +179,7 @@ public class InputLayout extends FrameLayout {
                 et.setInputType(InputType.TYPE_CLASS_DATETIME);
                 break;
             case 4:
-                et.setInputType(InputType.TYPE_CLASS_NUMBER);
+                et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 break;
 
         }

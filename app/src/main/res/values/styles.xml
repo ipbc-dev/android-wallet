@@ -90,6 +90,10 @@
         <item name="android:textColor">@color/gradientOrange</item>
     </style>
 
+    <style name="MoneroText.Balance.Accent">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
     <style name="MoneroText.Unconfirmed">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/moneroGray</item>
@@ -313,7 +317,7 @@
     </style>
 
     <style name="MoneroTextAppearanceSpinnerItem" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
-        <item name="android:textColor">@color/gradientOrange</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <style name="MoneroSpinnerItem.Balance">

@@ -32,6 +32,7 @@ import com.m2049r.xmrwallet.data.TxData;
 import com.m2049r.xmrwallet.model.PendingTransaction;
 import com.m2049r.xmrwallet.util.Helper;
 import com.m2049r.xmrwallet.util.UserNotes;
+import com.m2049r.xmrwallet.widget.InputLayout;
 
 import timber.log.Timber;
 
@@ -64,6 +65,7 @@ public class SendSettingsWizardFragment extends SendWizardFragment {
 
     private Spinner sMixin;
     private Spinner sPriority;
+    private InputLayout ilNotes;
     private EditText etNotes;
     private EditText etDummy;
 
@@ -80,7 +82,8 @@ public class SendSettingsWizardFragment extends SendWizardFragment {
         sMixin = (Spinner) view.findViewById(R.id.sMixin);
         sPriority = (Spinner) view.findViewById(R.id.sPriority);
 
-        etNotes = (EditText) view.findViewById(R.id.etNotes);
+        ilNotes = view.findViewById(R.id.il_notes);
+        etNotes = ilNotes.getEditText();
         etNotes.setRawInputType(InputType.TYPE_CLASS_TEXT);
         etNotes.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -105,7 +108,7 @@ public class SendSettingsWizardFragment extends SendWizardFragment {
             TxData txData = sendListener.getTxData();
             txData.setPriority(Priorities[sPriority.getSelectedItemPosition()]);
             txData.setMixin(Mixins[sMixin.getSelectedItemPosition()]);
-            txData.setUserNotes(new UserNotes(etNotes.getText().toString()));
+            txData.setUserNotes(new UserNotes(ilNotes.getText()));
         }
         return true;
     }

@@ -473,7 +473,7 @@ public class ExchangeView extends LinearLayout
     @Override
     public void onPointPressed() {
         //TODO locale?
-        if (etAmount.getEditText().getText().toString().indexOf('.') == -1) {
+        if (etAmount.getText().indexOf('.') == -1) {
             etAmount.getEditText().append(".");
         }
     }
