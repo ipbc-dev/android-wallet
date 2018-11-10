@@ -76,7 +76,7 @@ public class WalletNode {
                     port = 38081;
                     break;
                 default:
-                    port = 24181;
+                    port = 0;
             }
         }
         this.networkType = networkType;
