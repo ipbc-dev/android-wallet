@@ -207,7 +207,7 @@ public class SendAddressWizardFragment extends SendWizardFragment {
     }
 
     private boolean checkAddressNoError() {
-        String address = etAddress.getEditText().getText().toString();
+        String address = etAddress.getText();
         return Wallet.isAddressValid(address)
                 || BitcoinAddressValidator.validate(address);
     }
@@ -223,13 +223,13 @@ public class SendAddressWizardFragment extends SendWizardFragment {
     }
 
     private boolean isIntegratedAddress() {
-        String address = etAddress.getEditText().getText().toString();
+        String address = etAddress.getText();
         return (address.length() == INTEGRATED_ADDRESS_LENGTH)
                 && Wallet.isAddressValid(address);
     }
 
     private boolean isBitcoinAddress() {
-        String address = etAddress.getEditText().getText().toString();
+        String address = etAddress.getText();
         if ((address.length() >= 27) && (address.length() <= 34))
             return BitcoinAddressValidator.validate(address);
         else
@@ -237,7 +237,7 @@ public class SendAddressWizardFragment extends SendWizardFragment {
     }
 
     private boolean checkPaymentId() {
-        String paymentId = etPaymentId.getEditText().getText().toString();
+        String paymentId = etPaymentId.getText();
         boolean ok = paymentId.isEmpty() || Wallet.isPaymentIdValid(paymentId);
         if (!ok) {
             etPaymentId.getTil().setError(getString(R.string.receive_paymentid_invalid));
@@ -267,12 +267,12 @@ public class SendAddressWizardFragment extends SendWizardFragment {
         if (sendListener != null) {
             TxData txData = sendListener.getTxData();
             if (isBitcoinAddress()) {
-                ((TxDataBtc) txData).setBtcAddress(etAddress.getEditText().getText().toString());
+                ((TxDataBtc) txData).setBtcAddress(etAddress.getText());
                 txData.setDestinationAddress(null);
                 txData.setPaymentId("");
             } else {
-                txData.setDestinationAddress(etAddress.getEditText().getText().toString());
-                txData.setPaymentId(etPaymentId.getEditText().getText().toString());
+                txData.setDestinationAddress(etAddress.getText());
+                txData.setPaymentId(etPaymentId.getText());
             }
         }
         return true;
