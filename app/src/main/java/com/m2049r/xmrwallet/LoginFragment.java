@@ -425,6 +425,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
         if (testnet) {
             daemonTestNet.setRecent(daemon);
         } else {
+            Timber.d("SAVE daemonMainnet");
             daemonMainNet.setRecent(daemon);
         }
 
