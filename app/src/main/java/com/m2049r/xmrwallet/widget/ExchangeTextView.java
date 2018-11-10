@@ -442,8 +442,8 @@ public class ExchangeTextView extends LinearLayout
     @Override
     public void onPointPressed() {
         //TODO locale?
-        if (tvAmountA.getText().toString().indexOf('.') == -1) {
-            if (tvAmountA.getText().toString().isEmpty()) {
+        if (tvAmountA.getText().indexOf('.') == -1) {
+            if (tvAmountA.getText().isEmpty()) {
                 tvAmountA.getEditText().append("0");
             }
             tvAmountA.getEditText().append(".");
@@ -456,6 +456,7 @@ public class ExchangeTextView extends LinearLayout
         int length = entry.length();
         if (length > 0) {
             tvAmountA.getEditText().setText(entry.substring(0, entry.length() - 1));
+            tvAmountA.getEditText().setSelection(entry.length() - 1);
             doExchange();
         }
     }
