@@ -9,4 +9,4 @@
     android:singleLine="true"
     android:background="@drawable/shape_bg_round_white"
     android:textAlignment="center"
-    tools:text="XMR" />
+    tools:text="TUBE" />

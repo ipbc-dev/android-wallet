@@ -561,11 +561,11 @@ public class SendFragment extends Fragment
     // xmr.to info box
     private static final String PREF_SHOW_XMRTO_ENABLED = "info_xmrto_enabled_send";
 
-    boolean showXmrtoEnabled = true;
+    boolean showXmrtoEnabled = false;
 
     void loadPrefs() {
         SharedPreferences sharedPref = activityCallback.getPrefs();
-        showXmrtoEnabled = sharedPref.getBoolean(PREF_SHOW_XMRTO_ENABLED, true);
+        //showXmrtoEnabled = sharedPref.getBoolean(PREF_SHOW_XMRTO_ENABLED, false);
     }
 
     void saveXmrToPrefs() {
