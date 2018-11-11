@@ -73,7 +73,7 @@ public class ExchangeRateTest {
     public void queryExchangeRate_shouldBeGetMethod()
             throws InterruptedException, TimeoutException {
 
-        exchangeApi.queryExchangeRate("XMR", "USD", mockExchangeCallback);
+        exchangeApi.queryExchangeRate("TUBE", "USD", mockExchangeCallback);
 
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("GET", request.getMethod());
@@ -83,7 +83,7 @@ public class ExchangeRateTest {
     public void queryExchangeRate_shouldHavePairInUrl()
             throws InterruptedException, TimeoutException {
 
-        exchangeApi.queryExchangeRate("XMR", "USD", mockExchangeCallback);
+        exchangeApi.queryExchangeRate("TUBE", "USD", mockExchangeCallback);
 
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/?pair=XMRUSD", request.getPath());
@@ -92,7 +92,7 @@ public class ExchangeRateTest {
     @Test
     public void queryExchangeRate_wasSuccessfulShouldRespondWithRate()
             throws InterruptedException, JSONException, TimeoutException {
-        final String base = "XMR";
+        final String base = "TUBE";
         final String quote = "USD";
         final double rate = 100;
         MockResponse jsonMockResponse = new MockResponse().setBody(
@@ -121,7 +121,7 @@ public class ExchangeRateTest {
     public void queryExchangeRate_wasNotSuccessfulShouldCallOnError()
             throws InterruptedException, JSONException, TimeoutException {
         mockWebServer.enqueue(new MockResponse().setResponseCode(500));
-        exchangeApi.queryExchangeRate("XMR", "USD", new ExchangeCallback() {
+        exchangeApi.queryExchangeRate("TUBE", "USD", new ExchangeCallback() {
             @Override
             public void onSuccess(final ExchangeRate exchangeRate) {
                 waiter.fail();
@@ -145,7 +145,7 @@ public class ExchangeRateTest {
         mockWebServer.enqueue(new MockResponse().
                 setResponseCode(200).
                 setBody("{\"error\":[\"EQuery:Unknown asset pair\"]}"));
-        exchangeApi.queryExchangeRate("XMR", "ABC", new ExchangeCallback() {
+        exchangeApi.queryExchangeRate("TUBE", "ABC", new ExchangeCallback() {
             @Override
             public void onSuccess(final ExchangeRate exchangeRate) {
                 waiter.fail();

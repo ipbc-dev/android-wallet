@@ -394,7 +394,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
     private NodeList daemonTestNet;
     private NodeList daemonMainNet;
 
-    boolean showXmrtoEnabled = true;
+    boolean showXmrtoEnabled = false;
 
     void loadPrefs() {
         SharedPreferences sharedPref = activityCallback.getPrefs();
@@ -403,7 +403,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
         daemonTestNet = new NodeList(sharedPref.getString(PREF_DAEMON_TESTNET, PREF_DAEMONLIST_TESTNET));
         setNet(testnetCheckMenu, false);
 
-        showXmrtoEnabled = sharedPref.getBoolean(PREF_SHOW_XMRTO_ENABLED, true);
+        //showXmrtoEnabled = sharedPref.getBoolean(PREF_SHOW_XMRTO_ENABLED, false);
     }
 
     void saveXmrToPrefs() {
