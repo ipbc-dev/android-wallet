@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/xmrwallet.iml" filepath="$PROJECT_DIR$/xmrwallet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xmrwallet-bittube.iml" filepath="$PROJECT_DIR$/xmrwallet-bittube.iml" />
     </modules>
   </component>
 </project>
