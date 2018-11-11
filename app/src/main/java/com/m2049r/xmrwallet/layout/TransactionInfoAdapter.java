@@ -60,8 +60,8 @@ public class TransactionInfoAdapter extends RecyclerView.Adapter<TransactionInfo
 
     public TransactionInfoAdapter(Context context, OnInteractionListener listener) {
         this.context = context;
-        inboundColour = ContextCompat.getColor(context, R.color.tx_green);
-        outboundColour = ContextCompat.getColor(context, R.color.tx_red);
+        inboundColour = ContextCompat.getColor(context, R.color.moneroBlue);
+        outboundColour = ContextCompat.getColor(context, R.color.moneroBlue);
         pendingColour = ContextCompat.getColor(context, R.color.tx_pending);
         failedColour = ContextCompat.getColor(context, R.color.tx_failed);
         infoItems = new ArrayList<>();
@@ -132,7 +132,7 @@ public class TransactionInfoAdapter extends RecyclerView.Adapter<TransactionInfo
 
             UserNotes userNotes = new UserNotes(infoItem.notes);
             if (userNotes.xmrtoKey != null) {
-                ivTxType.setVisibility(View.VISIBLE);
+                ivTxType.setVisibility(View.GONE);
             } else {
                 ivTxType.setVisibility(View.GONE); // gives us more space for the amount
             }
