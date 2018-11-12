@@ -73,7 +73,7 @@ public class LoginActivity extends SecureActivity
         GenerateReviewFragment.Listener, GenerateReviewFragment.AcceptListener, ReceiveFragment.Listener {
     private static final String GENERATE_STACK = "gen";
 
-    static final int DAEMON_TIMEOUT = 500; // deamon must respond in 500ms
+    static final int DAEMON_TIMEOUT = 2500; // deamon must respond in 500ms
 
     private Toolbar toolbar;
 

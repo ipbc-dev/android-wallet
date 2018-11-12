@@ -16,6 +16,8 @@
 
 package com.m2049r.xmrwallet.model;
 
+import timber.log.Timber;
+
 public class PendingTransaction {
     static {
         System.loadLibrary("monerujo");
@@ -88,6 +90,7 @@ public class PendingTransaction {
         String id = getFirstTxIdJ();
         if (id == null)
             throw new IndexOutOfBoundsException();
+            Timber.d("TUBE-->>IndexOutOfBoundsException");
         return id;
     }
 
