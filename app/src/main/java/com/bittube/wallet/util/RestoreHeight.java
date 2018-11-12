@@ -54,11 +54,11 @@
                 cal.set(Calendar.DST_OFFSET, 0);
                 cal.setTime(date);
                 cal.add(Calendar.DAY_OF_MONTH, -4); // give it some leeway
-                if (cal.get(Calendar.YEAR) < 2014)
-                    return 0;
-                if ((cal.get(Calendar.YEAR) == 2014) && (cal.get(Calendar.MONTH) <= 3))
+                if (cal.get(Calendar.YEAR) < 2018)
+                    return 1;
+                if ((cal.get(Calendar.YEAR) == 2018) && (cal.get(Calendar.MONTH) <= 1))
                     // before May 2014
-                    return 0;
+                    return 1;
 
                 Calendar query = (Calendar) cal.clone();
 
@@ -76,7 +76,7 @@
                     // if too recent, go back in time and find latest one we have
                     while (prevBc == null) {
                         cal.add(Calendar.MONTH, -1);
-                        if (cal.get(Calendar.YEAR) < 2014) {
+                        if (cal.get(Calendar.YEAR) < 2018) {
                             throw new IllegalStateException("endless loop looking for blockheight");
                         }
                         prevTime = cal.getTimeInMillis();
