@@ -218,6 +218,11 @@ public class SendFragment extends Fragment
         } else {
             bNext.setCompoundDrawables(null, null, null, null);
         }
+        if (position == pagerAdapter.getCount() - 1) {
+            bNext.setVisibility(View.INVISIBLE);
+        } else {
+            bNext.setVisibility(View.VISIBLE);
+        }
         CharSequence prevLabel = pagerAdapter.getPageTitle(position - 1);
         bPrev.setText(prevLabel);
         if (prevLabel != null) {

@@ -136,7 +136,7 @@ public class GenerateReviewFragment extends Fragment {
     }
 
     void copySpendKey() {
-        Helper.clipBoardCopy(getActivity(), getString(R.string.label_copy_viewkey), tvWalletViewKey.getText().toString());
+        Helper.clipBoardCopy(getActivity(), getString(R.string.label_copy_spendKey), tvWalletSpendKey.getText().toString());
         Toast.makeText(getActivity(), R.string.message_copied_send_key, Toast.LENGTH_SHORT).show();
     }
 

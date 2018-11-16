@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        style="@style/container_white_round_rect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -14,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -23,7 +24,7 @@
                 android:layout_gravity="top"
                 android:layout_marginEnd="24dp"
                 android:padding="6dp"
-                android:src="@drawable/ic_check_circle" />
+                android:src="@drawable/succesfully" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,20 +32,21 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/MoneroText.Success"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/label_send_success" />
+                    android:text="@string/label_send_success"
+                    android:textColor="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/tvTxAmount"
-                    style="@style/MoneroText.Balance.Accent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:textAlignment="textEnd"
-                    tools:text="143.008000 XMR" />
+                    android:textColor="colorPrimaryDark"
+                    android:textSize="28sp"
+                    tools:text="143.0080 XMR" />
 
                 <TextView
                     android:id="@+id/tvTxFee"
@@ -56,30 +58,39 @@
                     tools:text="+0.006817 Fee" />
 
             </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="16dp"
+            android:background="@color/moneroGray" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/header_top">
 
             <TextView
                 style="@style/MoneroText.Confirm.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_send_txid"
-                android:textAlignment="textStart" />
+                android:textAlignment="textStart"
+                android:textColor="@color/moneroGray" />
 
             <ImageButton
                 android:id="@+id/bCopyTxId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_marginStart="16dp"
                 android:background="?android:selectableItemBackground"
                 android:enabled="false"
                 android:src="@drawable/ic_content_nocopy_black_24dp" />
-        </LinearLayout>
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvTxId"
@@ -96,7 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_send_address"
-            android:textAlignment="textStart" />
+            android:textAlignment="textStart"
+            android:textColor="@color/moneroGray" />
 
         <TextView
             android:id="@+id/tvTxAddress"
@@ -108,28 +120,22 @@
             android:textAlignment="textStart"
             tools:text="4AdkPJoxn7JCvAby9szgnt93MSEwdnxdhaASxbTBm6x5dCwmsDep2UYN4FhStDn5i11nsJbpU7oj59ahg8gXb1Mg3viqCuk" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/labelPaymentId"
+            style="@style/MoneroText.Confirm.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_send_payment_id"
+            android:textColor="@color/moneroGray" />
+
+        <TextView
+            android:id="@+id/tvTxPaymentId"
+            style="@style/MoneroText.Confirm"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="4dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/labelPaymentId"
-                style="@style/MoneroText.Confirm.Label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_send_payment_id" />
-
-            <TextView
-                android:id="@+id/tvTxPaymentId"
-                style="@style/MoneroText.Confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                tools:text="d666a38d4a28fb38" />
-        </LinearLayout>
+            tools:text="d666a38d4a28fb38" />
 
     </LinearLayout>
 </ScrollView>
