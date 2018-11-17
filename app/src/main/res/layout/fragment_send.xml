@@ -91,12 +91,14 @@
 
     <Button
         android:id="@+id/bDone"
-        style="@style/MoneroButton"
-        android:layout_width="match_parent"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
         android:text="@string/label_send_done"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
 </RelativeLayout>

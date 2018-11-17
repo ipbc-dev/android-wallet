@@ -117,7 +117,7 @@ public class SendConfirmWizardFragment extends SendWizardFragment implements Sen
     boolean inProgress = false;
 
     public void hideProgress() {
-        llProgress.setVisibility(View.INVISIBLE);
+        llProgress.setVisibility(View.GONE);
         inProgress = false;
     }
 
@@ -149,7 +149,7 @@ public class SendConfirmWizardFragment extends SendWizardFragment implements Sen
 
     @Override
     public void sendFailed() {
-        pbProgressSend.setVisibility(View.INVISIBLE);
+        pbProgressSend.setVisibility(View.GONE);
     }
 
     @Override

@@ -233,7 +233,7 @@
     </style>
 
     <style name="MoneroText.Gray.SuccessFee">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="MoneroText.Button" parent="@android:style/TextAppearance.DeviceDefault.Medium">

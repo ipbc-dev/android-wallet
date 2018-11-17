@@ -190,6 +190,7 @@
     <string name="message_camera_not_permitted">No camera = No QR scanning!</string>
 
     <string name="label_copy_viewkey">View Key</string>
+    <string name="label_copy_spendKey">Spend Key</string>
     <string name="label_copy_address">Public Address</string>
     <string name="label_copy_xmrtokey">XMR.TO Key</string>
     <string name="message_copy_viewkey">View Key copied to clipboard!</string>
