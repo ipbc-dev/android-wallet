@@ -487,6 +487,7 @@ Java_com_m2049r_xmrwallet_model_WalletManager_resolveOpenAlias(JNIEnv *env, jobj
 JNIEXPORT jboolean JNICALL
 Java_com_m2049r_xmrwallet_model_WalletManager_closeJ(JNIEnv *env, jobject instance,
                                                      jobject walletInstance) {
+    LOGD("TUBE daemon close wallet");
     Bitmonero::Wallet *wallet = getHandle<Bitmonero::Wallet>(env, walletInstance);
     bool closeSuccess = Bitmonero::WalletManagerFactory::getWalletManager()->closeWallet(wallet,
                                                                                          false);
@@ -498,7 +499,7 @@ Java_com_m2049r_xmrwallet_model_WalletManager_closeJ(JNIEnv *env, jobject instan
             delete walletListener;
         }
     }
-    LOGD("wallet closed");
+    LOGD("TUBE wallet closed");
     return static_cast<jboolean>(closeSuccess);
 }
 
