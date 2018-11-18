@@ -9,67 +9,76 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            style="@style/MoneroText.Confirm.Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_send_address"
-            android:textAlignment="textStart" />
-
-        <TextView
-            android:id="@+id/tvTxAddress"
-            style="@style/MoneroText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:textAlignment="textStart"
-            tools:text="4AdkPJoxn7JCvAby9szgnt93MSEwdnxdhaASxbTBm6x5dCwmsDep2UYN4FhStDn5i11nsJbpU7oj59ahg8gXb1Mg3viqCuk" />
-
         <LinearLayout
+            style="@style/container_white_round_rect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 style="@style/MoneroText.Confirm.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_send_payment_id"
-                android:textAlignment="textStart" />
-
-            <TextView
-                android:id="@+id/tvTxPaymentId"
-                style="@style/MoneroText.Confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:text="@string/label_send_address"
                 android:textAlignment="textStart"
-                tools:text="d666a38d4a28fb38" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal">
+                android:textColor="@color/moneroGray"/>
 
             <TextView
-                style="@style/MoneroText.Confirm.Label"
+                android:id="@+id/tvTxAddress"
+                style="@style/MoneroText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_send_notes"
-                android:textAlignment="textStart" />
-
-            <TextView
-                android:id="@+id/tvTxNotes"
-                style="@style/MoneroText.Confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:textAlignment="textStart"
-                tools:text="gunegugumobil" />
+                tools:text="4AdkPJoxn7JCvAby9szgnt93MSEwdnxdhaASxbTBm6x5dCwmsDep2UYN4FhStDn5i11nsJbpU7oj59ahg8gXb1Mg3viqCuk" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MoneroText.Confirm.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_send_payment_id"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/moneroGray" />
+
+                <TextView
+                    android:id="@+id/tvTxPaymentId"
+                    style="@style/MoneroText.Confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    tools:text="d666a38d4a28fb38" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MoneroText.Confirm.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_send_notes"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/moneroGray" />
+
+                <TextView
+                    android:id="@+id/tvTxNotes"
+                    style="@style/MoneroText.Confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    tools:text="gunegugumobil" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -97,11 +106,13 @@
 
         <LinearLayout
             android:id="@+id/llConfirmSend"
+            style="@style/container_white_round_rect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +121,7 @@
 
                 <TextView
                     android:id="@+id/tvTxAmountLabel"
-                    style="@style/MoneroLabel.Gray"
+                    style="@style/label.blue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -136,7 +147,7 @@
 
                 <TextView
                     android:id="@+id/tvTxFeeLabel"
-                    style="@style/MoneroLabel.Gray"
+                    style="@style/label.blue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -153,6 +164,13 @@
                     tools:text="0.006817000000" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/moneroGray"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -162,7 +180,7 @@
 
                 <TextView
                     android:id="@+id/tvTxTotalLabel"
-                    style="@style/MoneroLabel.Caps.Black"
+                    style="@style/label.blue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -181,13 +199,13 @@
 
             <Button
                 android:id="@+id/bSend"
-                style="@style/MoneroButton.Green"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
                 android:enabled="true"
                 android:padding="8dp"
-                android:text="@string/send_send_label" />
+                android:text="@string/send_send_label"
+                style="@style/Widget.AppCompat.Button.Colored" />
 
             <ProgressBar
                 android:id="@+id/pbProgressSend"
@@ -196,7 +214,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:indeterminate="true"
-                android:visibility="invisible" />
+                android:visibility="gone"
+                tools:visibility="visible" />
 
         </LinearLayout>
 
