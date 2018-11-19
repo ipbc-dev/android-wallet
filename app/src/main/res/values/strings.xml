@@ -350,17 +350,17 @@
     <string name="archive_alert_no">No thanks!</string>
 
     <string-array name="mixin" translatable="false">
-        <item>Ringsize 3</item>
-        <item>Ringsize 6</item>
-        <item>Ringsize 9</item>
-        <item>Ringsize 12</item>
+        <item>RINGSIZE 3</item>
+        <item>RINGSIZE 6</item>
+        <item>RINGSIZE 9</item>
+        <item>RINGSIZE 12</item>
     </string-array>
 
     <string-array name="priority">
-        <item>Priority Default</item>
-        <item>Priority Low</item>
-        <item>Priority Medium</item>
-        <item>Priority High</item>
+        <item>PRIORITY DEFAULT</item>
+        <item>PRIORITY LOW</item>
+        <item>PRIORITY MEDIUM</item>
+        <item>PRIORITY HIGH</item>
     </string-array>
 
     <string-array name="currency" translatable="false">

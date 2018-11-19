@@ -14,35 +14,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16sp"
-        android:layout_marginTop="16sp"
+        android:layout_margin="16dp"
         android:orientation="horizontal">
 
-        <TextView
-            style="@style/MoneroLabel.Caps.Gray.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
-            android:layout_marginEnd="8dp"
-            android:text="@string/label_send_settings_advanced"
-            android:textAlignment="textEnd" />
 
         <Spinner
             android:id="@+id/sMixin"
             style="@style/MoneroSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="36dp"
             android:layout_marginEnd="8dp"
-            android:layout_weight="1"
             android:entries="@array/mixin"
             android:textAlignment="center" />
 
         <Spinner
             android:id="@+id/sPriority"
             style="@style/MoneroSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="170dp"
+            android:layout_height="36dp"
             android:entries="@array/priority"
             android:textAlignment="center" />
 
@@ -54,16 +43,25 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:gravity="center"
+        android:layout_marginLeft="16dp"
         android:drawablePadding="8dp"
         android:drawableStart="@drawable/ic_info_outline_gray_24dp"
         android:text="@string/info_send_prio_fees" />
 
-    <com.m2049r.xmrwallet.widget.InputLayout
-        android:id="@+id/il_notes"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:hint="@string/send_notes_hint"
-        app:type="multiline"/>
+        style="@style/container_white_round_rect">
+
+        <com.m2049r.xmrwallet.widget.InputLayout
+            android:id="@+id/il_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="@string/send_notes_hint"
+            app:type="multiline"/>
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>
