@@ -55,7 +55,7 @@ android {
 
                 if (abiName == null) abiName = "universal"
                 def v = "${variant.versionName}".replaceFirst(" .*\$", "").replace(".", "x")
-                outputFileName = "$rootProject.ext.apkName-" + v + "_" + abiName + ".apk"
+                outputFileName = "bittube-" + v + "_" + abiName + ".apk"
         }
     }
 }
