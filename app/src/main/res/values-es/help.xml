@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_create_new"><![CDATA[
-        <h1>Crear nuevo monedero</h1>
+        <h1>Crear nuevo BitTube</h1>
         <p>¡En caso de que necesites una nueva dirección de BitTube!</p>
         <p>Introduce un nombre único para tu monedero y una contraseña.
         La contraseña es utilizada para proteger los datos de tu monedero en el dispositivo.
@@ -86,8 +86,7 @@
         <h1>Lista de monederos</h1>
         <h2>Nodo</h2>
         <p>BitTube utiliza un nodo remoto para comunicarse con la red de BitTube sin tener que
-        descargar y almacenar una copia completa de la cadena de bloques. Puedes encontrar una lista
-        de nodos remotos populares o aprender como montar tu propio nodo remoto aquí https://moneroworld.com</p>
+        descargar y almacenar una copia completa de la cadena de bloques.
         <p>BitTube viene con un nodo remoto ya preconfigurado. También recuerda los últimos cinco
         nodos utilizados.</p>
         <h2>Monederos</h2>
@@ -124,8 +123,6 @@
         <p><b>¡Ayuda! ¡El saldo de mi monedero ha desaparecido o aparece sin confirmar!</b><br/>
         ¡No entres en pánico! Cuando envias fondos a tu monedero, parte de tu saldo se mostrará
         temporalmente como sin confirmar.
-        Esto es debido a como funcionan las transacciones y su cambio en BitTube. Todo está bien.
-        Puedes leer más al respecto en https://getmonero.org/resources/moneropedia/change.html
         <h2>Lista de transacciones</h2>
         <p>Es una lista con las transacciones del monedero. Ten en cuenta que en monederos de solo vista, únicamente se
         mostrarán las transacciones entrantes y no las salientes, por lo tanto la suma no es indicativa de los fondos disponibles.</p>
