@@ -32,8 +32,8 @@
     <string name="label_receive_info_gen_qr_code">Berühren für QR-Code</string>
     <string name="info_send_prio_fees">Höhere Priorität = Höhere Gebühr</string>
 
-    <string name="info_xmrto_enabled">BTC Zahlung aktiviert, tippe für mehr Infos.</string>
-    <string name="info_crazypass_enabled">CrAzYpass aktiviert, tippe für mehr Infos.</string>
+    <string name="info_xmrto_enabled"></string>
+    <string name="info_crazypass_enabled"></string>
 
     <string name="info_xmrto"><![CDATA[
         <b>Du hast eine BTC Adresse eingegeben.</b><br/>
@@ -146,9 +146,9 @@
     <string name="label_wallet_receive">Nehmen</string>
     <string name="label_wallet_send">Geben</string>
 
-    <string name="xmr_unconfirmed_amount">+ %1$s XMR unbestätigt</string>
+    <string name="xmr_unconfirmed_amount">+ %1$s TUBE unbestätigt</string>
 
-    <string name="service_description">monerujo Service</string>
+    <string name="service_description">BitTube Service</string>
 
     <string name="status_synced">Synchronisiert:</string>
     <string name="status_remaining">Blöcke verbleibend</string>
@@ -167,7 +167,7 @@
     <string name="message_copy_txid">Transaktions-ID in Zwischenablage kopiert!</string>
     <string name="message_nocopy">Kopieren aus Sicherheitsgründen deaktiviert!</string>
 
-    <string name="message_exchange_failed">Umtausch-Rate nicht verfügbar!\nNutze XMR/XMR oder versuche es noch einmal</string>
+    <string name="message_exchange_failed">Umtausch-Rate nicht verfügbar!\nNutze TUBE/TUBE oder versuche es noch einmal</string>
 
     <string name="generate_title">Wallet erstellen</string>
     <string name="generate_name_hint">Wallet Name</string>
@@ -177,7 +177,7 @@
         <strong>Fingerabdruck-Authentifizierung</strong>
         <p>Mit aktivierter Fingerabdruck-Authentifizierung kannst du ohne Eingabe eines Passworts 
         das Wallet-Saldo einsehen sowie Gelder empfangen.</p>
-        <p>Aus Sicherheitsgründen wird Monerujo weiterhin dein Passwort abfragen, 
+        <p>Aus Sicherheitsgründen wird BitTube weiterhin dein Passwort abfragen, 
         wenn du Wallet-Details einsehen oder Gelder senden möchtest.</p>
         <strong>Sicherheits-Warnung</strong>
         <p>Bedenke bitte, dass jeder mit Zugriff auf deinen Fingerabdruck dein Wallet-Saldo einsehen kann.</p>
@@ -221,19 +221,19 @@
 
     <string name="send_amount_btc_xmr">%1$s (Anhaltswert)</string>
 
-    <string name="send_address_hint">Empfänger XMR oder BTC Adresse</string>
+    <string name="send_address_hint">Empfänger TUBE</string>
     <string name="send_paymentid_hint">Zahlungs-ID (optional)</string>
     <string name="send_amount_hint">0.00</string>
     <string name="send_notes_hint">Private Notizen (optional)</string>
     <string name="send_generate_paymentid_hint">Erzeuge</string>
     <string name="send_qr_hint">Scannen</string>
-    <string name="send_send_label">Gib meine wertvollen Moneroj aus</string>
-    <string name="send_send_timed_label">Gib meine wertvollen Moneroj aus (%1$s)</string>
+    <string name="send_send_label">Gib meine wertvollen BitTubes aus</string>
+    <string name="send_send_timed_label">Gib meine wertvollen BitTubes aus (%1$s)</string>
     <string name="send_qr_invalid">Kein QR-Code</string>
     <string name="send_qr_address_invalid">Kein gültiger Zahlungs-QR-Code</string>
     <string name="send_address_invalid">Keine gültige Adresse</string>
     <string name="send_title">Senden</string>
-    <string name="send_available">Saldo: %1$s XMR</string>
+    <string name="send_available">Saldo: %1$s TUBE</string>
     <string name="send_address_title">Adresse</string>
     <string name="send_amount_title">Betrag</string>
     <string name="send_settings_title">Optionen</string>
@@ -241,12 +241,12 @@
     <string name="send_success_title">Fertig</string>
 
     <string name="send_amount_label">Betrag</string>
-    <string name="send_fee_btc_label">Gebühr (XMR)</string>
+    <string name="send_fee_btc_label">Gebühr (TUBE)</string>
     <string name="send_fee_label">Gebühr</string>
-    <string name="send_total_btc_label">Total (XMR)</string>
+    <string name="send_total_btc_label">Total (TUBE)</string>
     <string name="send_total_label">Total</string>
 
-    <string name="send_amount">%1$s XMR</string>
+    <string name="send_amount">%1$s TUBE</string>
     <string name="send_fee">+%1$s Gebühr</string>
 
     <string name="send_create_tx_error_title">Transaktionserstellungsfehler</string>
@@ -285,13 +285,13 @@
 
     <string name="receive_amount_too_big">Max. %1$s</string>
     <string name="receive_amount_negative">Min. 0</string>
-    <string name="receive_amount_nan">XMR keine Nummer</string>
+    <string name="receive_amount_nan">TUBE keine Nummer</string>
 
     <string name="receive_title">Empfangen</string>
 
     <string name="details_alert_message">Sensible Daten werden angezeigt.\nSchau über deine Schulter!</string>
     <string name="details_alert_yes">Ich bin sicher</string>
-    <string name="details_alert_no">Nein, doch nicht!</string>
+    <string name="details_alert_no">Zurück!</string>
     <string name="details_title">Details</string>
 
     <string name="archive_alert_message">Das Wallet wird archiviert und dann gelöscht!</string>
