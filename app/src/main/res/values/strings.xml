@@ -376,4 +376,6 @@
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="save">save</string>
     <string name="message_copied_send_key">Send Key copied to clipboard!</string>
+
+    <string name="loading_message">Loading…</string>
 </resources>
