@@ -24,11 +24,13 @@
             android:padding="20dp">
 
             <com.m2049r.xmrwallet.widget.InputLayout
+                android:id="@+id/il_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hint="Email" />
 
             <com.m2049r.xmrwallet.widget.InputLayout
+                android:id="@+id/il_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hint="Password"
