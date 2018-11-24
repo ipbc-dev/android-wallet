@@ -273,7 +273,7 @@ public class InputLayout extends FrameLayout {
     private void startError() {
         //mErrorTV.setVisibility(VISIBLE);
 
-        TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
+        TranslateAnimation shake = new TranslateAnimation(0, 3, 0, 0);
         shake.setDuration(500);
         shake.setInterpolator(new CycleInterpolator(5));
 
