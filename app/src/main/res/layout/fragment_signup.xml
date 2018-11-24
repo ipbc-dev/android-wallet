@@ -25,23 +25,27 @@
             android:padding="20dp">
 
             <com.m2049r.xmrwallet.widget.InputLayout
+                android:id="@+id/il_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hint="Username" />
 
             <com.m2049r.xmrwallet.widget.InputLayout
+                android:id="@+id/il_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:counterEnabled="true"
                 app:hint="Email" />
 
             <com.m2049r.xmrwallet.widget.InputLayout
+                android:id="@+id/il_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hint="Password"
                 app:type="password" />
 
             <com.m2049r.xmrwallet.widget.InputLayout
+                android:id="@+id/il_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hint="Confirm Password"
