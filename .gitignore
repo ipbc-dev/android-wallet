@@ -10,3 +10,4 @@
 .externalNativeBuild
 .DS_Store
 /app/release
+/app/google-services.json
