@@ -9,10 +9,14 @@ import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.CycleInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.m2049r.xmrwallet.R;
+import com.m2049r.xmrwallet.widget.control.Validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +34,7 @@ public class InputLayout extends FrameLayout {
     private int maxCounter = 10;
     private int counter;
     private String hint = "";
+    private Validator[] mValidators;
 
     public InputLayout(Context context) {
         super(context);
@@ -92,8 +97,6 @@ public class InputLayout extends FrameLayout {
         });
 
         setInputType();
-
-        onFocusTransformation(false);
 
         if (passwordToggleEnabled) {
             til.setPasswordVisibilityToggleEnabled(true);
@@ -161,6 +164,8 @@ public class InputLayout extends FrameLayout {
 
             }
         });
+
+        onFocusTransformation(false);
     }
 
     private void setInputType() {
@@ -245,6 +250,52 @@ public class InputLayout extends FrameLayout {
         this.hint = hint;
         if (til != null)
             til.setHint(hint);
+    }
+
+
+    public void initValidators(Validator... validators) {
+        mValidators = validators;
+    }
+
+    public boolean isValid() {
+        for (Validator validator : mValidators) {
+            if (!validator.isValid(getText())) {
+                til.setError(validator.error());
+                startError();
+                return false;
+            } else {
+                til.setError(null);
+            }
+        }
+        return true;
+    }
+
+    private void startError() {
+        //mErrorTV.setVisibility(VISIBLE);
+
+        TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
+        shake.setDuration(500);
+        shake.setInterpolator(new CycleInterpolator(5));
+
+        shake.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                //mEditText.setHintTextColor(mErrorHintTextColor);
+                //mErrorTV.setTextColor(mErrorTextColor);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //mEditText.setHintTextColor(mHintTextColor);
+                //mErrorTV.setTextColor(mErrorTextColor);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
+        startAnimation(shake);
     }
 
 }

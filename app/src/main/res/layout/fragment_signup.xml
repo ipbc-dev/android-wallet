@@ -28,28 +28,33 @@
                 android:id="@+id/il_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
                 app:hint="Username" />
 
             <com.m2049r.xmrwallet.widget.InputLayout
                 android:id="@+id/il_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:counterEnabled="true"
+                android:layout_marginBottom="6dp"
                 app:hint="Email" />
 
             <com.m2049r.xmrwallet.widget.InputLayout
                 android:id="@+id/il_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
                 app:hint="Password"
-                app:type="password" />
+                app:type="password"
+                app:passwordToggleEnabled="true"/>
 
             <com.m2049r.xmrwallet.widget.InputLayout
                 android:id="@+id/il_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
                 app:hint="Confirm Password"
-                app:type="password" />
+                app:type="password"
+                app:passwordToggleEnabled="true"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

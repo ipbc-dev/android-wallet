@@ -378,4 +378,10 @@
     <string name="message_copied_send_key">Send Key copied to clipboard!</string>
 
     <string name="loading_message">Loading…</string>
+
+    <string name="no_empty_error">%s required</string>
+    <string name="size_validator_error">%s is too short</string>
+    <string name="email_validator_error">E-mail is invalid</string>
+    <string name="compare_validator_error">The password doesn\'t match</string>
+
 </resources>

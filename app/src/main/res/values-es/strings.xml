@@ -343,4 +343,10 @@
     <string name="message_copied_send_key">¡Clave de envio copiada al portapapeles!</string>
 
     <string name="loading_message">Cargando…</string>
+
+    <string name="no_empty_error">%s no puede ser vacío</string>
+    <string name="size_validator_error">%s es muy corto</string>
+    <string name="email_validator_error">El formato del email es inválido</string>
+    <string name="compare_validator_error">La contraseña no coincide</string>
+
 </resources>

@@ -18,12 +18,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.m2049r.xmrwallet.LoginActivity;
 import com.m2049r.xmrwallet.PreLoginActivity;
 import com.m2049r.xmrwallet.R;
 import com.m2049r.xmrwallet.util.DialogUtil;
 import com.m2049r.xmrwallet.widget.InputLayout;
 import com.m2049r.xmrwallet.widget.ProgressDialogCV;
+import com.m2049r.xmrwallet.widget.control.EmailValidator;
+import com.m2049r.xmrwallet.widget.control.EqualValidator;
+import com.m2049r.xmrwallet.widget.control.MinSizeValidator;
+import com.m2049r.xmrwallet.widget.control.NoEmptyValidator;
 
 public class SignupFragment extends Fragment implements View.OnClickListener {
 
@@ -31,11 +36,12 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
     private Context mContext;
     private FirebaseAuth auth;
+    private FirebaseFirestore firestore;
 
     private TextView signInTV;
     private Button signUpBTN;
     private TextView headerTitleTV;
-    private InputLayout emailIL, passwordIL, confirmPassIL;
+    private InputLayout usernameIL, emailIL, passwordIL, confirmPassIL;
     private ProgressDialogCV progressDialog;
 
     public static SignupFragment newInstance() {
@@ -52,13 +58,18 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_signup, container, false);
         mContext = getActivity();
+
         auth = FirebaseAuth.getInstance();
+        FirebaseFirestore.setLoggingEnabled(true);
+        firestore = FirebaseFirestore.getInstance();
+
         initComponents(rootView);
         initListeners();
         return rootView;
     }
 
     private void initComponents(View rootView) {
+        usernameIL = rootView.findViewById(R.id.il_username);
         emailIL = rootView.findViewById(R.id.il_email);
         passwordIL = rootView.findViewById(R.id.il_password);
         confirmPassIL = rootView.findViewById(R.id.il_confirm_password);
@@ -67,6 +78,16 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         headerTitleTV = rootView.findViewById(R.id.tv_header_title);
         headerTitleTV.setText("Sign up");
         progressDialog = new ProgressDialogCV(getActivity(), R.string.loading_message);
+
+        usernameIL.initValidators(new NoEmptyValidator("Username"));
+        emailIL.initValidators(new NoEmptyValidator("E-mail"),
+                new EmailValidator());
+        passwordIL.initValidators(new NoEmptyValidator("Password"),
+                new MinSizeValidator("Password", 6),
+                new EqualValidator(confirmPassIL));
+        confirmPassIL.initValidators(new NoEmptyValidator("Password"),
+                new MinSizeValidator("Password", 6),
+                new EqualValidator(passwordIL));
     }
 
     private void initListeners() {
@@ -90,32 +111,13 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     }
 
     private void signUp() {
+        if (!usernameIL.isValid() | !emailIL.isValid() | !passwordIL.isValid() | !confirmPassIL.isValid()) {
+            return;
+        }
+
         String email = emailIL.getText();
         String password = passwordIL.getText();
-        String confirmPass = confirmPassIL.getText();
 
-        if (TextUtils.isEmpty(email)) {
-            emailIL.getTil().setError("Enter email address!");
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            passwordIL.getTil().setError("Enter password!");
-            return;
-        }
-
-        if (!TextUtils.equals(password, confirmPass)) {
-            passwordIL.getTil().setError("Password must be equals!");
-            confirmPassIL.getTil().setError("Password must be equals!");
-            return;
-        }
-
-        if (password.length() < 6) {
-            passwordIL.getTil().setError("Password too short, enter minimum 6 characters!");
-            return;
-        }
-
-        //progressBar.setVisibility(View.VISIBLE);
         //create user
         progressDialog.show();
         auth.createUserWithEmailAndPassword(email, password)
