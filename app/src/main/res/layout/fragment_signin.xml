@@ -27,6 +27,7 @@
                 android:id="@+id/il_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
                 app:hint="Email" />
 
             <com.m2049r.xmrwallet.widget.InputLayout

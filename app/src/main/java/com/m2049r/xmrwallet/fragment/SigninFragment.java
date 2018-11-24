@@ -33,6 +33,10 @@ import com.m2049r.xmrwallet.PreLoginActivity;
 import com.m2049r.xmrwallet.R;
 import com.m2049r.xmrwallet.widget.InputLayout;
 import com.m2049r.xmrwallet.widget.ProgressDialogCV;
+import com.m2049r.xmrwallet.widget.control.EmailValidator;
+import com.m2049r.xmrwallet.widget.control.EqualValidator;
+import com.m2049r.xmrwallet.widget.control.MinSizeValidator;
+import com.m2049r.xmrwallet.widget.control.NoEmptyValidator;
 
 public class SigninFragment extends Fragment implements View.OnClickListener {
 
@@ -89,6 +93,11 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
         recoveryTV = rootView.findViewById(R.id.tv_recovery);
         progressDialog = new ProgressDialogCV(getActivity(), R.string.loading_message);
         googleFL = rootView.findViewById(R.id.fl_google);
+
+        emailIL.initValidators(new NoEmptyValidator("E-mail"),
+                new EmailValidator());
+        passwordIL.initValidators(new NoEmptyValidator("Password"),
+                new MinSizeValidator("Password", 6));
     }
 
     private void initListeners() {
@@ -120,24 +129,12 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
     }
 
     private void signIn() {
+        if (!emailIL.isValid() | !passwordIL.isValid()) {
+            return;
+        }
 
         String email = emailIL.getText();
         String password = passwordIL.getText();
-
-        if (TextUtils.isEmpty(email)) {
-            emailIL.getTil().setError("Enter email address!");
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            passwordIL.getTil().setError("Enter password!");
-            return;
-        }
-
-        if (password.length() < 6) {
-            passwordIL.getTil().setError("Password too short, enter minimum 6 characters!");
-            return;
-        }
 
         //authenticate user
         progressDialog.show();
