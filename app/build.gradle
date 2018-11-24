@@ -1,14 +1,26 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'BitTube Wallet'
+            keyPassword 'Sommer2012'
+        }
+    }
+
+    lintOptions {
+
+        checkReleaseBuilds false
+
+    }
+
     compileSdkVersion 28
     buildToolsVersion '27.0.3'
     defaultConfig {
-        applicationId "com.m2049r.xmrwallet"
+        applicationId 'com.bittube.wallet'
         minSdkVersion 21
-        targetSdkVersion 25
-        versionCode 87
-        versionName "1.0.0 'BitTube Titanium'"
+        targetSdkVersion 26
+        versionName 'BitTube Wallet'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
@@ -16,8 +28,10 @@ android {
                 arguments '-DANDROID_STL=c++_shared'
             }
         }
+        versionNameSuffix 'BitTube Wallet'
+        versionCode 2
+        signingConfig signingConfigs.config
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -32,7 +46,6 @@ android {
             path "CMakeLists.txt"
         }
     }
-
     splits {
         abi {
             enable true
@@ -41,10 +54,8 @@ android {
             universalApk true
         }
     }
-
     // Map for the version code that gives each ABI a value.
     def abiCodes = ['armeabi-v7a': 1, 'arm64-v8a': 2, 'x86': 3, 'x86_64': 4]
-
     // APKs for the same app that all have the same version information.
     android.applicationVariants.all { variant ->
         // Assigns a different version code for each output APK.
@@ -57,6 +68,8 @@ android {
                 def v = "${variant.versionName}".replaceFirst(" .*\$", "").replace(".", "x")
                 outputFileName = "bittube-" + v + "_" + abiName + ".apk"
         }
+    }
+    productFlavors {
     }
 }
 
