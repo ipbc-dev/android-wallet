@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         style="@style/container_white_round_rect">
 
-        <com.m2049r.xmrwallet.widget.InputLayout
+        <com.bittube.wallet.widget.InputLayout
             android:id="@+id/il_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

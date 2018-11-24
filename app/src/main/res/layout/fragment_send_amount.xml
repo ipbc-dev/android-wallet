@@ -23,7 +23,7 @@
                 android:gravity="center"
                 android:visibility="gone" />
 
-            <com.m2049r.xmrwallet.widget.ExchangeTextView
+            <com.bittube.wallet.widget.ExchangeTextView
                 android:id="@+id/evAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
                 android:layout_marginTop="16dp"
                 android:orientation="vertical" />
 
-            <com.m2049r.xmrwallet.widget.NumberPadView
+            <com.bittube.wallet.widget.NumberPadView
                 android:id="@+id/numberPad"
                 style="@style/container_white_round_rect"
                 android:layout_width="match_parent"

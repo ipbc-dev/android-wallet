@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.m2049r.xmrwallet.widget.InputLayout
+            <com.bittube.wallet.widget.InputLayout
                 android:id="@+id/il_wallet_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,14 +28,14 @@
                 app:maxCounter="20"
                 app:hint="@string/generate_name_hint"/>
 
-            <com.m2049r.xmrwallet.widget.InputLayout
+            <com.bittube.wallet.widget.InputLayout
                 android:id="@+id/il_wallet_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 app:hint="@string/generate_password_hint"/>
 
-            <com.m2049r.xmrwallet.widget.InputLayout
+            <com.bittube.wallet.widget.InputLayout
                 android:id="@+id/il_wallet_mnemonic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                 app:type="multiline"
                 android:visibility="gone"/>
 
-            <com.m2049r.xmrwallet.widget.InputLayout
+            <com.bittube.wallet.widget.InputLayout
                 android:id="@+id/il_wallet_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 app:type="multiline"
                 android:visibility="gone"/>
 
-            <com.m2049r.xmrwallet.widget.InputLayout
+            <com.bittube.wallet.widget.InputLayout
                 android:id="@+id/il_wallet_viewkey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                 app:type="multiline"
                 android:visibility="gone"/>
 
-            <com.m2049r.xmrwallet.widget.InputLayout
+            <com.bittube.wallet.widget.InputLayout
                 android:id="@+id/il_wallet_spendkey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                 app:type="multiline"
                 android:visibility="gone"/>
 
-            <com.m2049r.xmrwallet.widget.InputLayout
+            <com.bittube.wallet.widget.InputLayout
                 android:id="@+id/il_wallet_restoreheight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

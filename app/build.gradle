@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion '27.0.3'
     defaultConfig {
-        applicationId "com.m2049r.xmrwallet"
+        applicationId "com.bittube.wallet"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 87

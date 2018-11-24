@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp" />
 
-        <com.m2049r.xmrwallet.widget.InputLayout
+        <com.bittube.wallet.widget.InputLayout
             android:id="@+id/il_dropdown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
