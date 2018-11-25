@@ -1,30 +1,18 @@
-package com.bittube.wallet;
+package com.bittube.wallet.util;
 
-import android.content.Intent;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
+import com.bittube.wallet.XmrWalletApplication;
+import com.bittube.wallet.network.Callback;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 
-public class SplashActivity extends AppCompatActivity {
+public class FirebaseUtil {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-
-        checkUserLogin();
-    }
-
-
-    private void checkUserLogin() {
+    static public void saveUserToken(final Callback<String> callback){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             FirebaseAuth.getInstance().getCurrentUser().getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
@@ -33,24 +21,14 @@ public class SplashActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         String token = task.getResult().getToken();
                         XmrWalletApplication.setUserToken(token);
-                        goToLogin();
+                       callback.sucess(token);
                     } else {
-                        goToPrelogin();
+                        callback.error(task.getException().getMessage());
                     }
                 }
             });
-        } else {
-            goToPrelogin();
+        } else{
+            callback.error("No user login");
         }
-    }
-
-    private void goToLogin() {
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-        finish();
-    }
-
-    private void goToPrelogin() {
-        startActivity(new Intent(getApplicationContext(), PreLoginActivity.class));
-        finish();
     }
 }
