@@ -24,7 +24,7 @@
         app:errorEnabled="true"
         android:paddingLeft="8dp">
 
-        <com.m2049r.xmrwallet.widget.DropDownEditText
+        <com.bittube.wallet.widget.DropDownEditText
             android:id="@+id/et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

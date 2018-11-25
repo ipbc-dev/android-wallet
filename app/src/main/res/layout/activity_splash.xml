@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:gravity="center"
     android:layout_height="match_parent"
-    tools:context="com.m2049r.xmrwallet.SplashActivity"
+    tools:context="com.bittube.wallet.SplashActivity"
     android:background="@drawable/background">
 
 <ImageView

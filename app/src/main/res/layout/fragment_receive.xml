@@ -63,7 +63,7 @@
                 tools:text="9wZnnNctRc7RaLya1rxykH21dUwfQpNGmVLjAvkvqe7nKT2Mw848AJNGMunW5xjoSZ5vCCU3uDnUoVqSSHxzRtQBE3f6crx" />
 
 
-            <com.m2049r.xmrwallet.widget.ExchangeView
+            <com.bittube.wallet.widget.ExchangeView
                 android:id="@+id/evAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                 android:orientation="horizontal">
 
 
-                <com.m2049r.xmrwallet.widget.InputLayout
+                <com.bittube.wallet.widget.InputLayout
                     android:id="@+id/etPaymentId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
