@@ -34,6 +34,7 @@
     <color name="navigationBarColor">#2B4868</color>
     <!--color name="colorAccent">#009ADA</color-->
     <color name="colorAccent">#0af</color>
+    <color name="colorInputError">#d50000</color>
 
     <color name="anotherColor">#F8CC5A</color>
 

@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.m2049r.xmrwallet.widget.InputLayout
+        <com.bittube.wallet.widget.InputLayout
             android:id="@+id/tvAmountA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
