@@ -101,16 +101,16 @@
 
     <string name="title_amount">Monto</string>
     <string name="title_date">Fecha</string>
-    <string name="xmr_unconfirmed_amount">+ %1$s XMR sin confirmar</string>
+    <string name="xmr_unconfirmed_amount">+ %1$s TUBE sin confirmar</string>
     <string name="label_transactions">Transacciones</string>
     <string name="text_daemonConnected">¡Conectado al daemon!</string>
 
-    <string name="service_description">Servicio de monerujo</string>
-    <string name="local_service_started">Servicio de monerujo en ejecucion</string>
-    <string name="local_service_stopped">Servicio de monerujo detenido</string>
-    <string name="local_service_label">Servicio de monerujo</string>
-    <string name="local_service_connected">Servicio de monerujo conectado</string>
-    <string name="local_service_disconnected">Servicio de monerujo desconectado</string>
+    <string name="service_description">Servicio de BitTube</string>
+    <string name="local_service_started">Servicio de BitTube en ejecucion</string>
+    <string name="local_service_stopped">Servicio de BitTube detenido</string>
+    <string name="local_service_label">Servicio de BitTube</string>
+    <string name="local_service_connected">Servicio de BitTube conectado</string>
+    <string name="local_service_disconnected">Servicio de BitTube desconectado</string>
 
     <string name="status_synced">Sincronizado:</string>
     <string name="status_remaining">bloques restantes</string>
@@ -130,7 +130,7 @@
     <string name="message_noselect_key">¡La selección de la clave de gasto está desactivada por motivos de seguridad!</string>
     <string name="message_nocopy">¡La copia está desactivada por motivos de seguridad!</string>
 
-    <string name="message_exchange_failed">¡No se ha podido obtener la tasa de cambio!\nUsa XMR/XMR o inténtalo de nuevo</string>
+    <string name="message_exchange_failed">¡No se ha podido obtener la tasa de cambio!\nUsa TUBE/TUBE o inténtalo de nuevo</string>
 
     <string name="generate_title">Crear monedero</string>
     <string name="generate_name_hint">Nombre del monedero</string>
@@ -175,7 +175,7 @@
     <string name="generate_check_address">Introduce una dirección válida</string>
     <string name="generate_check_mnemonic">Introduce tu semilla de 25 palabras</string>
 
-    <string name="send_address_hint">Dirección XMR o BTC del Destinatario</string>
+    <string name="send_address_hint">Dirección TUBE o BTC del Destinatario</string>
     <string name="send_paymentid_hint">ID de Pago (opcional)</string>
     <string name="send_amount_hint">0.00</string>
     <string name="send_notes_hint">Notas Privadas (opcional)</string>
@@ -187,11 +187,11 @@
     <string name="send_prepare_hint">Preparar</string>
     <string name="send_dispose_hint">Disponer (Deshacer)</string>
     <string name="send_really_send_hint">Último Paso - ¡Confirma!</string>
-    <string name="send_qr_invalid">No es un Código QR de monero</string>
-    <string name="send_qr_address_invalid">Dirección de Monero inválida</string>
+    <string name="send_qr_invalid">No es un Código QR de BitTube</string>
+    <string name="send_qr_address_invalid">Dirección de BitTube inválida</string>
     <string name="send_preparing_progress">Preparando transacción</string>
     <string name="send_title">Enviar</string>
-    <string name="send_available">Fondos disponibles: %1$s XMR</string>
+    <string name="send_available">Fondos disponibles: %1$s TUBE</string>
     <string name="send_address_title">Dirección</string>
     <string name="send_amount_title">Monto</string>
     <string name="send_settings_title">Ajustes</string>
@@ -241,7 +241,7 @@
     <string name="receive_paymentid_button">Generar</string>
     <string name="receive_paymentid_hint">ID de Pago | opcional</string>
     <string name="receive_amount_hint">Monto</string>
-    <string name="receive_amount_xmr_hint">XMR</string>
+    <string name="receive_amount_xmr_hint">TUBE</string>
     <string name="receive_cannot_open">¡No se ha podido abrir el monedero!</string>
     <string name="receive_paymentid_invalid">16 o 64 caracteres hexadecimales (0&#8211;9,a&#8211;f)</string>
     <string name="receive_integrated_paymentid_invalid">Debe estar vacío con una dirección integrada</string>
@@ -250,7 +250,7 @@
     <string name="receive_amount_empty">Introduce valor</string>
     <string name="receive_amount_too_big">Max. %1$s</string>
     <string name="receive_amount_negative">Min. 0</string>
-    <string name="receive_amount_nan">XMR no es un número</string>
+    <string name="receive_amount_nan">TUBE no es un número</string>
 
     <string name="receive_title">Recibir</string>
 
@@ -276,7 +276,7 @@
     <string name="fab_restore_seed">Restaurar monedero con semilla de 25 palabras</string>
     <string name="info_xmrto"><![CDATA[
         <b>Ingresaste una dirección Bitcoin</b><br/>
-        <i>Vas a enviar XMR y el destinatario recibirá BTC usando el servicio <b>XMR.TO</b>.</i>
+        <i>Vas a enviar TUBE y el destinatario recibirá BTC usando el servicio <b>XMR.TO</b>.</i>
     ]]></string>
     <string name="info_send_xmrto_success_sending">Enviando</string>
     <string name="info_send_xmrto_success_status_label">Estado:</string>
@@ -298,18 +298,18 @@
     <string name="info_send_xmrto_zeroconf"><![CDATA[
         <i>Montos hasta <b>%1$s BTC</b> serán enviados <u>en el momento</u>!</i>
     ]]></string>
-    <string name="send_available_btc">Saldo: %2$s BTC (%1$s XMR)</string>
+    <string name="send_available_btc">Saldo: %2$s BTC (%1$s TUBE)</string>
     <string name="label_send_progress_xmrto_create">Creando orden XMR.TO</string>
     <string name="label_send_progress_xmrto_query">Consultando orden XMR.TO</string>
-    <string name="label_send_progress_create_tx">Preparando transacción Monero</string>
+    <string name="label_send_progress_create_tx">Preparando transacción BitTube</string>
     <string name="label_send_progress_queryparms">Consultando parámetros XMR.TO</string>
     <string name="label_generic_xmrto_error">ERROR XMR.TO</string>
     <string name="text_generic_xmrto_error">Código: %1$d</string>
     <string name="text_retry">Toca para reintentar</string>
     <string name="text_noretry_monero">Parece que estamos atascados!</string>
     <string name="text_noretry">Oh-oh, parece que XMR.TO no está disponible ahora!</string>
-    <string name="text_send_btc_amount">%1$s BTC = %2$s XMR</string>
-    <string name="text_send_btc_rate">(Cambio: %1$s BTC/XMR)</string>
+    <string name="text_send_btc_amount">%1$s BTC = %2$s TUBE</string>
+    <string name="text_send_btc_rate">(Cambio: %1$s BTC/TUBE)</string>
     <string name="label_send_settings_advanced">Avanzado</string>
     <string name="label_send_btc_details">Click para más detalles</string>
     <string name="label_send_btc_xmrto_info">Visita https://xmr.to para soporte y rastreo</string>
@@ -324,19 +324,19 @@
     <string name="label_copy_xmrtokey">Clave XMR.TO</string>
     <string name="message_copy_xmrtokey">¡Clave XMR.TO copiada al portapapeles!</string>
     <string name="send_amount_btc_xmr">%1$s (indicativo)</string>
-    <string name="send_send_label">Enviar mis preciados moneroj</string>
-    <string name="send_send_timed_label">Gastar mis preciados moneroj (%1$s)</string>
+    <string name="send_send_label">Enviar mis preciados BitTube</string>
+    <string name="send_send_timed_label">Gastar mis preciados BitTube (%1$s)</string>
     <string name="send_address_invalid">No es una dirección válida</string>
-    <string name="send_fee_btc_label">Comisión (XMR)</string>
-    <string name="send_total_btc_label">Total (XMR)</string>
-    <string name="send_amount">%1$s XMR</string>
+    <string name="send_fee_btc_label">Comisión (TUBE)</string>
+    <string name="send_total_btc_label">Total (TUBE)</string>
+    <string name="send_amount">%1$s TUBE</string>
     <string name="send_fee">+%1$s Comisión</string>
     <string name="tx_status_btc">Estado</string>
     <string name="tx_id_btc">TX ID\n(BTC)</string>
     <string name="tx_destination_btc">Destino\n(BTC)</string>
     <string name="tx_amount_btc">Monto\n(BTC)</string>
     <string name="receive_bitcoin_paymentid_invalid">Debe quedar vacío con una dirección Bitcoin</string>
-    <string name="about_whoami">Soy monerujo</string>
+    <string name="about_whoami">Soy BitTube</string>
     <string name="info_send_xmrto_success_order_label">Orden XMR.TO</string>
     <string name="info_xmrto_enabled">Pago en BTC activado, toca para más info.</string>
     <string name="save">guardar</string>
