@@ -126,6 +126,7 @@
                     android:layout_marginRight="2dp">
 
                     <FrameLayout
+                        android:id="@+id/fl_twitter"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
@@ -185,6 +186,7 @@
                     android:layout_marginLeft="2dp">
 
                     <FrameLayout
+                        android:id="@+id/fl_facebook"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
