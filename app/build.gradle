@@ -8,7 +8,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 87
-        versionName "1.4.7 'Monero Spedner'"
+        versionName "1.0.0 'BitTube Titanium'"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
@@ -55,7 +55,7 @@ android {
 
                 if (abiName == null) abiName = "universal"
                 def v = "${variant.versionName}".replaceFirst(" .*\$", "").replace(".", "x")
-                outputFileName = "$rootProject.ext.apkName-" + v + "_" + abiName + ".apk"
+                outputFileName = "bittube-" + v + "_" + abiName + ".apk"
         }
     }
 

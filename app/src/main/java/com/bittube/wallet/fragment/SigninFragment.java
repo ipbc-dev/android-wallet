@@ -24,6 +24,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.LoggingBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.bittube.wallet.network.Callback;
+import com.bittube.wallet.util.FirebaseUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -362,8 +364,19 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = auth.getCurrentUser();
                             //updateUI(user);
-                            Intent intent = new Intent(mContext, LoginActivity.class);
-                            startActivity(intent);
+                            FirebaseUtil.saveUserToken(new Callback<String>() {
+                                @Override
+                                public void sucess(String token) {
+                                    Toast.makeText(mContext, "User saved", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(mContext, LoginActivity.class);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void error(String errMsg) {
+                                    Toast.makeText(mContext, "Authentication error: " + errMsg, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

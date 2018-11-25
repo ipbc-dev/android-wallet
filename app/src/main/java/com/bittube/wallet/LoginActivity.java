@@ -73,7 +73,7 @@ public class LoginActivity extends SecureActivity
         GenerateReviewFragment.Listener, GenerateReviewFragment.AcceptListener, ReceiveFragment.Listener {
     private static final String GENERATE_STACK = "gen";
 
-    static final int DAEMON_TIMEOUT = 2500; // deamon must respond in 500ms
+    static final int DAEMON_TIMEOUT = 10000; // deamon must respond in 500ms
 
     private Toolbar toolbar;
 
@@ -624,6 +624,10 @@ public class LoginActivity extends SecureActivity
     }
 
     void startLoginFragment() {
+
+
+
+
         // we set these here because we cannot be ceratin we have permissions for storage before
         Helper.setMoneroHome(this);
         Helper.initLogger(this);
