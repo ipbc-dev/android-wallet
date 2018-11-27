@@ -3,14 +3,10 @@ package com.bittube.wallet.network.impl;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.bittube.wallet.model.WalletManager;
 import com.bittube.wallet.network.Callback;
 import com.bittube.wallet.network.models.OnlineWallet;
-import com.bittube.wallet.service.exchange.api.ExchangeException;
 import com.bittube.wallet.util.OkHttpClientSingleton;
-import com.google.gson.JsonObject;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -73,7 +69,7 @@ public class FirebaseCloudFunctions implements com.bittube.wallet.network.interf
                                 onlineWallets.add(new OnlineWallet(name, data.getJSONObject(name)));
                             }
 
-                            callback.sucess(onlineWallets);
+                            callback.success(onlineWallets);
 
                         } else {
                             callback.error("Error " + response.code() + ": " + message);

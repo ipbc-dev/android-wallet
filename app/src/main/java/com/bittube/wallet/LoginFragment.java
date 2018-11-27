@@ -56,9 +56,6 @@ import com.bittube.wallet.util.NodeList;
 import com.bittube.wallet.widget.DropDownEditText;
 import com.bittube.wallet.widget.InputLayout;
 import com.bittube.wallet.widget.Toolbar;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GetTokenResult;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -329,7 +326,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
         FirebaseCloudFunctions fcf = new FirebaseCloudFunctions();
         fcf.getUserWallets(usertoken, new Callback<List<OnlineWallet>>() {
             @Override
-            public void sucess(List<OnlineWallet> wallets) {
+            public void success(List<OnlineWallet> wallets) {
                 Log.d("DYMTEK", "Online wallets SUCCESS");
 
                 // Compare online wallets with local(by address)
@@ -346,9 +343,8 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
                 //TODO: Restore online to Local with seeds (IF NEEDED)
                 if (wallets.size() > 0) {
 
-                //TODO: Reload Local wallets(it will include now the online wallets) and update list
-                /*List<WalletManager.WalletInfo> localWallets = loadLocalWallets();
-                updateWalletList(localWallets);*/
+
+                    ((GenerateFragment.Listener) getActivity()).onGenerateMultipleWallets(wallets);
                 }
 
 

@@ -50,6 +50,9 @@ import com.bittube.wallet.dialog.PrivacyFragment;
 import com.bittube.wallet.model.NetworkType;
 import com.bittube.wallet.model.Wallet;
 import com.bittube.wallet.model.WalletManager;
+import com.bittube.wallet.network.Callback;
+import com.bittube.wallet.network.models.OnlineWallet;
+import com.bittube.wallet.service.WalletRecovery;
 import com.bittube.wallet.service.WalletService;
 import com.bittube.wallet.util.DialogUtil;
 import com.bittube.wallet.util.Helper;
@@ -65,6 +68,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.nio.channels.FileChannel;
 import java.util.Date;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -814,6 +818,28 @@ public class LoginActivity extends SecureActivity
                     }
                 });
     }
+
+    @Override
+    public void onGenerateMultipleWallets(List<OnlineWallet> onlineWallets) {
+        toast(getString(R.string.generate_wallet_creating));
+        WalletRecovery wr = new WalletRecovery();
+        wr.recoverOnlineWalletsBySeed(onlineWallets, getStorageRoot(), new Callback<Boolean>() {
+            @Override
+            public void success(Boolean aBoolean) {
+                toast("ONLINE WALLETS RETRIVED SUCCESS");
+                // Reload Local wallets(it will include now the online wallets) and update list
+                reloadWalletList();
+            }
+
+            @Override
+            public void error(String errMsg) {
+                dismissProgressDialog();
+                toast(errMsg);
+            }
+        });
+    }
+
+
 
     void toast(final String msg) {
         runOnUiThread(new Runnable() {
