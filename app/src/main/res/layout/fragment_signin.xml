@@ -125,6 +125,11 @@
                     android:paddingRight="6dp"
                     android:layout_marginRight="2dp">
 
+                    <!--<com.twitter.sdk.android.core.identity.TwitterLoginButton
+                        android:id="@+id/tlb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />-->
+
                     <FrameLayout
                         android:id="@+id/fl_twitter"
                         android:layout_width="40dp"

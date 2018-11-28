@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         String token = task.getResult().getToken();
                         XmrWalletApplication.setUserToken(token);
-                        goToLogin();
+                        goToPrelogin();
                     } else {
                         goToPrelogin();
                     }
