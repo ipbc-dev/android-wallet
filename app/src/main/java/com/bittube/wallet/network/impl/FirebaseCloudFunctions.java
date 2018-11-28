@@ -3,17 +3,15 @@ package com.bittube.wallet.network.impl;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.bittube.wallet.model.WalletManager;
 import com.bittube.wallet.network.Callback;
-import com.bittube.wallet.service.exchange.api.ExchangeException;
+import com.bittube.wallet.network.models.OnlineWallet;
 import com.bittube.wallet.util.OkHttpClientSingleton;
-import com.google.gson.JsonObject;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import okhttp3.Call;
@@ -35,7 +33,7 @@ public class FirebaseCloudFunctions implements com.bittube.wallet.network.interf
 
 
     @Override
-    public void getUserWallets(@NonNull String userToken, final Callback<List<WalletManager.WalletInfo>> callback) {
+    public void getUserWallets(@NonNull String userToken, final Callback<List<OnlineWallet>> callback) {
 
         final HttpUrl url = HttpUrl.parse(GET_USER_WALLETS_ENDPOINT).newBuilder()
                 .build();
@@ -56,15 +54,32 @@ public class FirebaseCloudFunctions implements com.bittube.wallet.network.interf
                     try {
                         responseData = response.body().string();
                         Log.d("DYMTEK", "getUserWallets response: " + responseData);
+
                         JSONObject json = new JSONObject(responseData);
-                    } catch (JSONException e) {
+                        String message = json.getString("message");
+
+                        if (message != null && message.equals("success")) {
+                            JSONObject data = json.getJSONObject("data");
+                            Iterator<String> keys = data.keys();
+
+                            List<OnlineWallet> onlineWallets = new ArrayList<>();
+
+                            while (keys.hasNext()) {
+                                String name = keys.next();
+                                onlineWallets.add(new OnlineWallet(name, data.getJSONObject(name)));
+                            }
+
+                            callback.success(onlineWallets);
+
+                        } else {
+                            callback.error("Error " + response.code() + ": " + message);
+                        }
+
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        callback.error("Error " + e.getMessage());
                     }
 
-                    List<WalletManager.WalletInfo> onlineWallets = new ArrayList<>();
-                    callback.sucess(onlineWallets);
 
                 } else {
                     callback.error("Error " + response.code() + ": " + response.message());

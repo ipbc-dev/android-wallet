@@ -21,7 +21,7 @@ public class FirebaseUtil {
                     if (task.isSuccessful()) {
                         String token = task.getResult().getToken();
                         XmrWalletApplication.setUserToken(token);
-                       callback.sucess(token);
+                       callback.success(token);
                     } else {
                         callback.error(task.getException().getMessage());
                     }

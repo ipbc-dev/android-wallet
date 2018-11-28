@@ -361,7 +361,7 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                             //updateUI(user);
                             FirebaseUtil.saveUserToken(new Callback<String>() {
                                 @Override
-                                public void sucess(String token) {
+                                public void success(String token) {
                                     Toast.makeText(mContext, "User saved", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(mContext, LoginActivity.class);
                                     startActivity(intent);

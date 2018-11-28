@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.bittube.wallet.network.Callback;
+import com.bittube.wallet.util.FirebaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -20,28 +22,28 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        checkUserLogin();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkUserLogin();
+            }
+        }, 200);
+
     }
 
 
     private void checkUserLogin() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            FirebaseAuth.getInstance().getCurrentUser().getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                @Override
-                public void onComplete(@NonNull Task<GetTokenResult> task) {
-                    if (task.isSuccessful()) {
-                        String token = task.getResult().getToken();
-                        XmrWalletApplication.setUserToken(token);
-                        goToPrelogin();
-                    } else {
-                        goToPrelogin();
-                    }
-                }
-            });
-        } else {
-            goToPrelogin();
-        }
+        FirebaseUtil.saveUserToken(new Callback<String>() {
+            @Override
+            public void success(String token) {
+                goToLogsin();
+            }
+
+            @Override
+            public void error(String errMsg) {
+                goToPrelogin();
+            }
+        });
     }
 
     private void goToLogin() {

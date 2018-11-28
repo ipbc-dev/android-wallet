@@ -50,14 +50,12 @@ import com.bittube.wallet.model.NetworkType;
 import com.bittube.wallet.model.WalletManager;
 import com.bittube.wallet.network.Callback;
 import com.bittube.wallet.network.impl.FirebaseCloudFunctions;
+import com.bittube.wallet.network.models.OnlineWallet;
 import com.bittube.wallet.util.Helper;
 import com.bittube.wallet.util.NodeList;
 import com.bittube.wallet.widget.DropDownEditText;
 import com.bittube.wallet.widget.InputLayout;
 import com.bittube.wallet.widget.Toolbar;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GetTokenResult;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -318,37 +316,39 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
 
 
     private void loadWallets() {
-        Toast.makeText(mContext, "Load wallets", Toast.LENGTH_SHORT).show();
-        //TODO: load Local wallets and update list
-        List<WalletManager.WalletInfo> localWallets = loadLocalWallets();
+        // Load Local wallets and update list
+        final List<WalletManager.WalletInfo> localWallets = loadLocalWallets();
         updateWalletList(localWallets);
 
-        //TODO: load online wallets(Using AUTH user and endpoint  update list from cloud functions
+        // Load online wallets(Using AUTH user and endpoint  update list from cloud functions
         String usertoken = XmrWalletApplication.getUserToken();
         FirebaseCloudFunctions fcf = new FirebaseCloudFunctions();
-        fcf.getUserWallets(usertoken, new Callback<List<WalletManager.WalletInfo>>() {
+        fcf.getUserWallets(usertoken, new Callback<List<OnlineWallet>>() {
             @Override
-            public void sucess(List<WalletManager.WalletInfo> wallets) {
-
-                //Toast.makeText(mContext, "Online wallets SUCCESS", Toast.LENGTH_SHORT).show();
+            public void success(List<OnlineWallet> wallets) {
                 Log.d("DYMTEK", "Online wallets SUCCESS");
 
-                //TODO: compare online wallets with local(by address)
+                // Compare online wallets with local(by address)
+                for (OnlineWallet onlineWallet : wallets) {
+                    String onlineAddr = onlineWallet.getAddress();
+                    for (WalletManager.WalletInfo localWallet : localWallets) {
+                        if (localWallet.address.equals(onlineAddr)) {
+                            wallets.remove(wallets.indexOf(onlineWallet));
+                        }
+                    }
+                }
 
-                //TODO: Restore online to Local with seeds (IF NEEDED)
+                Log.d("DYMTEK", "NEW WALLETS: "+wallets.size());
+                if (wallets.size() > 0) {
+                    ((GenerateFragment.Listener) getActivity()).onGenerateMultipleWallets(wallets);
+                }
 
-
-                //TODO: Reload Local wallets(it will include now the online wallets) and update list
-                /*List<WalletManager.WalletInfo> localWallets = loadLocalWallets();
-                updateWalletList(localWallets);*/
 
             }
 
             @Override
             public void error(String errMsg) {
-                //Toast.makeText(mContext, "Online wallets ERROR: "+errMsg, Toast.LENGTH_LONG).show();
-                Log.d("DYMTEK", "Online wallets ERROR: "+errMsg);
-
+                Log.d("DYMTEK", "Online wallets ERROR: " + errMsg);
             }
         });
 
