@@ -105,7 +105,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                 signUp();
                 break;
             case R.id.tv_sign_in:
-                ((PreLoginActivity) getActivity()).replaceFragment(SigninFragment.newInstance());
+                ((PreLoginActivity) getActivity()).replaceFragment(SigninFragment.newInstance(), SigninFragment.TAG);
                 break;
         }
     }

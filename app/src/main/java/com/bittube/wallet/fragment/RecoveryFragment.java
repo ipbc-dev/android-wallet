@@ -76,7 +76,7 @@ public class RecoveryFragment extends Fragment implements View.OnClickListener {
                 recovery();
                 break;
             case R.id.tv_sign_in:
-                ((PreLoginActivity) getActivity()).replaceFragment(SigninFragment.newInstance());
+                ((PreLoginActivity) getActivity()).replaceFragment(SigninFragment.newInstance(), SigninFragment.TAG);
                 break;
         }
     }
@@ -99,7 +99,7 @@ public class RecoveryFragment extends Fragment implements View.OnClickListener {
                         } else {
                             Toast.makeText(getActivity(), "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                         }
-                        ((PreLoginActivity) getActivity()).replaceFragment(SigninFragment.newInstance());
+                        ((PreLoginActivity) getActivity()).replaceFragment(SigninFragment.newInstance(), SigninFragment.TAG);
                         progressDialog.dismiss();
                     }
                 });

@@ -27,6 +27,7 @@ import timber.log.Timber;
 public class XmrWalletApplication extends Application {
 
     private static Context mContext;
+    private static String mUserToken;
 
 
     @Override
@@ -44,4 +45,11 @@ public class XmrWalletApplication extends Application {
         return mContext;
     }
 
+    public static String getUserToken() {
+        return mUserToken;
+    }
+
+    public static void setUserToken(String userToken) {
+        XmrWalletApplication.mUserToken = userToken;
+    }
 }
