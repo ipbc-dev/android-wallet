@@ -199,8 +199,18 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                             Toast.makeText(getActivity(), "Authentication failed." + task.getException(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Intent intent = new Intent(mContext, LoginActivity.class);
-                            startActivity(intent);
+                            FirebaseUtil.saveUserToken(new Callback<String>() {
+                                @Override
+                                public void success(String token) {
+                                    Intent intent = new Intent(mContext, LoginActivity.class);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void error(String errMsg) {
+                                    Toast.makeText(mContext, "Authentication error: " + errMsg, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     }
                 });
@@ -275,8 +285,18 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = auth.getCurrentUser();
-                            Intent intent = new Intent(mContext, LoginActivity.class);
-                            startActivity(intent);
+                            FirebaseUtil.saveUserToken(new Callback<String>() {
+                                @Override
+                                public void success(String token) {
+                                    Intent intent = new Intent(mContext, LoginActivity.class);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void error(String errMsg) {
+                                    Toast.makeText(mContext, "Authentication error: " + errMsg, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(getActivity(), "Authentication failed." + task.getException(),
@@ -300,8 +320,19 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = auth.getCurrentUser();
-                            Intent intent = new Intent(mContext, LoginActivity.class);
-                            startActivity(intent);
+
+                            FirebaseUtil.saveUserToken(new Callback<String>() {
+                                @Override
+                                public void success(String token) {
+                                    Intent intent = new Intent(mContext, LoginActivity.class);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void error(String errMsg) {
+                                    Toast.makeText(mContext, "Authentication error: " + errMsg, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -362,7 +393,6 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                             FirebaseUtil.saveUserToken(new Callback<String>() {
                                 @Override
                                 public void success(String token) {
-                                    Toast.makeText(mContext, "User saved", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(mContext, LoginActivity.class);
                                     startActivity(intent);
                                 }

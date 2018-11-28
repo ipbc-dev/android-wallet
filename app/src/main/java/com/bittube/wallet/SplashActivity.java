@@ -36,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
         FirebaseUtil.saveUserToken(new Callback<String>() {
             @Override
             public void success(String token) {
-                goToLogsin();
+                goToLogin();
             }
 
             @Override
