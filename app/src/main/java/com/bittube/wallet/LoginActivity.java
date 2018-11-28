@@ -821,12 +821,10 @@ public class LoginActivity extends SecureActivity
 
     @Override
     public void onGenerateMultipleWallets(List<OnlineWallet> onlineWallets) {
-        toast(getString(R.string.generate_wallet_creating));
         WalletRecovery wr = new WalletRecovery();
-        wr.recoverOnlineWalletsBySeed(onlineWallets, getStorageRoot(), new Callback<Boolean>() {
+        wr.recoverOnlineWalletsByKeys(onlineWallets, getStorageRoot(), new Callback<Boolean>() {
             @Override
             public void success(Boolean aBoolean) {
-                toast("ONLINE WALLETS RETRIVED SUCCESS");
                 // Reload Local wallets(it will include now the online wallets) and update list
                 reloadWalletList();
             }

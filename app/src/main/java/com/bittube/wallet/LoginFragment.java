@@ -316,7 +316,6 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
 
 
     private void loadWallets() {
-        Toast.makeText(mContext, "Load wallets", Toast.LENGTH_SHORT).show();
         // Load Local wallets and update list
         final List<WalletManager.WalletInfo> localWallets = loadLocalWallets();
         updateWalletList(localWallets);
@@ -340,10 +339,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
                 }
 
                 Log.d("DYMTEK", "NEW WALLETS: "+wallets.size());
-                //TODO: Restore online to Local with seeds (IF NEEDED)
                 if (wallets.size() > 0) {
-
-
                     ((GenerateFragment.Listener) getActivity()).onGenerateMultipleWallets(wallets);
                 }
 
@@ -352,9 +348,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
 
             @Override
             public void error(String errMsg) {
-                //Toast.makeText(mContext, "Online wallets ERROR: "+errMsg, Toast.LENGTH_LONG).show();
                 Log.d("DYMTEK", "Online wallets ERROR: " + errMsg);
-
             }
         });
 

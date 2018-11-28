@@ -16,23 +16,10 @@ import timber.log.Timber;
 public class WalletRecovery {
 
 
-    public void recoverOnlineWalletsBySeed(List<OnlineWallet> onlineWallets, File storage, Callback<Boolean> callback){
+    public void recoverOnlineWalletsBySeed(List<OnlineWallet> onlineWallets, File storage, Callback<Boolean> callback) {
 
 
-        WalletRetriever walletRetriever = new WalletRetriever() {
-            @Override
-            public boolean recoverWallet(File aFile, String password, OnlineWallet onlineWallet) {
-                Wallet newWallet = WalletManager.getInstance().
-                        recoveryWallet(aFile, password, onlineWallet.getSeed(), 0);
-                boolean success = (newWallet.getStatus() == Wallet.Status.Status_Ok);
-                if (!success) {
-                    Timber.e(newWallet.getErrorString());
-                }
-                newWallet.close();
-                return success;
-            }
-
-        };
+        WalletRetriever walletRetriever = buildWalletRetriever(false);
 
 
         new AsyncRecoverOnlineWallets(onlineWallets, walletRetriever, storage, callback)
@@ -41,10 +28,13 @@ public class WalletRecovery {
 
     }
 
-    public void recoverOnlineWalletsByKeys(List<OnlineWallet> onlineWallets, File storage, Callback<Boolean> callback){
+    public void recoverOnlineWalletsByKeys(List<OnlineWallet> onlineWallets, File storage, Callback<Boolean> callback) {
+
+        WalletRetriever walletRetriever = buildWalletRetriever(true);
 
 
-
+        new AsyncRecoverOnlineWallets(onlineWallets, walletRetriever, storage, callback)
+                .executeOnExecutor(MoneroThreadPoolExecutor.MONERO_THREAD_POOL_EXECUTOR);
     }
 
 
@@ -58,7 +48,7 @@ public class WalletRecovery {
         File newWalletFile;
 
         AsyncRecoverOnlineWallets(List<OnlineWallet> onlineWallets,
-                          final WalletRetriever walletRetriever, File storage, Callback<Boolean> callback) {
+                                  final WalletRetriever walletRetriever, File storage, Callback<Boolean> callback) {
             super();
             this.onlineWallets = onlineWallets;
             this.walletRetriever = walletRetriever;
@@ -78,7 +68,7 @@ public class WalletRecovery {
                 return false;
             }
 
-            for (OnlineWallet onlineWallet: onlineWallets) {
+            for (OnlineWallet onlineWallet : onlineWallets) {
                 String walletName = onlineWallet.getName();
                 File cacheFile = new File(storage, walletName);
                 File keysFile = new File(storage, walletName + ".keys");
@@ -113,11 +103,40 @@ public class WalletRecovery {
     }
 
 
+    private WalletRetriever buildWalletRetriever(final boolean retrieveByKeys) {
+
+        return new WalletRetriever() {
+            @Override
+            public boolean recoverWallet(File aFile, String password, OnlineWallet onlineWallet) {
+                Wallet newWallet;
+
+                if(retrieveByKeys){
+                    newWallet = WalletManager.getInstance()
+                            .createWalletWithKeys(aFile, password, WalletManager.MNEMONIC_LANGUAGE_ENGLISH, 0,
+                                    onlineWallet.getAddress(), onlineWallet.getViewKey(), onlineWallet.getSpendKey());
+                }else{
+                    newWallet = WalletManager.getInstance().
+                            recoveryWallet(aFile, password, onlineWallet.getSeed(), 0);
+                }
+
+                boolean success = (newWallet.getStatus() == Wallet.Status.Status_Ok);
+
+
+                if (!success) {
+                    Timber.e(newWallet.getErrorString());
+                }
+                newWallet.close();
+                return success;
+            }
+
+        };
+
+    }
+
     interface WalletRetriever {
         boolean recoverWallet(File aFile, String password, OnlineWallet onlineWallet);
 
     }
-
 
 
 }
