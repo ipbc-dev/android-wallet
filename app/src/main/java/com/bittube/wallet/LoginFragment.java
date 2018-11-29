@@ -24,6 +24,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,6 +48,9 @@ import com.bittube.wallet.dialog.HelpFragment;
 import com.bittube.wallet.layout.WalletInfoAdapter;
 import com.bittube.wallet.model.NetworkType;
 import com.bittube.wallet.model.WalletManager;
+import com.bittube.wallet.network.Callback;
+import com.bittube.wallet.network.impl.FirebaseCloudFunctions;
+import com.bittube.wallet.network.models.OnlineWallet;
 import com.bittube.wallet.util.Helper;
 import com.bittube.wallet.util.NodeList;
 import com.bittube.wallet.widget.DropDownEditText;
@@ -61,6 +65,8 @@ import timber.log.Timber;
 
 public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInteractionListener,
         View.OnClickListener {
+
+    private Context mContext;
 
     private WalletInfoAdapter adapter;
 
@@ -111,6 +117,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        this.mContext = context;
         if (context instanceof Listener) {
             this.activityCallback = (Listener) context;
         } else {
@@ -253,7 +260,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
     public void onInteraction(final View view, final WalletManager.WalletInfo infoItem) {
         String addressPrefix = addressPrefix();
         if (addressPrefix.indexOf(infoItem.address.charAt(0)) < 0) {
-            Toast.makeText(getActivity(), getString(R.string.prompt_wrong_net), Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, getString(R.string.prompt_wrong_net), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -307,11 +314,54 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
         }
     }
 
-    public void loadList() {
-        Timber.d("loadList()");
+
+    private void loadWallets() {
+        // Load Local wallets and update list
+        final List<WalletManager.WalletInfo> localWallets = loadLocalWallets();
+        updateWalletList(localWallets);
+
+        // Load online wallets(Using AUTH user and endpoint  update list from cloud functions
+        String usertoken = XmrWalletApplication.getUserToken();
+        FirebaseCloudFunctions fcf = new FirebaseCloudFunctions();
+        fcf.getUserWallets(usertoken, new Callback<List<OnlineWallet>>() {
+            @Override
+            public void success(List<OnlineWallet> wallets) {
+                Log.d("DYMTEK", "Online wallets SUCCESS");
+
+                // Compare online wallets with local(by address)
+                for (OnlineWallet onlineWallet : wallets) {
+                    String onlineAddr = onlineWallet.getAddress();
+                    for (WalletManager.WalletInfo localWallet : localWallets) {
+                        if (localWallet.address.equals(onlineAddr)) {
+                            wallets.remove(wallets.indexOf(onlineWallet));
+                        }
+                    }
+                }
+
+                Log.d("DYMTEK", "NEW WALLETS: "+wallets.size());
+                if (wallets.size() > 0) {
+                    ((GenerateFragment.Listener) getActivity()).onGenerateMultipleWallets(wallets);
+                }
+
+
+            }
+
+            @Override
+            public void error(String errMsg) {
+                Log.d("DYMTEK", "Online wallets ERROR: " + errMsg);
+            }
+        });
+
+
+    }
+
+    private List<WalletManager.WalletInfo> loadLocalWallets() {
+        Timber.d("loadLocalWallets()");
         WalletManager mgr = WalletManager.getInstance();
-        List<WalletManager.WalletInfo> walletInfos =
-                mgr.findWallets(activityCallback.getStorageRoot());
+        return mgr.findWallets(activityCallback.getStorageRoot());
+    }
+
+    private void updateWalletList(List<WalletManager.WalletInfo> walletInfos) {
         walletList.clear();
         walletList.addAll(walletInfos);
         filterList();
@@ -330,6 +380,12 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
                 ivGunther.setImageDrawable(null);
             }
         }
+    }
+
+
+    public void loadList() {
+        Timber.d("loadList()");
+        loadWallets();
     }
 
     private void showInfo(@NonNull String name) {

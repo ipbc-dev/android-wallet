@@ -34,6 +34,8 @@ import timber.log.Timber;
 
 public class WalletManager {
 
+    public static String MNEMONIC_LANGUAGE_ENGLISH = "English";
+
     static {
         System.loadLibrary("monerujo");
     }
