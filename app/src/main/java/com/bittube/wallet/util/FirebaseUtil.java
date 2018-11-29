@@ -31,4 +31,10 @@ public class FirebaseUtil {
             callback.error("No user login");
         }
     }
+
+    static public void logOut(){
+        FirebaseAuth.getInstance().signOut();
+        XmrWalletApplication.setUserToken(null);
+    }
+
 }

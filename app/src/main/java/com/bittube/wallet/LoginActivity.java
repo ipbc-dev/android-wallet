@@ -55,10 +55,12 @@ import com.bittube.wallet.network.models.OnlineWallet;
 import com.bittube.wallet.service.WalletRecovery;
 import com.bittube.wallet.service.WalletService;
 import com.bittube.wallet.util.DialogUtil;
+import com.bittube.wallet.util.FirebaseUtil;
 import com.bittube.wallet.util.Helper;
 import com.bittube.wallet.util.MoneroThreadPoolExecutor;
 import com.bittube.wallet.widget.ProgressDialogCV;
 import com.bittube.wallet.widget.Toolbar;
+import com.google.firebase.FirebaseApp;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -182,12 +184,16 @@ public class LoginActivity extends SecureActivity
                     public void okClick() {
                         final File walletFile = Helper.getWalletFile(LoginActivity.this, walletName);
                         if (WalletManager.getInstance().walletExists(walletFile)) {
-                            promptPassword(walletName, new PasswordAction() {
-                                @Override
-                                public void action(String walletName, String password) {
-                                    startDetails(walletFile, password, GenerateReviewFragment.VIEW_TYPE_DETAILS);
-                                }
-                            });
+                            if (checkWalletPassword(walletName, "")) {
+                                startDetails(walletFile, "", GenerateReviewFragment.VIEW_TYPE_DETAILS);
+                            } else {
+                                promptPassword(walletName, new PasswordAction() {
+                                    @Override
+                                    public void action(String walletName, String password) {
+                                        startDetails(walletFile, password, GenerateReviewFragment.VIEW_TYPE_DETAILS);
+                                    }
+                                });
+                            }
                         } else { // this cannot really happen as we prefilter choices
                             Timber.e("Wallet missing: %s", walletName);
                             Toast.makeText(LoginActivity.this, getString(R.string.bad_wallet), Toast.LENGTH_SHORT).show();
@@ -207,12 +213,17 @@ public class LoginActivity extends SecureActivity
         if (checkServiceRunning()) return;
         final File walletFile = Helper.getWalletFile(this, walletName);
         if (WalletManager.getInstance().walletExists(walletFile)) {
-            promptPassword(walletName, new PasswordAction() {
-                @Override
-                public void action(String walletName, String password) {
-                    startReceive(walletFile, password);
-                }
-            });
+
+            if (checkWalletPassword(walletName, "")) {
+                startReceive(walletFile, "");
+            } else {
+                promptPassword(walletName, new PasswordAction() {
+                    @Override
+                    public void action(String walletName, String password) {
+                        startReceive(walletFile, password);
+                    }
+                });
+            }
         } else { // this cannot really happen as we prefilter choices
             Toast.makeText(this, getString(R.string.bad_wallet), Toast.LENGTH_SHORT).show();
         }
@@ -995,6 +1006,11 @@ public class LoginActivity extends SecureActivity
             case R.id.action_privacy_policy:
                 PrivacyFragment.display(getSupportFragmentManager());
                 return true;
+            case R.id.action_logout:
+                FirebaseUtil.logOut();
+                startActivity(new Intent(this, PreLoginActivity.class));
+                finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -1078,12 +1094,16 @@ public class LoginActivity extends SecureActivity
         File walletFile = Helper.getWalletFile(this, walletNode.getName());
         if (WalletManager.getInstance().walletExists(walletFile)) {
             WalletManager.getInstance().setDaemon(walletNode);
-            promptPassword(walletNode.getName(), new PasswordAction() {
-                @Override
-                public void action(String walletName, String password) {
-                    startWallet(walletName, password);
-                }
-            });
+            if (checkWalletPassword(walletNode.getName(), "")) {
+                startWallet(walletNode.getName(), "");
+            } else {
+                promptPassword(walletNode.getName(), new PasswordAction() {
+                    @Override
+                    public void action(String walletName, String password) {
+                        startWallet(walletName, password);
+                    }
+                });
+            }
         } else { // this cannot really happen as we prefilter choices
             Toast.makeText(this, getString(R.string.bad_wallet), Toast.LENGTH_SHORT).show();
         }
