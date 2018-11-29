@@ -7,6 +7,8 @@ public class OnlineWallet {
 
     private String name;
 
+    private int creation_date;
+
     private String address;
 
     private String seed;
@@ -22,6 +24,7 @@ public class OnlineWallet {
         this.seed = json.getString("seed");
         this.viewKey = json.getJSONObject("view").getString("sec");
         this.SpendKey = json.getJSONObject("spend").getString("sec");
+        this.creation_date = json.optInt("creation_date", 0);
     }
 
     public String getName() {
@@ -62,5 +65,13 @@ public class OnlineWallet {
 
     public void setSpendKey(String spendKey) {
         SpendKey = spendKey;
+    }
+
+    public int getCreation_date() {
+        return creation_date;
+    }
+
+    public void setCreation_date(int creation_date) {
+        this.creation_date = creation_date;
     }
 }
