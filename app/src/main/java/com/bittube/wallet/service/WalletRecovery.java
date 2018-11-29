@@ -112,11 +112,11 @@ public class WalletRecovery {
 
                 if(retrieveByKeys){
                     newWallet = WalletManager.getInstance()
-                            .createWalletWithKeys(aFile, password, WalletManager.MNEMONIC_LANGUAGE_ENGLISH, 0,
+                            .createWalletWithKeys(aFile, password, WalletManager.MNEMONIC_LANGUAGE_ENGLISH, onlineWallet.getCreation_date(),
                                     onlineWallet.getAddress(), onlineWallet.getViewKey(), onlineWallet.getSpendKey());
                 }else{
                     newWallet = WalletManager.getInstance().
-                            recoveryWallet(aFile, password, onlineWallet.getSeed(), 0);
+                            recoveryWallet(aFile, password, onlineWallet.getSeed(), onlineWallet.getCreation_date());
                 }
 
                 boolean success = (newWallet.getStatus() == Wallet.Status.Status_Ok);
