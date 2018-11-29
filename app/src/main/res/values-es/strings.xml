@@ -348,5 +348,6 @@
     <string name="size_validator_error">%s es muy corto</string>
     <string name="email_validator_error">El formato del email es inválido</string>
     <string name="compare_validator_error">La contraseña no coincide</string>
+    <string name="menu_logout">Cerrar sesión</string>
 
 </resources>
