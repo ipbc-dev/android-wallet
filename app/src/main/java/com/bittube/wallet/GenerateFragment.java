@@ -34,6 +34,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bittube.wallet.network.models.OnlineWallet;
 import com.bittube.wallet.util.RestoreHeight;
 import com.bittube.wallet.widget.InputLayout;
 import com.bittube.wallet.widget.Toolbar;
@@ -47,6 +48,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -493,6 +495,8 @@ public class GenerateFragment extends Fragment {
         void onGenerate(String name, String password, String seed, long height);
 
         void onGenerate(String name, String password, String address, String viewKey, String spendKey, long height);
+
+        void onGenerateMultipleWallets(List<OnlineWallet> onlineWallets);
 
         void setTitle(String title);
 
