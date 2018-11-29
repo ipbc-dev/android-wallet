@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 app:counterEnabled="true"
-                app:maxCounter="95"
+                app:maxCounter="97"
                 app:hint="@string/generate_address_hint"
                 app:type="multiline"
                 android:visibility="gone"/>
