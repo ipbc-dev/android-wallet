@@ -407,7 +407,7 @@ public class LoginActivity extends SecureActivity
             LoginFragment loginFragment = (LoginFragment)
                     getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             if (loginFragment != null) {
-                loginFragment.loadList();
+                loginFragment.loadWalletListFromLocal();
             }
         } catch (ClassCastException ex) {
         }

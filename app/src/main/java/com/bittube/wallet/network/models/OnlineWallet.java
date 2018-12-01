@@ -32,7 +32,7 @@ public class OnlineWallet {
         this.seed = json.getString("seed");
         this.viewKey = json.getJSONObject("view").getString("sec");
         this.SpendKey = json.getJSONObject("spend").getString("sec");
-        this.creation_date = getHeightFromCreationDate(json.optLong("creation_date", 0));
+        this.creation_date = getHeightFromCreationDate(Long.valueOf(json.optString("creation_date", "0")));
     }
 
     public String getName() {
