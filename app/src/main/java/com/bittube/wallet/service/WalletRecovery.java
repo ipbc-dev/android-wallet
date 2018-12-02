@@ -84,6 +84,9 @@ public class WalletRecovery {
 
                 if (!success) {
                     Timber.e("Could not create new wallet in %s", newWalletFile.getAbsolutePath());
+                }else{
+                    Timber.d("New Wallet %s", storage.getAbsolutePath());
+                    cacheFile.delete(); // when recovering wallets, the cache seems corrupt
                 }
 
             }

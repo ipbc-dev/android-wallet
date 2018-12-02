@@ -315,7 +315,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
     }
 
 
-    private void loadWallets() {
+    private void loadWalletsFromCloud() {
         // Load Local wallets and update list
         final List<WalletManager.WalletInfo> localWallets = loadLocalWallets();
         updateWalletList(localWallets);
@@ -328,19 +328,24 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
             public void success(List<OnlineWallet> wallets) {
                 Log.d("DYMTEK", "Online wallets SUCCESS");
 
+                List<OnlineWallet> wallets2Restore = new ArrayList<>(wallets);
                 // Compare online wallets with local(by address)
                 for (OnlineWallet onlineWallet : wallets) {
                     String onlineAddr = onlineWallet.getAddress();
                     for (WalletManager.WalletInfo localWallet : localWallets) {
                         if (localWallet.address.equals(onlineAddr)) {
-                            wallets.remove(wallets.indexOf(onlineWallet));
+                            int index = wallets2Restore.indexOf(onlineWallet);
+                            if(index != -1){
+                                wallets2Restore.remove(index);
+                            }
+
                         }
                     }
                 }
 
-                Log.d("DYMTEK", "NEW WALLETS: "+wallets.size());
+                Log.d("DYMTEK", "NEW WALLETS: "+wallets2Restore.size());
                 if (wallets.size() > 0) {
-                    ((GenerateFragment.Listener) getActivity()).onGenerateMultipleWallets(wallets);
+                    ((GenerateFragment.Listener) getActivity()).onGenerateMultipleWallets(wallets2Restore);
                 }
 
 
@@ -383,9 +388,10 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
     }
 
 
-    public void loadList() {
-        Timber.d("loadList()");
-        loadWallets();
+    public void loadWalletListFromLocal() {
+        Timber.d("loadWalletListFromLocal()");
+        final List<WalletManager.WalletInfo> localWallets = loadLocalWallets();
+        updateWalletList(localWallets);
     }
 
     private void showInfo(@NonNull String name) {
@@ -434,7 +440,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
         } else {
             setDaemon(daemonMainNet);
         }
-        loadList();
+        loadWalletsFromCloud();
     }
 
     private static final String PREF_DAEMON_TESTNET = "daemon_testnet";
