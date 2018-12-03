@@ -72,6 +72,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
 
     private List<WalletManager.WalletInfo> walletList = new ArrayList<>();
     private List<WalletManager.WalletInfo> displayedList = new ArrayList<>();
+    private List<String> onlineAddresses = new ArrayList<>();
 
     private EditText etDummy;
     private ImageView ivGunther;
@@ -329,9 +330,11 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
                 Log.d("DYMTEK", "Online wallets SUCCESS");
 
                 List<OnlineWallet> wallets2Restore = new ArrayList<>(wallets);
+                onlineAddresses = new ArrayList<>();
                 // Compare online wallets with local(by address)
                 for (OnlineWallet onlineWallet : wallets) {
                     String onlineAddr = onlineWallet.getAddress();
+                    onlineAddresses.add(onlineAddr);
                     for (WalletManager.WalletInfo localWallet : localWallets) {
                         if (localWallet.address.equals(onlineAddr)) {
                             int index = wallets2Restore.indexOf(onlineWallet);
@@ -370,7 +373,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
         walletList.clear();
         walletList.addAll(walletInfos);
         filterList();
-        adapter.setInfos(displayedList);
+        adapter.setInfos(displayedList, onlineAddresses);
         adapter.notifyDataSetChanged();
 
         // deal with Gunther & FAB animation

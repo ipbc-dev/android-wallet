@@ -349,5 +349,6 @@
     <string name="email_validator_error">El formato del email es inválido</string>
     <string name="compare_validator_error">La contraseña no coincide</string>
     <string name="menu_logout">Cerrar sesión</string>
+    <string name="loading_online_wallets">Cargando monederos online...</string>
 
 </resources>

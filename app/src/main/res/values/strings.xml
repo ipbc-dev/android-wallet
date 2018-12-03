@@ -384,5 +384,6 @@
     <string name="size_validator_error">%s is too short</string>
     <string name="email_validator_error">E-mail is invalid</string>
     <string name="compare_validator_error">The password doesn\'t match</string>
+    <string name="loading_online_wallets">Loading online wallets...</string>
 
 </resources>
