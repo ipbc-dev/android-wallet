@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bittube.wallet.R;
@@ -39,6 +40,8 @@ import java.util.TimeZone;
 
 import timber.log.Timber;
 
+import static com.bittube.wallet.R.drawable.ic_cloud_outline;
+
 public class WalletInfoAdapter extends RecyclerView.Adapter<WalletInfoAdapter.ViewHolder> {
 
     private final SimpleDateFormat DATETIME_FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -51,6 +54,9 @@ public class WalletInfoAdapter extends RecyclerView.Adapter<WalletInfoAdapter.Vi
 
     private final List<WalletManager.WalletInfo> infoItems;
     private final OnInteractionListener listener;
+
+
+    private List<String> onlineAddresses;
 
     Context context;
 
@@ -84,9 +90,10 @@ public class WalletInfoAdapter extends RecyclerView.Adapter<WalletInfoAdapter.Vi
         return infoItems.get(position);
     }
 
-    public void setInfos(List<WalletManager.WalletInfo> data) {
+    public void setInfos(List<WalletManager.WalletInfo> data, List<String> onlineAddresses) {
         // TODO do stuff with data so we can really recycle elements (i.e. add only new tx)
         // as the WalletInfo items are always recreated, we cannot recycle
+        this.onlineAddresses = onlineAddresses;
         infoItems.clear();
         if (data != null) {
             Timber.d("setInfos %s", data.size());
@@ -102,6 +109,7 @@ public class WalletInfoAdapter extends RecyclerView.Adapter<WalletInfoAdapter.Vi
         final TextView tvName;
         final TextView tvAddress;
         final ImageButton ibOptions;
+        final ImageView ivSrc;
         WalletManager.WalletInfo infoItem;
         boolean popupOpen = false;
 
@@ -109,6 +117,7 @@ public class WalletInfoAdapter extends RecyclerView.Adapter<WalletInfoAdapter.Vi
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
             tvAddress = (TextView) itemView.findViewById(R.id.tvAddress);
+            ivSrc = (ImageView) itemView.findViewById(R.id.iv_src);
             ibOptions = (ImageButton) itemView.findViewById(R.id.ibOptions);
             ibOptions.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,6 +158,8 @@ public class WalletInfoAdapter extends RecyclerView.Adapter<WalletInfoAdapter.Vi
 
         void bind(int position) {
             infoItem = infoItems.get(position);
+            int srcIcon = onlineAddresses.contains(infoItem.address) ? R.drawable.ic_cloud_outline : R.drawable.ic_cloud_off;
+            ivSrc.setImageDrawable(context.getDrawable(srcIcon));
             tvName.setText(infoItem.name);
             tvAddress.setText(infoItem.address.substring(0, 16) + "...");
         }

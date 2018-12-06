@@ -318,4 +318,5 @@
     <string name="send_sweepall">Versende alle verfügbaren Gelder aus diesem Konto!</string>
     <string name="tx_subaddress">Subadresse #%1$d</string>
     <string name="generate_address_label_sub">Öffentliche Subadresse #%1$d</string>
+    <string name="loading_online_wallets">Loading online wallets...</string>
 </resources>

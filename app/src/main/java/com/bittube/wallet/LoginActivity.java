@@ -511,6 +511,15 @@ public class LoginActivity extends SecureActivity
 
     ProgressDialog progressDialog = null;
 
+    private void showProgressDialogOnUiThread(int msgId, long delay) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showProgressDialog(msgId, delay);
+            }
+        });
+    }
+
     private void showProgressDialog(int msgId) {
         showProgressDialog(msgId, 0);
     }
@@ -832,12 +841,14 @@ public class LoginActivity extends SecureActivity
 
     @Override
     public void onGenerateMultipleWallets(List<OnlineWallet> onlineWallets) {
+        showProgressDialogOnUiThread(R.string.loading_online_wallets, 0);
         WalletRecovery wr = new WalletRecovery();
         wr.recoverOnlineWalletsByKeys(onlineWallets, getStorageRoot(), new Callback<Boolean>() {
             @Override
             public void success(Boolean aBoolean) {
                 // Reload Local wallets(it will include now the online wallets) and update list
                 reloadWalletList();
+                dismissProgressDialog();
             }
 
             @Override
@@ -847,7 +858,6 @@ public class LoginActivity extends SecureActivity
             }
         });
     }
-
 
 
     void toast(final String msg) {
