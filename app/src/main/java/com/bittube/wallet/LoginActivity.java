@@ -19,7 +19,6 @@ package com.bittube.wallet;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -33,13 +32,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bittube.wallet.data.WalletNode;
@@ -60,7 +53,6 @@ import com.bittube.wallet.util.Helper;
 import com.bittube.wallet.util.MoneroThreadPoolExecutor;
 import com.bittube.wallet.widget.ProgressDialogCV;
 import com.bittube.wallet.widget.Toolbar;
-import com.google.firebase.FirebaseApp;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -822,42 +814,42 @@ public class LoginActivity extends SecureActivity
     public void onGenerate(final String name, final String password,
                            final String address, final String viewKey, final String spendKey,
                            final long restoreHeight) {
-        createWallet(name, password,
-                new WalletCreator() {
-                    public boolean createWallet(File aFile, String password) {
-                        Wallet newWallet = WalletManager.getInstance()
-                                .createWalletWithKeys(aFile, password, MNEMONIC_LANGUAGE, restoreHeight,
-                                        address, viewKey, spendKey);
-                        boolean success = (newWallet.getStatus() == Wallet.Status.Status_Ok);
-                        if (!success) {
-                            Timber.e(newWallet.getErrorString());
-                            toast(newWallet.getErrorString());
-                        }
-                        newWallet.close();
-                        return success;
-                    }
-                });
+
+        showProgressDialogOnUiThread(R.string.generate_wallet_creating, 0);
+        OnlineWallet onlineWallet = new OnlineWallet(name, address, password, viewKey, spendKey, restoreHeight);
+        WalletRecovery wr = new WalletRecovery();
+        wr.recoverSingleWalletByKeys(onlineWallet, getStorageRoot(), onWalletRecovery);
     }
 
     @Override
     public void onGenerateMultipleWallets(List<OnlineWallet> onlineWallets) {
         showProgressDialogOnUiThread(R.string.loading_online_wallets, 0);
         WalletRecovery wr = new WalletRecovery();
-        wr.recoverOnlineWalletsByKeys(onlineWallets, getStorageRoot(), new Callback<Boolean>() {
-            @Override
-            public void success(Boolean aBoolean) {
-                // Reload Local wallets(it will include now the online wallets) and update list
-                reloadWalletList();
-                dismissProgressDialog();
-            }
-
-            @Override
-            public void error(String errMsg) {
-                dismissProgressDialog();
-                toast(errMsg);
-            }
-        });
+        wr.recoverWalletsByKeys(onlineWallets, getStorageRoot(), onWalletRecovery);
     }
+
+
+    Callback<Boolean> onWalletRecovery = new Callback<Boolean>() {
+        @Override
+        public void success(Boolean aBoolean) {
+            // Reload Local wallets(it will include now the online wallets) and update list
+            reloadWalletList();
+            dismissProgressDialog();
+            try {
+                GenerateFragment genFragment = (GenerateFragment)
+                        getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                getSupportFragmentManager().popBackStack();
+            } catch (ClassCastException ex) {
+                Timber.i("Wallet generaste success but not in GenerateFragment");
+            }
+        }
+
+        @Override
+        public void error(String errMsg) {
+            dismissProgressDialog();
+            toast(errMsg);
+        }
+    };
 
 
     void toast(final String msg) {

@@ -9,6 +9,7 @@ import com.bittube.wallet.network.models.OnlineWallet;
 import com.bittube.wallet.util.MoneroThreadPoolExecutor;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -16,29 +17,54 @@ import timber.log.Timber;
 public class WalletRecovery {
 
 
-    public void recoverOnlineWalletsBySeed(List<OnlineWallet> onlineWallets, File storage, Callback<Boolean> callback) {
+    // Multiple wallets
+
+    public void recoverWalletsBySeed(List<OnlineWallet> onlineWallets, File storage, Callback<Boolean> callback) {
 
 
         WalletRetriever walletRetriever = buildWalletRetriever(false);
 
 
-        new AsyncRecoverOnlineWallets(onlineWallets, walletRetriever, storage, callback)
+        new AsyncRecoverWallets(onlineWallets, walletRetriever, storage, callback)
                 .executeOnExecutor(MoneroThreadPoolExecutor.MONERO_THREAD_POOL_EXECUTOR);
 
 
     }
 
-    public void recoverOnlineWalletsByKeys(List<OnlineWallet> onlineWallets, File storage, Callback<Boolean> callback) {
+    public void recoverWalletsByKeys(List<OnlineWallet> onlineWallets, File storage, Callback<Boolean> callback) {
 
         WalletRetriever walletRetriever = buildWalletRetriever(true);
 
 
-        new AsyncRecoverOnlineWallets(onlineWallets, walletRetriever, storage, callback)
+        new AsyncRecoverWallets(onlineWallets, walletRetriever, storage, callback)
                 .executeOnExecutor(MoneroThreadPoolExecutor.MONERO_THREAD_POOL_EXECUTOR);
     }
 
 
-    private class AsyncRecoverOnlineWallets extends AsyncTask<Void, Void, Boolean> {
+    // Single wallet
+
+    public void recoverSingleWalletBySeed(OnlineWallet onlineWallet, File storage, Callback<Boolean> callback){
+        List<OnlineWallet> onlineWallets = new ArrayList<>();
+        onlineWallets.add(onlineWallet);
+
+        WalletRetriever walletRetriever = buildWalletRetriever(false);
+
+        new AsyncRecoverWallets(onlineWallets, walletRetriever, storage, callback)
+                .executeOnExecutor(MoneroThreadPoolExecutor.MONERO_THREAD_POOL_EXECUTOR);
+    }
+
+    public void recoverSingleWalletByKeys(OnlineWallet onlineWallet, File storage, Callback<Boolean> callback){
+        List<OnlineWallet> onlineWallets = new ArrayList<>();
+        onlineWallets.add(onlineWallet);
+
+        WalletRetriever walletRetriever = buildWalletRetriever(true);
+
+        new AsyncRecoverWallets(onlineWallets, walletRetriever, storage, callback)
+                .executeOnExecutor(MoneroThreadPoolExecutor.MONERO_THREAD_POOL_EXECUTOR);
+    }
+
+
+    private class AsyncRecoverWallets extends AsyncTask<Void, Void, Boolean> {
         final List<OnlineWallet> onlineWallets;
         final WalletRetriever walletRetriever;
         final File storage;
@@ -47,8 +73,8 @@ public class WalletRecovery {
 
         File newWalletFile;
 
-        AsyncRecoverOnlineWallets(List<OnlineWallet> onlineWallets,
-                                  final WalletRetriever walletRetriever, File storage, Callback<Boolean> callback) {
+        AsyncRecoverWallets(List<OnlineWallet> onlineWallets,
+                            final WalletRetriever walletRetriever, File storage, Callback<Boolean> callback) {
             super();
             this.onlineWallets = onlineWallets;
             this.walletRetriever = walletRetriever;
@@ -80,7 +106,8 @@ public class WalletRecovery {
                 }
 
                 newWalletFile = new File(storage, walletName);
-                boolean success = walletRetriever.recoverWallet(newWalletFile, "", onlineWallet);
+                String password = onlineWallet.getPassword() != null ? onlineWallet.getPassword() : "";
+                boolean success = walletRetriever.recoverWallet(newWalletFile, password, onlineWallet);
 
                 if (!success) {
                     Timber.e("Could not create new wallet in %s", newWalletFile.getAbsolutePath());
