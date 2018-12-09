@@ -794,20 +794,12 @@ public class LoginActivity extends SecureActivity
     @Override
     public void onGenerate(final String name, final String password, final String seed,
                            final long restoreHeight) {
-        createWallet(name, password,
-                new WalletCreator() {
-                    public boolean createWallet(File aFile, String password) {
-                        Wallet newWallet = WalletManager.getInstance().
-                                recoveryWallet(aFile, password, seed, restoreHeight);
-                        boolean success = (newWallet.getStatus() == Wallet.Status.Status_Ok);
-                        if (!success) {
-                            Timber.e(newWallet.getErrorString());
-                            toast(newWallet.getErrorString());
-                        }
-                        newWallet.close();
-                        return success;
-                    }
-                });
+
+        showProgressDialogOnUiThread(R.string.generate_wallet_creating, 0);
+        OnlineWallet onlineWallet = new OnlineWallet(name, password, seed, restoreHeight);
+        WalletRecovery wr = new WalletRecovery();
+        wr.recoverSingleWalletBySeed(onlineWallet, getStorageRoot(), onWalletRecovery);
+
     }
 
     @Override
