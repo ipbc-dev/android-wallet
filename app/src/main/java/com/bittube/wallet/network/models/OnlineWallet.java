@@ -53,6 +53,11 @@ public class OnlineWallet {
         this.creation_date = restoreHeight;
     }
 
+    public OnlineWallet(String name, String password){
+        this.name = name;
+        this.password = password;
+    }
+
 
     public String getName() {
         return name;
