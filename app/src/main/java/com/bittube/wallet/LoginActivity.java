@@ -900,13 +900,43 @@ public class LoginActivity extends SecureActivity
                 PrivacyFragment.display(getSupportFragmentManager());
                 return true;
             case R.id.action_logout:
-                FirebaseUtil.logOut();
-                startActivity(new Intent(this, PreLoginActivity.class));
-                finish();
+                showlogOutPopUp();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showlogOutPopUp() {
+        DialogUtil.showInfoDialog(this, null,
+                getString(R.string.delete_your_wallets_before_logout),
+                getString(R.string.yes_delete_everything),
+                getString(R.string.no_be_back_soon),
+                new DialogUtil.InfoClickListener() {
+                    @Override
+                    public void okClick() {
+                        // Remove all user wallets
+                        File userDirectory = getStorageRoot();
+                        if (userDirectory.isDirectory()) {
+                            String[] children = userDirectory.list();
+                            for (int i = 0; i < children.length; i++) {
+                                new File(userDirectory, children[i]).delete();
+                            }
+                        }
+                        logoutAndExit();
+                    }
+
+                    @Override
+                    public void cancelClick() {
+                        logoutAndExit();
+                    }
+                });
+    }
+
+    private void logoutAndExit() {
+        FirebaseUtil.logOut();
+        startActivity(new Intent(LoginActivity.this, PreLoginActivity.class));
+        finish();
     }
 
     public void setNetworkType(NetworkType networkType) {

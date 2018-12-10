@@ -43,6 +43,7 @@ import com.bittube.wallet.R;
 import com.bittube.wallet.model.NetworkType;
 import com.bittube.wallet.model.Wallet;
 import com.bittube.wallet.model.WalletManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,7 +67,8 @@ public class Helper {
     static public final String CRYPTO = "TUBE";
 
     static public File getWalletRoot(Context context) {
-        return getStorage(context, WALLET_DIR);
+        String UserUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        return getStorage(context, WALLET_DIR + "/"+UserUUID);
     }
 
     static public File getStorage(Context context, String folderName) {
