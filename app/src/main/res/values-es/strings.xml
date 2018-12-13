@@ -350,5 +350,8 @@
     <string name="compare_validator_error">La contraseña no coincide</string>
     <string name="menu_logout">Cerrar sesión</string>
     <string name="loading_online_wallets">Cargando monederos online...</string>
+    <string name="delete_your_wallets_before_logout">¿Borrar todos tus monederos antes de salir?</string>
+    <string name="yes_delete_everything">Si, no dejar rastro</string>
+    <string name="no_be_back_soon">No, volveré dentro de poco</string>
 
 </resources>

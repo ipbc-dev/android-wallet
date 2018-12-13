@@ -25,6 +25,8 @@ public class OnlineWallet {
 
     private String SpendKey;
 
+    private String password;
+
 
     public OnlineWallet(String name, JSONObject json) throws JSONException {
         this.name = name;
@@ -34,6 +36,28 @@ public class OnlineWallet {
         this.SpendKey = json.getJSONObject("spend").getString("sec");
         this.creation_date = getHeightFromCreationDate(Long.valueOf(json.optString("creation_date", "0")));
     }
+
+    public OnlineWallet(String name, String address, String password, String viewKey, String spendKey, Long restoreHeight){
+        this.name = name;
+        this.address = address;
+        this.password = password;
+        this.viewKey = viewKey;
+        this.SpendKey = spendKey;
+        this.creation_date = restoreHeight;
+    }
+
+    public OnlineWallet(String name, String password, String seed, Long restoreHeight){
+        this.name = name;
+        this.password = password;
+        this.seed = seed;
+        this.creation_date = restoreHeight;
+    }
+
+    public OnlineWallet(String name, String password){
+        this.name = name;
+        this.password = password;
+    }
+
 
     public String getName() {
         return name;
@@ -83,6 +107,13 @@ public class OnlineWallet {
         this.creation_date = creation_date;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     private long getHeightFromCreationDate(Long timestamp) {
         long height = 0;

@@ -34,7 +34,7 @@ import timber.log.Timber;
 
 public class WalletManager {
 
-    public static String MNEMONIC_LANGUAGE_ENGLISH = "English";
+    public static String MNEMONIC_LANGUAGE_ENGLISH = "English"; // see mnemonics/electrum-words.cpp for more
 
     static {
         System.loadLibrary("monerujo");

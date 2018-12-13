@@ -19,7 +19,6 @@ package com.bittube.wallet;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -33,13 +32,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bittube.wallet.data.WalletNode;
@@ -57,10 +50,8 @@ import com.bittube.wallet.service.WalletService;
 import com.bittube.wallet.util.DialogUtil;
 import com.bittube.wallet.util.FirebaseUtil;
 import com.bittube.wallet.util.Helper;
-import com.bittube.wallet.util.MoneroThreadPoolExecutor;
 import com.bittube.wallet.widget.ProgressDialogCV;
 import com.bittube.wallet.widget.Toolbar;
-import com.google.firebase.FirebaseApp;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -650,8 +641,6 @@ public class LoginActivity extends SecureActivity
     void startLoginFragment() {
 
 
-
-
         // we set these here because we cannot be ceratin we have permissions for storage before
         Helper.setMoneroHome(this);
         Helper.initLogger(this);
@@ -695,169 +684,63 @@ public class LoginActivity extends SecureActivity
     //////////////////////////////////////////
     // GenerateFragment.Listener
     //////////////////////////////////////////
-    static final String MNEMONIC_LANGUAGE = "English"; // see mnemonics/electrum-words.cpp for more
-
-    private class AsyncCreateWallet extends AsyncTask<Void, Void, Boolean> {
-        final String walletName;
-        final String walletPassword;
-        final WalletCreator walletCreator;
-
-        File newWalletFile;
-
-        AsyncCreateWallet(final String name, final String password,
-                          final WalletCreator walletCreator) {
-            super();
-            this.walletName = name;
-            this.walletPassword = password;
-            this.walletCreator = walletCreator;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            showProgressDialog(R.string.generate_wallet_creating);
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // check if the wallet we want to create already exists
-            File walletFolder = getStorageRoot();
-            if (!walletFolder.isDirectory()) {
-                Timber.e("Wallet dir " + walletFolder.getAbsolutePath() + "is not a directory");
-                return false;
-            }
-            File cacheFile = new File(walletFolder, walletName);
-            File keysFile = new File(walletFolder, walletName + ".keys");
-            File addressFile = new File(walletFolder, walletName + ".address.txt");
-
-            if (cacheFile.exists() || keysFile.exists() || addressFile.exists()) {
-                Timber.e("Some wallet files already exist for %s", cacheFile.getAbsolutePath());
-                return false;
-            }
-
-            newWalletFile = new File(walletFolder, walletName);
-            boolean success = walletCreator.createWallet(newWalletFile, walletPassword);
-            if (success) {
-                return true;
-            } else {
-                Timber.e("Could not create new wallet in %s", newWalletFile.getAbsolutePath());
-                return false;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
-            if (isDestroyed()) {
-                return;
-            }
-            dismissProgressDialog();
-            if (result) {
-                startDetails(newWalletFile, walletPassword, GenerateReviewFragment.VIEW_TYPE_ACCEPT);
-            } else {
-                walletGenerateError();
-            }
-        }
-    }
-
-    public void createWallet(final String name, final String password,
-                             final WalletCreator walletCreator) {
-        new AsyncCreateWallet(name, password, walletCreator)
-                .executeOnExecutor(MoneroThreadPoolExecutor.MONERO_THREAD_POOL_EXECUTOR);
-    }
-
-    void walletGenerateError() {
-        try {
-            GenerateFragment genFragment = (GenerateFragment)
-                    getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-            genFragment.walletGenerateError();
-        } catch (ClassCastException ex) {
-            Timber.e("walletGenerateError() but not in GenerateFragment");
-        }
-    }
-
-    interface WalletCreator {
-        boolean createWallet(File aFile, String password);
-
-    }
 
     @Override
     public void onGenerate(final String name, final String password) {
-        createWallet(name, password,
-                new WalletCreator() {
-                    public boolean createWallet(File aFile, String password) {
-                        Wallet newWallet = WalletManager.getInstance()
-                                .createWallet(aFile, password, MNEMONIC_LANGUAGE);
-                        boolean success = (newWallet.getStatus() == Wallet.Status.Status_Ok);
-                        if (!success) {
-                            Timber.e(newWallet.getErrorString());
-                            toast(newWallet.getErrorString());
-                        }
-                        newWallet.close();
-                        return success;
-                    }
-                });
+        showProgressDialogOnUiThread(R.string.generate_wallet_creating, 0);
+        WalletRecovery wr = new WalletRecovery();
+        wr.newWallet(name, password, getStorageRoot(), onWalletRecoveryCompleteListener);
     }
 
     @Override
     public void onGenerate(final String name, final String password, final String seed,
                            final long restoreHeight) {
-        createWallet(name, password,
-                new WalletCreator() {
-                    public boolean createWallet(File aFile, String password) {
-                        Wallet newWallet = WalletManager.getInstance().
-                                recoveryWallet(aFile, password, seed, restoreHeight);
-                        boolean success = (newWallet.getStatus() == Wallet.Status.Status_Ok);
-                        if (!success) {
-                            Timber.e(newWallet.getErrorString());
-                            toast(newWallet.getErrorString());
-                        }
-                        newWallet.close();
-                        return success;
-                    }
-                });
+        showProgressDialogOnUiThread(R.string.generate_wallet_creating, 0);
+        OnlineWallet onlineWallet = new OnlineWallet(name, password, seed, restoreHeight);
+        WalletRecovery wr = new WalletRecovery();
+        wr.recoverSingleWalletBySeed(onlineWallet, getStorageRoot(), onWalletRecoveryCompleteListener);
+
     }
 
     @Override
     public void onGenerate(final String name, final String password,
                            final String address, final String viewKey, final String spendKey,
                            final long restoreHeight) {
-        createWallet(name, password,
-                new WalletCreator() {
-                    public boolean createWallet(File aFile, String password) {
-                        Wallet newWallet = WalletManager.getInstance()
-                                .createWalletWithKeys(aFile, password, MNEMONIC_LANGUAGE, restoreHeight,
-                                        address, viewKey, spendKey);
-                        boolean success = (newWallet.getStatus() == Wallet.Status.Status_Ok);
-                        if (!success) {
-                            Timber.e(newWallet.getErrorString());
-                            toast(newWallet.getErrorString());
-                        }
-                        newWallet.close();
-                        return success;
-                    }
-                });
+        showProgressDialogOnUiThread(R.string.generate_wallet_creating, 0);
+        OnlineWallet onlineWallet = new OnlineWallet(name, address, password, viewKey, spendKey, restoreHeight);
+        WalletRecovery wr = new WalletRecovery();
+        wr.recoverSingleWalletByKeys(onlineWallet, getStorageRoot(), onWalletRecoveryCompleteListener);
     }
 
     @Override
     public void onGenerateMultipleWallets(List<OnlineWallet> onlineWallets) {
         showProgressDialogOnUiThread(R.string.loading_online_wallets, 0);
         WalletRecovery wr = new WalletRecovery();
-        wr.recoverOnlineWalletsByKeys(onlineWallets, getStorageRoot(), new Callback<Boolean>() {
-            @Override
-            public void success(Boolean aBoolean) {
-                // Reload Local wallets(it will include now the online wallets) and update list
-                reloadWalletList();
-                dismissProgressDialog();
-            }
-
-            @Override
-            public void error(String errMsg) {
-                dismissProgressDialog();
-                toast(errMsg);
-            }
-        });
+        wr.recoverWalletsByKeys(onlineWallets, getStorageRoot(), onWalletRecoveryCompleteListener);
     }
+
+    // On completed listener for Generate wallets
+    private Callback<Boolean> onWalletRecoveryCompleteListener = new Callback<Boolean>() {
+        @Override
+        public void success(Boolean aBoolean) {
+            // Reload Local wallets(it will include now the online wallets) and update list
+            reloadWalletList();
+            dismissProgressDialog();
+            try {
+                GenerateFragment genFragment = (GenerateFragment)
+                        getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                getSupportFragmentManager().popBackStack();
+            } catch (ClassCastException ex) {
+                Timber.i("Wallet generaste success but not in GenerateFragment");
+            }
+        }
+
+        @Override
+        public void error(String errMsg) {
+            dismissProgressDialog();
+            toast(errMsg);
+        }
+    };
 
 
     void toast(final String msg) {
@@ -1017,13 +900,43 @@ public class LoginActivity extends SecureActivity
                 PrivacyFragment.display(getSupportFragmentManager());
                 return true;
             case R.id.action_logout:
-                FirebaseUtil.logOut();
-                startActivity(new Intent(this, PreLoginActivity.class));
-                finish();
+                showlogOutPopUp();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showlogOutPopUp() {
+        DialogUtil.showInfoDialog(this, null,
+                getString(R.string.delete_your_wallets_before_logout),
+                getString(R.string.yes_delete_everything),
+                getString(R.string.no_be_back_soon),
+                new DialogUtil.InfoClickListener() {
+                    @Override
+                    public void okClick() {
+                        // Remove all user wallets
+                        File userDirectory = getStorageRoot();
+                        if (userDirectory.isDirectory()) {
+                            String[] children = userDirectory.list();
+                            for (int i = 0; i < children.length; i++) {
+                                new File(userDirectory, children[i]).delete();
+                            }
+                        }
+                        logoutAndExit();
+                    }
+
+                    @Override
+                    public void cancelClick() {
+                        logoutAndExit();
+                    }
+                });
+    }
+
+    private void logoutAndExit() {
+        FirebaseUtil.logOut();
+        startActivity(new Intent(LoginActivity.this, PreLoginActivity.class));
+        finish();
     }
 
     public void setNetworkType(NetworkType networkType) {
