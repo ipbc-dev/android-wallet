@@ -56,6 +56,7 @@ import com.bittube.wallet.util.NodeList;
 import com.bittube.wallet.widget.DropDownEditText;
 import com.bittube.wallet.widget.InputLayout;
 import com.bittube.wallet.widget.Toolbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -443,7 +444,12 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
         } else {
             setDaemon(daemonMainNet);
         }
-        loadWalletsFromCloud();
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            loadWalletsFromCloud();
+        }else{
+            loadWalletListFromLocal();
+        }
     }
 
     private static final String PREF_DAEMON_TESTNET = "daemon_testnet";

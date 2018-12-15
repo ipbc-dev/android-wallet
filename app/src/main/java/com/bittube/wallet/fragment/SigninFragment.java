@@ -69,8 +69,7 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
 
     private TextView signUpTV;
     private Button signInBTN;
-    private TextView headerTitleTV;
-    private TextView recoveryTV;
+    private TextView headerTitleTV, recoveryTV, skipTV;
     private InputLayout emailIL, passwordIL;
     private ProgressDialogCV progressDialog;
     private FrameLayout googleFL, twitterFL, facebookFL;
@@ -129,6 +128,7 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
         headerTitleTV = rootView.findViewById(R.id.tv_header_title);
         headerTitleTV.setText("Sign in");
         recoveryTV = rootView.findViewById(R.id.tv_recovery);
+        skipTV = rootView.findViewById(R.id.tv_skip);
         progressDialog = new ProgressDialogCV(getActivity(), R.string.loading_message);
         googleFL = rootView.findViewById(R.id.fl_google);
         twitterFL = rootView.findViewById(R.id.fl_twitter);
@@ -143,6 +143,7 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
     private void initListeners() {
         signUpTV.setOnClickListener(this);
         signInBTN.setOnClickListener(this);
+        skipTV.setOnClickListener(this);
         recoveryTV.setOnClickListener(this);
         googleFL.setOnClickListener(this);
         twitterFL.setOnClickListener(this);
@@ -161,6 +162,9 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_sign_in:
                 signIn();
                 break;
+            case R.id.tv_skip:
+                skipLogin();
+                break;
             case R.id.tv_recovery:
                 ((PreLoginActivity) getActivity()).replaceFragment(RecoveryFragment.newInstance(), RecoveryFragment.TAG);
                 break;
@@ -174,6 +178,11 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                 signInFacebook();
                 break;
         }
+    }
+
+    private void skipLogin(){
+        Intent intent = new Intent(mContext, LoginActivity.class);
+        startActivity(intent);
     }
 
     private void signIn() {

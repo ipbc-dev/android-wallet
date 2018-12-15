@@ -322,4 +322,5 @@
     <string name="delete_your_wallets_before_logout">Delete all your wallets before leaving?</string>
     <string name="yes_delete_everything">Yes, delete everything</string>
     <string name="no_be_back_soon">No, I\'ll be back soon</string>
+    <string name="continue_without_sign_in">Continue without Sign In</string>
 </resources>
