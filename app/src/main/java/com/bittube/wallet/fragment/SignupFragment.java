@@ -129,7 +129,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
                         // signed in user can be handled in the listener.
                         progressDialog.dismiss();
                         if (!task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Authentication failed." + task.getException(),
+                            Toast.makeText(getActivity(), "" + task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             Intent intent = new Intent(mContext, LoginActivity.class);

@@ -205,7 +205,7 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                         progressDialog.dismiss();
                         if (!task.isSuccessful()) {
                             // there was an error
-                            Toast.makeText(getActivity(), "Authentication failed." + task.getException(),
+                            Toast.makeText(getActivity(), "" + task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             FirebaseUtil.saveUserToken(new Callback<String>() {
@@ -308,7 +308,7 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                             });
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed." + task.getException(),
+                            Toast.makeText(getActivity(), "" + task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
@@ -345,7 +345,7 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed." + task.getException(),
+                            Toast.makeText(getActivity(), "" + task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
@@ -368,7 +368,7 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
-                Toast.makeText(getActivity(), "Authentication failed." + task.getException(),
+                Toast.makeText(getActivity(), "" + task.getException().getLocalizedMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -414,7 +414,7 @@ public class SigninFragment extends Fragment implements View.OnClickListener {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed." + task.getException(),
+                            Toast.makeText(getActivity(), "" + task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
                             //Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             //updateUI(null);
