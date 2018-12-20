@@ -67,8 +67,11 @@ public class Helper {
     static public final String CRYPTO = "TUBE";
 
     static public File getWalletRoot(Context context) {
-        String UserUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        return getStorage(context, WALLET_DIR + "/"+UserUUID);
+        String userUUID = "anonymous";
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+        return getStorage(context, WALLET_DIR + "/"+userUUID);
     }
 
     static public File getStorage(Context context, String folderName) {

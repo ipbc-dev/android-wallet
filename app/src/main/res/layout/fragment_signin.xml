@@ -67,6 +67,15 @@
                 android:text="Forgot password?"
                 android:textColor="@color/colorAccent" />
 
+            <TextView
+                android:id="@+id/tv_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="@string/continue_without_sign_in"
+                android:textColor="@color/colorAccent" />
+
             <Button
                 android:id="@+id/btn_sign_in"
                 style="@style/Widget.AppCompat.Button.Colored"

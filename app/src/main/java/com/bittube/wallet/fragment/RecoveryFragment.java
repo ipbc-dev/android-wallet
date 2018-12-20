@@ -96,10 +96,10 @@ public class RecoveryFragment extends Fragment implements View.OnClickListener {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(getActivity(), "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                            ((PreLoginActivity) getActivity()).replaceFragment(SigninFragment.newInstance(), SigninFragment.TAG);
                         } else {
-                            Toast.makeText(getActivity(), "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "" + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        ((PreLoginActivity) getActivity()).replaceFragment(SigninFragment.newInstance(), SigninFragment.TAG);
                         progressDialog.dismiss();
                     }
                 });

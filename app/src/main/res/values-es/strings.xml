@@ -353,5 +353,6 @@
     <string name="delete_your_wallets_before_logout">¿Borrar todos tus monederos antes de salir?</string>
     <string name="yes_delete_everything">Si, no dejar rastro</string>
     <string name="no_be_back_soon">No, volveré dentro de poco</string>
+    <string name="continue_without_sign_in">Continue without Sign In</string>
 
 </resources>
